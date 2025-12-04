@@ -1,16 +1,22 @@
 #pragma once
 #include <typeinfo>
 #include <memory>
+#include <stdexcept>
 #include "Instance/Reflection.h"
 
-class System;
-namespace Reflection {
-	inline ::Instance* instantiate_{{className}}(Engine* engine);
-	inline ::std::shared_ptr<::Instance> instantiateShared_{{className}}(Engine* engine);
+namespace Engine {
+	class System;
+	class Instance;
+	class Engine;
+}
+
+namespace Engine::Reflection {
+	inline Engine::Instance* instantiate_{{classSanitizedName}}(Engine::Engine* engine);
+	inline ::std::shared_ptr<Engine::Instance> instantiateShared_{{classSanitizedName}}(Engine::Engine* engine);
 
 
 	//Class runtime reflection data
-	inline static Class reflected_{{className}} = {
+	inline static Class reflected_{{classSanitizedName}} = {
 		//Class name
 		"{{className}}",
 		//Class hash id
@@ -27,8 +33,8 @@ namespace Reflection {
 			//methods
 {{methodDefs}}
 		},
-		::std::function<::Instance * (Engine*)>(&instantiate_{{className}}),
-		::std::function<::std::shared_ptr<::Instance>(Engine*)>(&instantiateShared_{{className}}),
+		::std::function<Engine::Instance * (Engine::Engine*)>(&instantiate_{{classSanitizedName}}),
+		::std::function<::std::shared_ptr<Engine::Instance>(Engine::Engine*)>(&instantiateShared_{{classSanitizedName}}),
 		{
 			//public base classes
 {{publicBases}}
@@ -58,13 +64,13 @@ public:\
 		static std::string _className = "{{className}}"; \
 		return _className; \
 	} \
-	static Reflection::Class& StaticClass() { \
-		 return Reflection::reflected_{{className}}; \
+	static Engine::Reflection::Class& StaticClass() { \
+		 return Engine::Reflection::reflected_{{classSanitizedName}}; \
 	} \
 	struct ClassRegistrar { \
 		template<typename T> \
 		ClassRegistrar(T* inst) { \
-			Reflection::TrySetClass(inst, &StaticClass()); \
+			Engine::Reflection::TrySetClass(inst, &StaticClass()); \
 		} \
 	} _classRegistrar{this}; \
 public: \
@@ -76,11 +82,11 @@ private: \
 
 //Macro that goes after the class definition, at the end of any header with reflected objects.
 #define REFLECTION_END() \
-namespace Reflection { \
+namespace Engine::Reflection { \
 {{wrapperFunctions}} \
-	inline void register_{{className}}() { \
-		Reflection::registry.classes["{{className}}"] = &Reflection::reflected_{{className}}; \
-		Reflection::registry.classesById[{{classId}}] = &Reflection::reflected_{{className}}; \
+	inline void register_{{classSanitizedName}}() { \
+		Engine::Reflection::registry.classes["{{className}}"] = &Engine::Reflection::reflected_{{classSanitizedName}}; \
+		Engine::Reflection::registry.classesById[{{classId}}] = &Engine::Reflection::reflected_{{classSanitizedName}}; \
 {{propResolvers}} \
 	} \
 {{instantiateFunctions}} \

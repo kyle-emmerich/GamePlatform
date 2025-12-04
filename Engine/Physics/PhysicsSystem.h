@@ -5,6 +5,7 @@
 #include "Instance/System.h"
 #include "PhysicsSystem.generated.h"
 
+
 class [[reflect()]] PhysicsSystem : public System, BaseInstance<PhysicsSystem> {
     REFLECTION()
 public:
@@ -13,11 +14,6 @@ public:
     void Update(double deltaTime) override;
 
 protected:
-    friend class RigidBody;
-
-    std::vector<RigidBody*> rigidBodies;
-    void registerRigidBody(RigidBody* body);
-    void unregisterRigidBody(RigidBody* body);
 };
 
 REFLECTION_END()

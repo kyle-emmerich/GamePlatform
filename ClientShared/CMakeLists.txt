@@ -4,13 +4,8 @@ find_package(bgfx CONFIG REQUIRED)
 
 # Define sources
 set(CLIENT_SHARED_SOURCES
-    src/Viewport.cpp
-    include/ClientShared/Viewport.h
-    src/PlatformWindow.cpp
-    include/ClientShared/PlatformWindow.h
     src/Console.cpp
     include/ClientShared/Console.h
-    include/ClientShared/IRenderable.h
     src/Rendering/BgfxRenderer.cpp
     include/ClientShared/Rendering/BgfxRenderer.h
 )

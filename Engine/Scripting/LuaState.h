@@ -64,27 +64,27 @@ namespace Lua {
 			int size = snprintf(nullptr, 0, format.c_str(), args...) + 1; // +1 for null terminator
 			if (size <= 0) {
 				luaL_error(L, "String formatting error");
-				return;
+				return 0;
 			}
 			char* buffer = new char[size];
 			snprintf(buffer, size, format.c_str(), args...);
-			int result = luaL_error(L, buffer);
-			delete[] buffer;
-			return result;
+			luaL_error(L, "%s", buffer);
+			// delete[] buffer; // Unreachable
+			return 0;
 		}
 
 		template<typename... Args>
 		int warn(std::string format, Args... args) {
 			int size = snprintf(nullptr, 0, format.c_str(), args...) + 1; // +1 for null terminator
 			if (size <= 0) {
-				luaL_error(L, "String formatting error");
-				return;
+				// luaL_error(L, "String formatting error");
+				return 0;
 			}
 			char* buffer = new char[size];
 			snprintf(buffer, size, format.c_str(), args...);
-			int result = luaL_warn(L, buffer);
+			printf("LUA WARN: %s\n", buffer);
 			delete[] buffer;
-			return result;
+			return 0;
 		}
 
 		StateContext getContext() const;

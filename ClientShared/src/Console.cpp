@@ -1,8 +1,8 @@
 
 #include "Core/Engine.h"
 #include "ClientShared/Console.h"
-#include "ClientShared/Viewport.h"
-#include "ClientShared/PlatformWindow.h"
+#include "Platform/Viewport.h"
+#include "Platform/PlatformWindow.h"
 #include "bgfx/bgfx.h"
 #include <iostream>
 #include <algorithm>

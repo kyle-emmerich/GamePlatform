@@ -13,7 +13,7 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "problemMatcher": "$msCompile",
+            "problemMatcher": "$gcc",
             "detail": "Builds the project using CMake"
         }
     ]

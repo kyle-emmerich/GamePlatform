@@ -3,6 +3,8 @@
 #include <list>
 #include <algorithm>
 
+namespace Engine {
+
 template<typename... ArgTypes>
 class MulticastEvent {
 public:
@@ -106,3 +108,5 @@ private:
 
 template<>
 class MulticastEvent<void> : public MulticastEvent<> {};
+
+}

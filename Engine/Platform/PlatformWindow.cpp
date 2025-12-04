@@ -1,8 +1,8 @@
-#include "ClientShared/PlatformWindow.h"
+#include "Platform/PlatformWindow.h"
 #include "Core/Engine.h"
 #include "Input/InputSystem.h"
 
-PlatformWindow::PlatformWindow(Engine* engine) : engine(engine) {
+PlatformWindow::PlatformWindow(Engine* engine) : Instance(engine) {
     KeyInputReceived.Connect([this](EngineUUID deviceId, KeyCode key, InputState state) {
         //pass to inputsystem
         this->engine->GetSystem<InputSystem>()->ProcessInput(deviceId, key, state);

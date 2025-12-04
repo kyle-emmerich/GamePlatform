@@ -13,6 +13,7 @@ add_subdirectory(ThirdParty/luau)
 
 set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(BUILD_STATIC_LIB OFF CACHE BOOL "" FORCE)
 add_subdirectory(ThirdParty/GameNetworkingSockets)
 
 # Reflection Generation
@@ -53,7 +54,9 @@ file(GLOB_RECURSE ENGINE_SOURCES
     "Instance/*.cpp" "Instance/*.h"
     "Math/*.cpp" "Math/*.h"
     "Network/*.cpp" "Network/*.h"
+    "Platform/*.cpp" "Platform/*.h"
     "Physics/*.cpp" "Physics/*.h"
+    "Rendering/*.cpp" "Rendering/*.h"
     "Replication/*.cpp" "Replication/*.h"
     "Scripting/*.cpp" "Scripting/*.h"
     "UI/*.cpp" "UI/*.h"

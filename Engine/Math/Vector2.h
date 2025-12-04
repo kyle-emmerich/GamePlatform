@@ -1,6 +1,8 @@
 #pragma once
 #include <cmath>
 
+namespace Engine {
+
 template<typename T>
 class Vector2 {
 public:
@@ -76,3 +78,5 @@ public:
 	// inline static const Vector2<T> UnitX = Vector2<T>(1, 0);
 	// inline static const Vector2<T> UnitY = Vector2<T>(0, 1);
 };
+
+}

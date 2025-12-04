@@ -1,5 +1,5 @@
-#include "ClientShared/Viewport.h"
-#include "ClientShared/PlatformWindow.h"
+#include "Platform/Viewport.h"
+#include "Platform/PlatformWindow.h"
 #include "bgfx/bgfx.h"
 #include "bx/bx.h"
 #include "bgfx/platform.h"

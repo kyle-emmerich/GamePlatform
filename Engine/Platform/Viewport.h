@@ -2,13 +2,13 @@
 
 #include <string>
 #include <vector>
-#include "ClientShared/IRenderable.h"
-#include "ClientShared/Export.h"
+#include "Rendering/IRenderable.h"
+#include "Core/Export.h"
 #include "Core/Event.h"
 
 class PlatformWindow;
 
-class CLIENT_API Viewport {
+class GP_EXPORT Viewport {
 public:
     Viewport();
     virtual ~Viewport();

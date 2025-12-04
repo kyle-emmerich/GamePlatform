@@ -4,6 +4,8 @@
 #include <vector>
 #include <algorithm>
 
+namespace Engine {
+
 template<typename T>
 class Rect {
 public:
@@ -63,3 +65,5 @@ public:
 	// inline static const Rect<T> Zero = Rect<T>(0, 0, 0, 0);
 	// inline static const Rect<T> Unit = Rect<T>(0, 0, 1, 1);
 };
+
+}

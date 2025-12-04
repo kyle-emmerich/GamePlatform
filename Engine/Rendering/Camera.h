@@ -6,7 +6,7 @@
 class [[reflect()]] Camera : public ObjectInstance, BaseInstance<Camera> {
     REFLECTION()
 public:
-    Camera(Engine* engine) : Instance(engine) {}
+    Camera(Engine* engine) : ObjectInstance(engine) {}
 
     [[reflect()]]
     [[summary("The field of view of the camera in degrees.")]]

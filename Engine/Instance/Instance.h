@@ -8,13 +8,25 @@
 #include <unordered_map>
 #include "Instance.generated.h"
 
+#pragma once
+#include "Instance/UUID.h"
+#include "Instance/Reflection.h"
+#include "Core/Event.h"
+
+#include <string>
+#include <memory>
+#include <unordered_map>
+#include "Instance.generated.h"
+
+namespace Engine {
+
 class Engine;
 
 template<typename Derived>
 class BaseInstance {
 protected:
 	static bool __IsA(std::string className) {
-		Reflection::Class* thisClass = Reflection::registry.GetClass(Derived::ClassName());
+		Engine::Reflection::Class* thisClass = Engine::Reflection::registry.GetClass(Derived::ClassName());
 		if (thisClass) {
 			return thisClass->IsA(className);
 		}
@@ -24,7 +36,7 @@ protected:
 
 class [[reflect()]] Instance: BaseInstance<Instance> {
 	REFLECTION()
-	friend ::Instance* Reflection::instantiate_Instance(Engine*);
+	friend ::Engine::Instance* Engine::Reflection::instantiate_Engine_Instance(Engine*);
 public: //reflected properties
 
 	/// Do not change at runtime unless you know what you're doing.
@@ -112,11 +124,11 @@ public: //reflected properties
 		return reflectionClass->IsA(T::StaticClass().id);
 	}
 
-	void SetClass(Reflection::Class* cls) {
+	void SetClass(Engine::Reflection::Class* cls) {
 		reflectionClass = cls;
 	}
 
-	Reflection::Class* GetClass() const {
+	Engine::Reflection::Class* GetClass() const {
 		return reflectionClass;
 	}
 	
@@ -127,7 +139,7 @@ public: // reflected property getters and setters
 	Instance* GetParent() { return Parent; }
 
 protected:
-	Reflection::Class* reflectionClass = &Reflection::reflected_Instance;
+	Engine::Reflection::Class* reflectionClass = &Engine::Reflection::reflected_Engine_Instance;
 
 	void __onChildAdded(Instance* child);
 	void __onChildRemoved(Instance* child);
@@ -148,5 +160,7 @@ public:
 	Instance(Engine* _engine);
 	Instance() = delete;
 };
+
+}
 
 REFLECTION_END()

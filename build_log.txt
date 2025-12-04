@@ -1,0 +1,157 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project GamePlatform.xcodeproj build -configuration Debug -parallelizeTargets -hideShellScriptEnvironment -target ALL_BUILD
+
+ComputePackagePrebuildTargetDependencyGraph
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (16 targets)
+    Target 'ALL_BUILD' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Engine' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Common' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.CLI.lib' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Ast' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Compiler' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Config' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Analysis' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.CodeGen' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.VM' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Require' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'isocline' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'GameNetworkingSockets' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'ClientShared' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'MacClient' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'ZERO_CHECK' in project 'GamePlatform'
+    Target 'ZERO_CHECK' in project 'GamePlatform' (no dependencies)
+    Target 'MacClient' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Engine' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Common' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Ast' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Compiler' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.VM' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'GameNetworkingSockets' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'ClientShared' in project 'GamePlatform'
+    Target 'ClientShared' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Engine' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Common' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Ast' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Compiler' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.VM' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'GameNetworkingSockets' in project 'GamePlatform'
+    Target 'isocline' in project 'GamePlatform' (no dependencies)
+    Target 'Luau.Require' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Common' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Ast' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Compiler' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Config' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.VM' in project 'GamePlatform'
+    Target 'Luau.CodeGen' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Common' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.VM' in project 'GamePlatform'
+    Target 'Luau.Analysis' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Common' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Ast' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Compiler' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Config' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.VM' in project 'GamePlatform'
+    Target 'Luau.CLI.lib' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Common' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Ast' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Compiler' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Config' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.VM' in project 'GamePlatform'
+    Target 'Luau.Config' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Common' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Ast' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Compiler' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.VM' in project 'GamePlatform'
+    Target 'Engine' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Common' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Ast' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Compiler' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.VM' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'GameNetworkingSockets' in project 'GamePlatform'
+    Target 'GameNetworkingSockets' in project 'GamePlatform' (no dependencies)
+    Target 'Luau.VM' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Common' in project 'GamePlatform'
+    Target 'Luau.Compiler' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Common' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Ast' in project 'GamePlatform'
+    Target 'Luau.Ast' in project 'GamePlatform'
+        ➜ Explicit dependency on target 'Luau.Common' in project 'GamePlatform'
+    Target 'Luau.Common' in project 'GamePlatform' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk /var/folders/qk/t1l_7w6j5kq9bz_v25y8426m0000gn/C/com.apple.DeveloperTools/26.1.1-17B100/Xcode/SDKStatCaches.noindex/macosx26.1-25B74-3ae1261907bdadc328169391a47051a6.sdkstatcache
+    cd /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/GamePlatform.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk -o /var/folders/qk/t1l_7w6j5kq9bz_v25y8426m0000gn/C/com.apple.DeveloperTools/26.1.1-17B100/Xcode/SDKStatCaches.noindex/macosx26.1-25B74-3ae1261907bdadc328169391a47051a6.sdkstatcache
+
+PhaseScriptExecution Generate\ CMakeFiles/ZERO_CHECK /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/GamePlatform.build/Debug/ZERO_CHECK.build/Script-644A3CF38171B20015FB9EF9.sh (in target 'ZERO_CHECK' from project 'GamePlatform')
+    cd /Users/kyleemmerich/Documents/GitHub/GamePlatform
+    /bin/sh -c /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/GamePlatform.build/Debug/ZERO_CHECK.build/Script-644A3CF38171B20015FB9EF9.sh
+/opt/homebrew/bin/cmake -S/Users/kyleemmerich/Documents/GitHub/GamePlatform -B/Users/kyleemmerich/Documents/GitHub/GamePlatform/build
+make: *** [/Users/kyleemmerich/Documents/GitHub/GamePlatform/build/CMakeFiles/cmake.check_cache] Interrupt: 2
+
+PhaseScriptExecution CMake\ PostBuild\ Rules /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/GameNetworkingSockets.build/Debug/Script-85D0B73B49BCF3430E223E9E.sh (in target 'GameNetworkingSockets' from project 'GamePlatform')
+    cd /Users/kyleemmerich/Documents/GitHub/GamePlatform
+    /bin/sh -c /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/GameNetworkingSockets.build/Debug/Script-85D0B73B49BCF3430E223E9E.sh
+
+PhaseScriptExecution CMake\ PostBuild\ Rules /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/Engine.build/Debug/Script-39BF16533CAF5DEADBF45236.sh (in target 'Engine' from project 'GamePlatform')
+    cd /Users/kyleemmerich/Documents/GitHub/GamePlatform
+    /bin/sh -c /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/Engine.build/Debug/Script-39BF16533CAF5DEADBF45236.sh
+
+CompileC /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/Console.o /Users/kyleemmerich/Documents/GitHub/GamePlatform/ClientShared/src/Console.cpp normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'ClientShared' from project 'GamePlatform')
+    cd /Users/kyleemmerich/Documents/GitHub/GamePlatform
+    
+    Using response file: /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /var/folders/qk/t1l_7w6j5kq9bz_v25y8426m0000gn/C/com.apple.DeveloperTools/26.1.1-17B100/Xcode/SDKStatCaches.noindex/macosx26.1-25B74-3ae1261907bdadc328169391a47051a6.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-range-loop-analysis -Wno-semicolon-before-method-body @/Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/Console.d --serialize-diagnostics /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/Console.dia -c /Users/kyleemmerich/Documents/GitHub/GamePlatform/ClientShared/src/Console.cpp -o /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/Console.o
+
+GenerateTAPI /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/EagerLinkingTBDs/Debug/libEngine.tbd (in target 'Engine' from project 'GamePlatform')
+    cd /Users/kyleemmerich/Documents/GitHub/GamePlatform
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/tapi stubify -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk -F/Users/kyleemmerich/Documents/GitHub/GamePlatform/build/lib/Debug -L/Users/kyleemmerich/Documents/GitHub/GamePlatform/build/lib/Debug /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/lib/Debug/libEngine.dylib -o /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/EagerLinkingTBDs/Debug/libEngine.tbd
+
+CompileC /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/Viewport.o /Users/kyleemmerich/Documents/GitHub/GamePlatform/ClientShared/src/Viewport.cpp normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'ClientShared' from project 'GamePlatform')
+    cd /Users/kyleemmerich/Documents/GitHub/GamePlatform
+    
+    Using response file: /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /var/folders/qk/t1l_7w6j5kq9bz_v25y8426m0000gn/C/com.apple.DeveloperTools/26.1.1-17B100/Xcode/SDKStatCaches.noindex/macosx26.1-25B74-3ae1261907bdadc328169391a47051a6.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-range-loop-analysis -Wno-semicolon-before-method-body @/Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/Viewport.d --serialize-diagnostics /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/Viewport.dia -c /Users/kyleemmerich/Documents/GitHub/GamePlatform/ClientShared/src/Viewport.cpp -o /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/Viewport.o
+error: Build input file cannot be found: '/Users/kyleemmerich/Documents/GitHub/GamePlatform/ClientShared/src/Viewport.cpp'. Did you forget to declare this file as an output of a script phase or custom build rule which produces it? (in target 'ClientShared' from project 'GamePlatform')
+
+CompileC /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/BgfxRenderer.o /Users/kyleemmerich/Documents/GitHub/GamePlatform/ClientShared/src/Rendering/BgfxRenderer.cpp normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'ClientShared' from project 'GamePlatform')
+    cd /Users/kyleemmerich/Documents/GitHub/GamePlatform
+    
+    Using response file: /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /var/folders/qk/t1l_7w6j5kq9bz_v25y8426m0000gn/C/com.apple.DeveloperTools/26.1.1-17B100/Xcode/SDKStatCaches.noindex/macosx26.1-25B74-3ae1261907bdadc328169391a47051a6.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-range-loop-analysis -Wno-semicolon-before-method-body @/Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/BgfxRenderer.d --serialize-diagnostics /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/BgfxRenderer.dia -c /Users/kyleemmerich/Documents/GitHub/GamePlatform/ClientShared/src/Rendering/BgfxRenderer.cpp -o /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/BgfxRenderer.o
+
+CompileC /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/PlatformWindow.o /Users/kyleemmerich/Documents/GitHub/GamePlatform/ClientShared/src/PlatformWindow.cpp normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'ClientShared' from project 'GamePlatform')
+    cd /Users/kyleemmerich/Documents/GitHub/GamePlatform
+    
+    Using response file: /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp
+    
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c++ -ivfsstatcache /var/folders/qk/t1l_7w6j5kq9bz_v25y8426m0000gn/C/com.apple.DeveloperTools/26.1.1-17B100/Xcode/SDKStatCaches.noindex/macosx26.1-25B74-3ae1261907bdadc328169391a47051a6.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-c++11-extensions -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Winvalid-offsetof -Wno-sign-conversion -Wno-infinite-recursion -Wno-move -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-range-loop-analysis -Wno-semicolon-before-method-body @/Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/82b82416624d2658e5098eb0a28c15c5-common-args.resp -MMD -MT dependencies -MF /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/PlatformWindow.d --serialize-diagnostics /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/PlatformWindow.dia -c /Users/kyleemmerich/Documents/GitHub/GamePlatform/ClientShared/src/PlatformWindow.cpp -o /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/PlatformWindow.o
+error: Build input file cannot be found: '/Users/kyleemmerich/Documents/GitHub/GamePlatform/ClientShared/src/PlatformWindow.cpp'. Did you forget to declare this file as an output of a script phase or custom build rule which produces it? (in target 'ClientShared' from project 'GamePlatform')
+
+note: Run script build phase 'Generate CMakeFiles/ALL_BUILD' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'ALL_BUILD' from project 'GamePlatform')
+note: Run script build phase 'Generate CMakeFiles/ZERO_CHECK' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'ZERO_CHECK' from project 'GamePlatform')
+note: Run script build phase 'CMake PostBuild Rules' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'GameNetworkingSockets' from project 'GamePlatform')
+note: Run script build phase 'CMake PostBuild Rules' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'Engine' from project 'GamePlatform')
+note: Run script build phase 'CMake PostBuild Rules' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'ClientShared' from project 'GamePlatform')
+** BUILD FAILED **
+
+
+The following build commands failed:
+	CompileC /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/Viewport.o /Users/kyleemmerich/Documents/GitHub/GamePlatform/ClientShared/src/Viewport.cpp normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'ClientShared' from project 'GamePlatform')
+	CompileC /Users/kyleemmerich/Documents/GitHub/GamePlatform/build/build/ClientShared.build/Debug/Objects-normal/arm64/PlatformWindow.o /Users/kyleemmerich/Documents/GitHub/GamePlatform/ClientShared/src/PlatformWindow.cpp normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'ClientShared' from project 'GamePlatform')
+(2 failures)

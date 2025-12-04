@@ -8,6 +8,8 @@
 #include "Core/Export.h"
 #include "Instance/System.h"
 
+namespace Engine {
+
 class Engine;
 
 class GP_EXPORT Log : public System {
@@ -48,6 +50,9 @@ private:
     std::stringstream errorStream;
 
     Level currentLevel = Level::Info;
+};
+
+}
 
     void pullMessagesFromStream(std::stringstream& stream, Level level);
 };

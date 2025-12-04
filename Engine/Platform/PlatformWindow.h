@@ -7,11 +7,15 @@
 #include "Input/KeyCode.h"
 #include "Input/Input.h"
 
-#include "ClientShared/Export.h"
+#include "Core/Export.h"
+#include "Instance/Instance.h"
+
+#include "PlatformWindow.generated.h"
 
 class Engine;
 
-class CLIENT_API PlatformWindow {
+class GP_EXPORT [[reflect(Abstract)]] PlatformWindow : public Instance, BaseInstance<PlatformWindow> {
+    REFLECTION()
 public:
     PlatformWindow(Engine* engine);
     virtual ~PlatformWindow();
@@ -27,15 +31,23 @@ public:
     virtual Rect<int> GetInternalBounds() const = 0;
     virtual Rect<int> GetExternalBounds() const = 0;
 
+    [[reflect()]]
     MulticastEvent<> Resized;
+    [[reflect()]]
     MulticastEvent<> Closed;
+    [[reflect()]]
     MulticastEvent<> Focused;
+    [[reflect()]]
     MulticastEvent<> Unfocused;
 
+    [[reflect()]]
     MulticastEvent<EngineUUID, KeyCode, InputState> KeyInputReceived;
+    [[reflect()]]
     MulticastEvent<std::string> ReceivedTextInput;
 
 protected:
     Engine* engine;
     void* windowHandle = nullptr;
 };
+
+REFLECTION_END()

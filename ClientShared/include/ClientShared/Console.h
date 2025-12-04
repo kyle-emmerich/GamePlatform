@@ -6,7 +6,7 @@
 #include <deque>
 #include "Core/Event.h"
 #include "Core/Log.h"
-#include "ClientShared/IRenderable.h"
+#include "Rendering/IRenderable.h"
 #include "ClientShared/Export.h"
 #include "Input/Input.h"
 #include "Input/KeyCode.h"

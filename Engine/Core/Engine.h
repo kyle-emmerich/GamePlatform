@@ -15,6 +15,8 @@ namespace Rendering {
 	class IRenderer;
 }
 
+namespace Engine {
+
 class Engine;
 class SystemInitOrder {
 protected:
@@ -45,7 +47,7 @@ struct EngineInitParams {
 
 class Log;
 
-class __declspec(dllexport) [[reflect(Engine)]] Engine : public Instance, BaseInstance<Engine> {
+class GP_EXPORT [[reflect(Engine)]] Engine : public Instance, BaseInstance<Engine> {
 	REFLECTION()
 public:
 	Engine(Engine* engine = nullptr);
@@ -91,5 +93,7 @@ protected:
 	std::map<std::string_view, System*> systems;
 	std::vector<System*> orderedSystems;
 };
+
+}
 
 REFLECTION_END()

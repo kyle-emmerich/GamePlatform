@@ -210,7 +210,7 @@ public:
 		result.m23 -= translation.Z;
 		return result;
 	}
-	Vector3<T> operator* (const Vector3<T>& ) const {
+	Transform<T> operator* (T scalar) const {
 		Transform<T> result;
 		for (int i = 0; i < 4; ++i) {
 			for (int j = 0; j < 4; ++j) {

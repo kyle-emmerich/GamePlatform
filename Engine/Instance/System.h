@@ -2,6 +2,8 @@
 #include "Instance.h"
 #include "System.generated.h"
 
+namespace Engine {
+
 class SystemInitOrder;
 
 class [[reflect()]] System : public Instance, BaseInstance<System> {
@@ -15,5 +17,7 @@ public:
 
 	virtual void Update(double deltaTime);
 };
+
+}
 
 REFLECTION_END()

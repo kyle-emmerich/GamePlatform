@@ -1,5 +1,5 @@
 #pragma once
-#include "ClientShared/PlatformWindow.h"
+#include "Platform/PlatformWindow.h"
 
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>

@@ -63,13 +63,16 @@ class ReflectedProperty:
 				if getter and setter:
 					break
 
+		parent_name = self.parent.get_fully_qualified_name()
+		sanitized_parent_name = self.parent.get_sanitized_name()
+
 		if not setter:
 			if "ReadOnly" in self.flags:
-				setter_wrapper = f"/*ReadOnly setter*/ inline void wrap_{self.parent.name}_Set{self.name}(void* obj, void* value) {{ throw std::exception(\"Cannot set {self.parent.name}.{self.name}\"); }}"
+				setter_wrapper = f"/*ReadOnly setter*/ inline void wrap_{sanitized_parent_name}_Set{self.name}(void* obj, void* value) {{ throw std::runtime_error(\"Cannot set {parent_name}.{self.name}\"); }}"
 			else:
-				setter_wrapper = f"inline void wrap_{self.parent.name}_Set{self.name}(void* obj, void* value) {{ reinterpret_cast<{self.parent.name}*>(obj)->{self.name} = *reinterpret_cast<{self.prop_type}*>(value); }}"
+				setter_wrapper = f"inline void wrap_{sanitized_parent_name}_Set{self.name}(void* obj, void* value) {{ reinterpret_cast<{parent_name}*>(obj)->{self.name} = *reinterpret_cast<{self.prop_type}*>(value); }}"
 		if not getter:
-			getter_wrapper = f"inline void* wrap_{self.parent.name}_Get{self.name}(void* obj) {{ {self.prop_type}* value = &(reinterpret_cast<{self.parent.name}*>(obj)->{self.name}); return reinterpret_cast<void*>(value); }}"
+			getter_wrapper = f"inline void* wrap_{sanitized_parent_name}_Get{self.name}(void* obj) {{ {self.prop_type}* value = &(reinterpret_cast<{parent_name}*>(obj)->{self.name}); return reinterpret_cast<void*>(value); }}"
 		return setter_wrapper, getter_wrapper
 
 	def __repr__(self):
@@ -137,17 +140,18 @@ class ReflectedMethod:
 			return self.parent.get_prop(self.associated_prop_name)
 		return None
 	def get_wrapped_func_name(self):
-		return f"wrap_{self.parent.name}_{self.name}"
+		return f"wrap_{self.parent.get_sanitized_name()}_{self.name}"
 	def generate_wrapper(self):
 		prop = self.get_associated_prop()
 		wrapped_func_name = self.get_wrapped_func_name()
+		parent_name = self.parent.get_fully_qualified_name()
 		if prop:
 			#todo: change these to take a lua_State* and just do that shit directly?
 			if self.is_setter:
-				return f"inline void {wrapped_func_name}(void* obj, void* value) {{ reinterpret_cast<{self.parent.name}*>(obj)->{self.name}(*reinterpret_cast<{prop.prop_type}*>(value)); }}"
+				return f"inline void {wrapped_func_name}(void* obj, void* value) {{ reinterpret_cast<{parent_name}*>(obj)->{self.name}(*reinterpret_cast<{prop.prop_type}*>(value)); }}"
 			elif self.is_getter:
 				#we need to handle the case of the return type being a pointer or not...
-				return f"inline void* {wrapped_func_name}(void* obj) {{ {prop.prop_type} value = reinterpret_cast<{self.parent.name}*>(obj)->{self.name}(); return reinterpret_cast<void*>(&value); }}"
+				return f"inline void* {wrapped_func_name}(void* obj) {{ {prop.prop_type} value = reinterpret_cast<{parent_name}*>(obj)->{self.name}(); return reinterpret_cast<void*>(&value); }}"
 		else:
 			#todo: how should this work, exactly? hmm... probably just gonna do straight lua_State* shit.
 			pass
@@ -164,8 +168,9 @@ class ReflectedMethod:
 		return f"\t\tif (propId == prop_{prop.name}) this->{self.name}(); \\\n"
 
 class ReflectedClass:
-	def __init__(self, header, name, reflected, flags, public_base_classes, protected_base_classes, private_base_classes, derived_classes):
+	def __init__(self, header, namespace, name, reflected, flags, public_base_classes, protected_base_classes, private_base_classes, derived_classes):
 		self.header = header
+		self.namespace = namespace
 		self.type = "class"
 		self.name = name
 		self.reflected = reflected
@@ -179,6 +184,16 @@ class ReflectedClass:
 		self.protected_base_classes = protected_base_classes
 		self.private_base_classes = private_base_classes
 		self.derived_classes = derived_classes
+
+	def get_fully_qualified_name(self):
+		if self.namespace:
+			return f"{self.namespace}::{self.name}"
+		return self.name
+
+	def get_sanitized_name(self):
+		if self.namespace:
+			return f"{self.namespace.replace('::', '_')}_{self.name}"
+		return self.name
 
 	def __repr__(self):
 		return f"ReflectedClass({self.name}, flags={self.flags}, props={self.props})"
@@ -445,6 +460,7 @@ def walk_tree(header_filename, tree, source_code):
 	cursor = tree.walk()
 	classes = []
 	stack = []
+	namespace_stack = []
 
 	current_class = None
 
@@ -453,7 +469,11 @@ def walk_tree(header_filename, tree, source_code):
 
 	def enter(node):
 		nonlocal current_class, attribute_name, attribute_flags
-		if node.type == "class_specifier" or node.type == "struct_specifier":
+		if node.type == "namespace_definition":
+			name_node = node.child_by_field_name("name")
+			if name_node:
+				namespace_stack.append(name_node.text.decode('utf-8'))
+		elif node.type == "class_specifier" or node.type == "struct_specifier":
 			public_base_classes, protected_base_classes, private_base_classes = [], [], []
 			derived_classes = []
 			class_attributes = get_attributes(node)
@@ -477,7 +497,9 @@ def walk_tree(header_filename, tree, source_code):
 					print('class', class_name, "is reflected")
 					class_reflected = True
 					class_flags = class_attributes
-				current_class = ReflectedClass(header_filename, class_name, class_reflected, class_flags, public_base_classes, protected_base_classes, private_base_classes, derived_classes)
+				
+				current_namespace = "::".join(namespace_stack) if namespace_stack else None
+				current_class = ReflectedClass(header_filename, current_namespace, class_name, class_reflected, class_flags, public_base_classes, protected_base_classes, private_base_classes, derived_classes)
 				if class_reflected:
 					classes.append(current_class)
 		elif node.type == "field_declaration":
@@ -492,6 +514,9 @@ def walk_tree(header_filename, tree, source_code):
 		elif node.type == "function_definition":
 			handle_function(current_class, node)
 	def leave(node):
+		if node.type == "namespace_definition":
+			if namespace_stack:
+				namespace_stack.pop()
 		pass
 
 	visited_children = False
@@ -559,11 +584,11 @@ def generate_prop_defs_text(class_info):
 def generate_member_ids_text(class_info):
 	result = ""
 	for prop_info in class_info.props:
-			result += f"\tstatic constexpr uint64_t prop_{prop_info.name} = {prop_info.hash}Ui64; \\\n"
+			result += f"\tstatic constexpr uint64_t prop_{prop_info.name} = {prop_info.hash}ULL; \\\n"
 	for event_info in class_info.events:
-			result += f"\tstatic constexpr uint64_t event_{event_info.name} = {event_info.hash}Ui64; \\\n"
+			result += f"\tstatic constexpr uint64_t event_{event_info.name} = {event_info.hash}ULL; \\\n"
 	for method_info in class_info.methods:
-			result += f"\tstatic constexpr uint64_t method_{method_info.name} = {method_info.hash}Ui64; \\\n"
+			result += f"\tstatic constexpr uint64_t method_{method_info.name} = {method_info.hash}ULL; \\\n"
 	return result
 def generate_prop_changed_handlers_text(class_info):
 	result = ""
@@ -603,9 +628,9 @@ def generate_class_refs_text(class_info, class_refs):
 	for i in range(0, len(class_refs)):
 		class_hash = fnv1a_64(f"class:{class_refs[i]}")
 		if i < len(class_refs) - 1:
-			result += f"{class_hash}Ui64, "
+			result += f"{class_hash}ULL, "
 		else:
-			result += f"{class_hash}Ui64"
+			result += f"{class_hash}ULL"
 	return result
 
 def generate_wrapper_functions_text(class_info):
@@ -625,44 +650,48 @@ def generate_wrapper_functions_text(class_info):
 
 def generate_prop_resolvers_text(class_info):
 	prop_setter_getter_resolution = ""
+	sanitized_name = class_info.get_sanitized_name()
+	full_name = class_info.get_fully_qualified_name()
 	for method in class_info.methods:
 		wrapper = method.generate_wrapper()
 		if wrapper:
 			prop_name = method.associated_prop_name
 			if method.is_setter:
-				prop_setter_getter_resolution += f"\t\treflected_{class_info.name}.ResolvePropSetter({class_info.name}::prop_{prop_name}, &wrap_{class_info.name}_Set{prop_name}); \\\n"
+				prop_setter_getter_resolution += f"\t\treflected_{sanitized_name}.ResolvePropSetter({full_name}::prop_{prop_name}, (void*)&wrap_{sanitized_name}_Set{prop_name}); \\\n"
 			if method.is_getter:
-				prop_setter_getter_resolution += f"\t\treflected_{class_info.name}.ResolvePropGetter({class_info.name}::prop_{prop_name}, &wrap_{class_info.name}_Get{prop_name}); \\\n"
+				prop_setter_getter_resolution += f"\t\treflected_{sanitized_name}.ResolvePropGetter({full_name}::prop_{prop_name}, (void*)&wrap_{sanitized_name}_Get{prop_name}); \\\n"
 	
 	for prop_info in class_info.props:
 		setter_wrapper, getter_wrapper = prop_info.generate_default_getter_setter()
 		if setter_wrapper:
-			prop_setter_getter_resolution += f"\t\treflected_{class_info.name}.ResolvePropSetter({class_info.name}::prop_{prop_info.name}, &wrap_{class_info.name}_Set{prop_info.name}); \\\n"
+			prop_setter_getter_resolution += f"\t\treflected_{sanitized_name}.ResolvePropSetter({full_name}::prop_{prop_info.name}, (void*)&wrap_{sanitized_name}_Set{prop_info.name}); \\\n"
 		if getter_wrapper:
-			prop_setter_getter_resolution += f"\t\treflected_{class_info.name}.ResolvePropGetter({class_info.name}::prop_{prop_info.name}, &wrap_{class_info.name}_Get{prop_info.name}); \\\n"
+			prop_setter_getter_resolution += f"\t\treflected_{sanitized_name}.ResolvePropGetter({full_name}::prop_{prop_info.name}, (void*)&wrap_{sanitized_name}_Get{prop_info.name}); \\\n"
 	return prop_setter_getter_resolution
 
 def generate_instantiate_functions_text(class_info):
-	if "reflect" in class_info.flags and "Interface" in class_info.flags["reflect"]:
-		return f"""	inline ::Instance* instantiate_{class_info.name}(Engine* engine) {{ \\
+	sanitized_name = class_info.get_sanitized_name()
+	full_name = class_info.get_fully_qualified_name()
+	if "reflect" in class_info.flags and ("Interface" in class_info.flags["reflect"] or "Abstract" in class_info.flags["reflect"]):
+		return f"""	inline ::Instance* instantiate_{sanitized_name}(Engine* engine) {{ \\
 		return nullptr; \\
 	}} \\
-	inline ::std::shared_ptr<::Instance> instantiateShared_{class_info.name}(Engine* engine) {{ \\
+	inline ::std::shared_ptr<::Instance> instantiateShared_{sanitized_name}(Engine* engine) {{ \\
 		return nullptr; \\
 	}}"""
 	elif "reflect" in class_info.flags and "Engine" in class_info.flags["reflect"]:
-		return f"""	inline ::Instance* instantiate_{class_info.name}(Engine* engine) {{ \\
-		return (::Instance*)new {class_info.name}(nullptr); \\
+		return f"""	inline ::Instance* instantiate_{sanitized_name}(Engine* engine) {{ \\
+		return (::Instance*)new {full_name}(nullptr); \\
 	}} \\
-	inline ::std::shared_ptr<::Instance> instantiateShared_{class_info.name}(Engine* engine) {{ \\
-		return ::std::static_pointer_cast<::Instance>(::std::make_shared<{class_info.name}>(nullptr)); \\
+	inline ::std::shared_ptr<::Instance> instantiateShared_{sanitized_name}(Engine* engine) {{ \\
+		return ::std::static_pointer_cast<::Instance>(::std::make_shared<{full_name}>(nullptr)); \\
 	}}"""
 	else:
-		return f"""	inline ::Instance* instantiate_{class_info.name}(Engine* engine) {{ \\
-		return (::Instance*)new {class_info.name}(engine); \\
+		return f"""	inline ::Instance* instantiate_{sanitized_name}(Engine* engine) {{ \\
+		return (::Instance*)new {full_name}(engine); \\
 	}} \\
-	inline ::std::shared_ptr<::Instance> instantiateShared_{class_info.name}(Engine* engine) {{ \\
-		return ::std::static_pointer_cast<::Instance>(::std::make_shared<{class_info.name}>(engine)); \\
+	inline ::std::shared_ptr<::Instance> instantiateShared_{sanitized_name}(Engine* engine) {{ \\
+		return ::std::static_pointer_cast<::Instance>(::std::make_shared<{full_name}>(engine)); \\
 	}}"""
 
 def generate_raise_prop_changed_method_text(class_info):
@@ -686,6 +715,8 @@ def generate_header(template_path, target_dir, header_filename, class_info):
 
 		replacements = dict()
 		replacements["className"] = class_info.name
+		replacements["classFullName"] = class_info.get_fully_qualified_name()
+		replacements["classSanitizedName"] = class_info.get_sanitized_name()
 		replacements["classId"] = str(class_info.hash)
 		
 		main_base_class = "void"
@@ -711,7 +742,7 @@ def generate_header(template_path, target_dir, header_filename, class_info):
 		replacements["instantiateFunctions"] = generate_instantiate_functions_text(class_info)
 			
 		for key in replacements:
-			print("replacing", key, "with", replacements[key])
+			# print("replacing", key, "with", replacements[key])
 			output = output.replace(f"{{{{{key}}}}}", replacements[key])
 	
 	base_dir, base_filename = os.path.split(header_filename)

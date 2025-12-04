@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 
 # Set toolchain if available and not already set
 if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
-    set(VCPKG_TOOLCHAIN "${CMAKE_CURRENT_SOURCE_DIR}/Engine/ThirdParty/GameNetworkingSockets/vcpkg/scripts/buildsystems/vcpkg.cmake")
+    set(VCPKG_TOOLCHAIN "${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake")
     if(EXISTS "${VCPKG_TOOLCHAIN}")
         set(CMAKE_TOOLCHAIN_FILE "${VCPKG_TOOLCHAIN}")
     endif()
@@ -59,4 +59,8 @@ add_subdirectory(ClientShared)
 if(WIN32)
     add_subdirectory(WindowsClient)
     add_subdirectory(GameServerWindows)
+endif()
+
+if(APPLE AND NOT IOS)
+    add_subdirectory(MacClient)
 endif()

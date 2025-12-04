@@ -13,3 +13,5 @@ CMakeUserPresets.json
 .vs/
 build/
 x64/
+vcpkg/
+vcpkg_installed/
