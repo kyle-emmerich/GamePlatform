@@ -1,6 +1,9 @@
 #pragma once
 
+#include "Math/Vector2.h"
 #include "Math/Vector3.h"
+
+namespace Math {
 
 template<typename T>
 class Vector4 {
@@ -119,3 +122,5 @@ template<typename T>
 const Vector4<T> Vector4<T>::UnitZ = Vector4<T>(0, 0, 1, 0);
 template<typename T>
 const Vector4<T> Vector4<T>::UnitW = Vector4<T>(0, 0, 0, 1);
+
+}

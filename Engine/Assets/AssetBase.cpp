@@ -1,6 +1,6 @@
 #include "Assets/AssetBase.h"
 
-AssetBase::AssetBase(uint64_t id)
-    : assetId(id) {
+AssetBase::AssetBase(Engine* engine, uint64_t id)
+    : Instance(engine), assetId(id) {
 }
 

@@ -5,6 +5,8 @@
 #include "Math/Quaternion.h"
 //#include "Scripting/LuaDataType.h"
 
+namespace Math {
+
 template<typename T = double>
 class Transform {
 public:
@@ -220,6 +222,8 @@ public:
 		return result;
 	}
 };
+
+}
 
 /*
 namespace Lua {

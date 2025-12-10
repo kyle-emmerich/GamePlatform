@@ -24,7 +24,7 @@ Viewport::~Viewport() {
 void Viewport::AttachToWindow(PlatformWindow* window) {
     attachedWindow = window;
 
-    Rect<int> windowInternalBounds = attachedWindow->GetInternalBounds();
+    Math::Rect<int> windowInternalBounds = attachedWindow->GetInternalBounds();
     
     bgfx::Init init;
 #ifdef BX_PLATFORM_WINDOWS
@@ -48,7 +48,7 @@ void Viewport::AttachToWindow(PlatformWindow* window) {
     bgfx::setViewRect(viewId, 0, 0, bgfx::BackbufferRatio::Equal);
 
     windowResizedListener = &attachedWindow->Resized.Connect([this]() {
-        Rect<int> newBounds = attachedWindow->GetInternalBounds();
+        Math::Rect<int> newBounds = attachedWindow->GetInternalBounds();
         bgfx::reset(newBounds.Size().X, newBounds.Size().Y, BGFX_RESET_VSYNC);
         bgfx::setViewRect(viewId, 0, 0, bgfx::BackbufferRatio::Equal);
 

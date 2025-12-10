@@ -13,11 +13,11 @@ namespace Rendering {
         virtual void BeginFrame() = 0;
         virtual void EndFrame() = 0;
 
-        virtual void DrawRect(const Rect<float>& rect, const Color& color) = 0;
+        virtual void DrawRect(const Math::Rect<float>& rect, const Math::Color& color) = 0;
         // Add more drawing methods as needed (DrawText, DrawTexture, etc.)
         
         // Clipping
-        virtual void PushClipRect(const Rect<float>& rect) = 0;
+        virtual void PushClipRect(const Math::Rect<float>& rect) = 0;
         virtual void PopClipRect() = 0;
     };
 

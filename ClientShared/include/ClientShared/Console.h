@@ -5,7 +5,7 @@
 #include <vector>
 #include <deque>
 #include "Core/Event.h"
-#include "Core/Log.h"
+#include "Core/LogSystem.h"
 #include "Rendering/IRenderable.h"
 #include "ClientShared/Export.h"
 #include "Input/Input.h"
@@ -16,7 +16,7 @@ class CLIENT_API Console : public IRenderable {
 public:
     struct Message {
         std::string text;
-        Log::Level level;
+        LogSystem::Level level;
     };
 
     Console(Engine* engine);
@@ -59,7 +59,7 @@ private:
     int caretFlashTimer = 0;
     const int caretFlashInterval = 30; //frames
 
-    MulticastEvent<std::string, Log::Level>::Listener* logMessageListener = nullptr;
+    MulticastEvent<std::string, LogSystem::Level>::Listener* logMessageListener = nullptr;
     MulticastEvent<std::string>::Listener* windowTextReceivedListener = nullptr;
-    MulticastEvent<EngineUUID, KeyCode, InputState>::Listener* windowKeyInputListener = nullptr;
+    MulticastEvent<class Input*>::Listener* windowKeyInputListener = nullptr;
 };

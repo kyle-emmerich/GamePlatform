@@ -2,6 +2,8 @@
 
 #include "Math/Vector3.h"
 
+namespace Math {
+
 template<typename T>
 class AABB {
 public:
@@ -125,3 +127,5 @@ public:
 		);
 	}
 };
+
+}

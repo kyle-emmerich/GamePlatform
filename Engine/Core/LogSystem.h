@@ -7,15 +7,15 @@
 #include "Core/Event.h"
 #include "Core/Export.h"
 #include "Instance/System.h"
-
-namespace Engine {
+#include "LogSystem.generated.h"
 
 class Engine;
 
-class GP_EXPORT Log : public System {
+class GP_EXPORT [[reflect()]] LogSystem : public System, BaseInstance<LogSystem> {
+    REFLECTION()
 public:
-    Log(Engine* engine);
-    ~Log();
+    LogSystem(Engine* engine);
+    ~LogSystem();
 
     enum class Level : uint8_t {
         Verbose,
@@ -50,9 +50,23 @@ private:
     std::stringstream errorStream;
 
     Level currentLevel = Level::Info;
-};
-
-}
 
     void pullMessagesFromStream(std::stringstream& stream, Level level);
 };
+
+//REFLECTION_END()
+namespace Reflection { 
+ 
+	inline void register_LogSystem() { 
+		Reflection::GetRegistry().classes["LogSystem"] = &Reflection::reflected_LogSystem; 
+		Reflection::GetRegistry().classesById[2491798829761274318] = &Reflection::reflected_LogSystem; 
+ 
+	} 
+	inline ::Instance* instantiate_LogSystem(Engine* engine) { 
+		return (::Instance*)new LogSystem(engine); 
+	} 
+	inline ::std::shared_ptr<::Instance> instantiateShared_LogSystem(Engine* engine) { 
+		return ::std::static_pointer_cast<::Instance>(::std::make_shared<LogSystem>(engine)); 
+	} 
+} 
+

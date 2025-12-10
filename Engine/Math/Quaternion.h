@@ -2,6 +2,8 @@
 
 #include "Math/Vector3.h"
 
+namespace Math {
+
 template<typename T = double>
 class Quaternion {
 public:
@@ -155,3 +157,5 @@ public:
 		return Quaternion<T>(0, 0, 0, 1);
 	}
 };
+
+}

@@ -1,9 +1,8 @@
 
 #include "ReflectionRegistry.h"
 #include "Core/Engine.h"
-#include "ClientShared/PlatformWindow.h"
 #include "Windows/WindowsPlatformWindow.h"
-#include "ClientShared/Viewport.h"
+#include "Platform/Viewport.h"
 #include "ClientShared/Console.h"
 #include "ClientShared/Rendering/BgfxRenderer.h"
 #include <iostream>
@@ -28,18 +27,18 @@ public:
 };
 
 int main(int argc, char** argv) {    
-    Engine engine;
+    Engine* engine = new Engine;
     ClientShared::BgfxRenderer renderer;
     EngineInitParams params;
     params.renderer = &renderer;
-    engine.Initialize(params);
+    engine->Initialize(params);
 
-    Console console(&engine);
+    Console console(engine);
     console.TextEntered.Connect([&engine](const std::string& text) {
-        engine.ExecuteConsoleLua(text);
+        engine->ExecuteConsoleLua(text);
     });
     
-    WindowsPlatformWindow window(&engine);
+    WindowsPlatformWindow window(engine);
     if (!window.Initialize("Test Window", 1280, 720)) {
         std::cerr << "Failed to initialize window" << std::endl;
         return 1;
@@ -52,7 +51,7 @@ int main(int argc, char** argv) {
     std::cout << "Engine Initialized." << std::endl;
 
     while (window.PollEvents()) {
-        engine.Update();
+        engine->Update();
         //pull input
         //execute some lua
         //run physics
@@ -61,7 +60,7 @@ int main(int argc, char** argv) {
         //execute more lua
     }
     
-    engine.Shutdown();
+    engine->Shutdown();
     std::cout << "Engine shutdown." << std::endl;
     return 0;
 }

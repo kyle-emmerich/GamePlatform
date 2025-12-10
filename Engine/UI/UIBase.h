@@ -54,13 +54,13 @@ public:
 	void SetFocusable(bool isFocusable);
 
 	[[reflect(Derived)]]
-	Rect<float> GetAbsoluteBounds();
+	Math::Rect<float> GetAbsoluteBounds();
 
 	[[reflect()]]
-	UDim2<float> Position;
+	Math::UDim2<float> Position;
 
 	[[reflect()]]
-	UDim2<float> Size;
+	Math::UDim2<float> Size;
 
 	[[reflect()]]
 	float Rotation;

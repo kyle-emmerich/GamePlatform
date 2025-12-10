@@ -419,6 +419,7 @@ def handle_field(node, current_class):
 	attribute_node = None
 
 	for child in node.children:
+		print(f"Field child: {child.type} - {child.text.decode('utf-8')}")
 		if child.type == "pointer_declarator" and type_identifier:
 			num_pointer_symbols, field_identifier_node = get_pointer_indirection(child)
 			type_identifier += ("*") * num_pointer_symbols
@@ -533,6 +534,7 @@ def walk_tree(header_filename, tree, source_code):
 			continue
 		if not cursor.goto_parent():
 			break
+		leave(cursor.node)
 		visited_children = True
 
 	return classes

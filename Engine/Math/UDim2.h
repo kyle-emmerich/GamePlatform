@@ -2,6 +2,8 @@
 
 #include "Math/UDim.h"
 
+namespace Math {
+	
 template<typename T>
 struct UDim2 {
     UDim<T> X;
@@ -55,3 +57,5 @@ struct UDim2 {
     }
 
 };
+
+}

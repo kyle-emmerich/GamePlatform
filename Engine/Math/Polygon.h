@@ -4,6 +4,8 @@
 #include "Math/Vector2.h"
 #include "Math/Rect.h"
 
+namespace Math {
+
 template<typename T>
 class Polygon {
 public:
@@ -182,3 +184,5 @@ public:
 		return poly;
 	}
 };
+
+}

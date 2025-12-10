@@ -3,6 +3,8 @@
 #include <vector>
 #include "Math/Color.h"
 
+namespace Math {
+
 struct ColorSequenceKeypoint {
     float Time;
     Color Value;
@@ -38,3 +40,5 @@ struct ColorSequence {
         return Color(0, 0, 0, 1); // Should not reach here
     }
 };
+
+}

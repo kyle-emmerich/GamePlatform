@@ -16,13 +16,13 @@ public:
     PhysicalProperties Properties;
 
     [[reflect(ReadOnly)]]
-    Transform<double> Inertia;
+    Math::Transform<double> Inertia;
 
     [[reflect()]]
-    Vector3<double> Velocity;
+    Math::Vector3<double> Velocity;
 
     [[reflect()]]
-    Vector3<double> AngularVelocity;
+    Math::Vector3<double> AngularVelocity;
 };
 
 REFLECTION_END()

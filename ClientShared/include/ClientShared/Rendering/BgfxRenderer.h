@@ -19,8 +19,8 @@ namespace ClientShared {
         void BeginFrame() override;
         void EndFrame() override;
 
-        void DrawRect(const Rect<float>& rect, const Color& color) override;
-        void PushClipRect(const Rect<float>& rect) override;
+        void DrawRect(const Math::Rect<float>& rect, const Math::Color& color) override;
+        void PushClipRect(const Math::Rect<float>& rect) override;
         void PopClipRect() override;
 
     private:

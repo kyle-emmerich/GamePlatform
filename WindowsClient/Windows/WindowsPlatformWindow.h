@@ -6,7 +6,7 @@
 
 class RawInputHandler;
 
-class WindowsPlatformWindow : public PlatformWindow {
+class WindowsPlatformWindow : public PlatformWindow, public BaseInstance<WindowsPlatformWindow> {
 public:
     WindowsPlatformWindow(Engine* engine);
     virtual ~WindowsPlatformWindow();
@@ -15,8 +15,8 @@ public:
     void Shutdown() override;
     bool PollEvents() override;
     void* GetNativeWindowHandle() const override;
-    Rect<int> GetInternalBounds() const override;
-    Rect<int> GetExternalBounds() const override;
+    Math::Rect<int> GetInternalBounds() const override;
+    Math::Rect<int> GetExternalBounds() const override;
 
     void ProcessRawInput(LPARAM lParam);
 

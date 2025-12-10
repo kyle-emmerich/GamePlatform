@@ -15,8 +15,6 @@ namespace Rendering {
 	class IRenderer;
 }
 
-namespace Engine {
-
 class Engine;
 class SystemInitOrder {
 protected:
@@ -93,7 +91,5 @@ protected:
 	std::map<std::string_view, System*> systems;
 	std::vector<System*> orderedSystems;
 };
-
-}
 
 REFLECTION_END()

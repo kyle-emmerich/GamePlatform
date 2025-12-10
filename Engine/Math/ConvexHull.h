@@ -11,6 +11,8 @@
 #include <map>
 #include <set>
 
+namespace Math {
+
 template<typename T>
 class Simplex {
 public:
@@ -336,3 +338,5 @@ private:
 		}
 	}
 };
+
+}

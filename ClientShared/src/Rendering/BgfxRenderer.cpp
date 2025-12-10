@@ -49,7 +49,7 @@ namespace ClientShared {
         //bgfx::frame(); // Viewport handles this
     }
 
-    void BgfxRenderer::DrawRect(const Rect<float>& rect, const Color& color) {
+    void BgfxRenderer::DrawRect(const Math::Rect<float>& rect, const Math::Color& color) {
         if (bgfx::getAvailTransientVertexBuffer(4, PosColorVertex::ms_layout) == 4) {
             bgfx::TransientVertexBuffer tvb;
             bgfx::allocTransientVertexBuffer(&tvb, 4, PosColorVertex::ms_layout);
@@ -85,7 +85,7 @@ namespace ClientShared {
         }
     }
 
-    void BgfxRenderer::PushClipRect(const Rect<float>& rect) {
+    void BgfxRenderer::PushClipRect(const Math::Rect<float>& rect) {
         bgfx::setScissor(
             static_cast<uint16_t>(rect.min.X),
             static_cast<uint16_t>(rect.min.Y),

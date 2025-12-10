@@ -3,6 +3,8 @@
 #include "Math/Vector3.h"
 #include "Math/Ray.h"
 
+namespace Math {
+
 template<typename T>
 class Plane {
 public:
@@ -58,3 +60,5 @@ public:
 	static const Plane<T> ZNegativeX() { return Plane<T>(Vector3<T>(0, 0, 0), Vector3<T>(0, -1, 0)); }
 
 };
+
+}

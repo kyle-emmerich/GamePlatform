@@ -10,15 +10,15 @@ public:
 
     [[reflect(Derived)]]
     [[summary("The primary axis of the attachment. This corresponds to the right vector of the attachment's transform.")]]
-    Vector3<double> GetPrimaryAxis() const;
+    Math::Vector3<double> GetPrimaryAxis() const;
 
     [[reflect(Derived)]]
     [[summary("The secondary axis of the attachment. This corresponds to the up vector of the attachment's transform.")]]
-    Vector3<double> GetSecondaryAxis() const;
+    Math::Vector3<double> GetSecondaryAxis() const;
 
     [[reflect(Derived)]]
     [[summary("The world transform of the attachment.")]]
-    Transform<double> GetWorldTransform() const;
+    Math::Transform<double> GetWorldTransform() const;
 protected:
 
 

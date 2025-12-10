@@ -1,18 +1,18 @@
-#include "Core/Log.h"
+#include "Core/LogSystem.h"
 #include "Core/Engine.h"
 #include <iostream>
 
-Log::Log(Engine* engine) : System(engine) {
+LogSystem::LogSystem(Engine* engine) : System(engine) {
     std::cout.rdbuf(verboseStream.rdbuf());
     std::cerr.rdbuf(errorStream.rdbuf());
 }
 
-Log::~Log() {
+LogSystem::~LogSystem() {
     std::cout.rdbuf(std::cout.rdbuf());
     std::cerr.rdbuf(std::cerr.rdbuf());
 }
 
-void Log::Write(const std::string& message, Level level) {
+void LogSystem::Write(const std::string& message, Level level) {
     switch (level) {
     case Level::Verbose:
         verboseStream << message << std::endl;
@@ -29,7 +29,7 @@ void Log::Write(const std::string& message, Level level) {
     }
 }
 
-std::stringstream& Log::GetStream(Level level) {
+std::stringstream& LogSystem::GetStream(Level level) {
     switch (level) {
     case Level::Verbose:
         return verboseStream;
@@ -44,21 +44,21 @@ std::stringstream& Log::GetStream(Level level) {
     }
 }
 
-void Log::Clear() {
+void LogSystem::Clear() {
     verboseStream.str("");
     infoStream.str("");
     warningStream.str("");
     errorStream.str("");
 }
 
-void Log::Update(double deltaTime) {
+void LogSystem::Update(double deltaTime) {
     pullMessagesFromStream(verboseStream, Level::Verbose);
     pullMessagesFromStream(infoStream, Level::Info);
     pullMessagesFromStream(warningStream, Level::Warning);
     pullMessagesFromStream(errorStream, Level::Error);
 }
 
-void Log::pullMessagesFromStream(std::stringstream& stream, Level level) {
+void LogSystem::pullMessagesFromStream(std::stringstream& stream, Level level) {
     std::string line;
     stream.seekg(0, std::ios::end);
     if (stream.tellg() > 0) {

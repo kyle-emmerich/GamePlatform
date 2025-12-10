@@ -14,7 +14,10 @@ public:
 
 	[[reflect()]]
 	[[summary("The object's world transform.")]]
-	Transform<double> WorldTransform;
+	Math::Transform<double> WorldTransform;
+
+	[[reflect()]]
+	World* GetWorld() const { return world; }
 
 protected:
 	World* world;

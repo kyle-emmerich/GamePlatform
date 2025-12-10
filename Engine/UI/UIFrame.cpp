@@ -6,7 +6,7 @@ void UIFrame::OnRender(Rendering::IRenderer* renderer) {
 
     // Render background
     if (BackgroundColor.A > 0.0) {
-        Rect<float> absBounds = GetAbsoluteBounds();
+        Math::Rect<float> absBounds = GetAbsoluteBounds();
         renderer->DrawRect(absBounds, BackgroundColor);
     }
 

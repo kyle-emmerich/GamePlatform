@@ -28,8 +28,8 @@ public:
 
     virtual void* GetNativeWindowHandle() const = 0;
 
-    virtual Rect<int> GetInternalBounds() const = 0;
-    virtual Rect<int> GetExternalBounds() const = 0;
+    virtual Math::Rect<int> GetInternalBounds() const = 0;
+    virtual Math::Rect<int> GetExternalBounds() const = 0;
 
     [[reflect()]]
     MulticastEvent<> Resized;
@@ -46,7 +46,6 @@ public:
     MulticastEvent<std::string> ReceivedTextInput;
 
 protected:
-    Engine* engine;
     void* windowHandle = nullptr;
 };
 

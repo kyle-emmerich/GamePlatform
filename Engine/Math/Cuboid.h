@@ -3,6 +3,8 @@
 #include "Math/Vector3.h"
 #include "Math/Transform.h"
 
+namespace Math {
+
 template<typename T>
 class Cuboid {
 public:
@@ -31,3 +33,5 @@ public:
 
 
 };
+
+}

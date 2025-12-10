@@ -1,4 +1,6 @@
+#pragma once
 
+namespace Math {
 
 template<typename T>
 struct NumberSequenceKeypoint {
@@ -33,3 +35,5 @@ struct NumberSequence {
         return T(0); // Should not reach here
     }
 };
+
+}

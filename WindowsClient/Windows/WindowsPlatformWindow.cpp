@@ -36,25 +36,25 @@ std::wstring Utf8ToWide(const std::string& str) {
 
 // Global window procedure
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
-    PlatformWindow* window = (PlatformWindow*)GetWindowLongPtrA(hwnd, GWLP_USERDATA);
+    WindowsPlatformWindow* window = (WindowsPlatformWindow*)GetWindowLongPtrW(hwnd, GWLP_USERDATA);
     if (window != nullptr) {    
         switch (msg) {
             case WM_SIZE: {
                 window->Resized.Fire();
-                return 0;
+                break;
             }
             case WM_CLOSE: {
                 window->Closed.Fire();
                 PostQuitMessage(0);
-                return 0;
+                break;
             }
             case WM_SETFOCUS: {
                 window->Focused.Fire();
-                return 0;
+                break;
             }
             case WM_KILLFOCUS: {
                 window->Unfocused.Fire();
-                return 0;
+                break;
             }
             case WM_CHAR: {
                 wchar_t wch = static_cast<wchar_t>(wParam);
@@ -62,7 +62,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
                     std::wstring wstr(1, wch);
                     window->ReceivedTextInput.Fire(WideToUtf8(wstr));
                 }
-                return 0;
+                break;
             } /*
             case WM_KEYDOWN:
             case WM_KEYUP: {
@@ -74,11 +74,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
                 return 0;
             }*/
             case WM_DESTROY: {
-                return 0;
+                break;
             }
             case WM_INPUT: {
-                static_cast<WindowsPlatformWindow*>(window)->ProcessRawInput(lParam);
-                return 0;
+                window->ProcessRawInput(lParam);
+                break;
             }
         }
     }
@@ -136,22 +136,22 @@ void* WindowsPlatformWindow::GetNativeWindowHandle() const {
     return windowHandle;
 }
 
-Rect<int> WindowsPlatformWindow::GetInternalBounds() const {
+Math::Rect<int> WindowsPlatformWindow::GetInternalBounds() const {
     if (!windowHandle) {
-        return Rect<int>(0, 0, 0, 0);
+        return Math::Rect<int>(0, 0, 0, 0);
     }
 
     RECT rect;
     GetClientRect((HWND)windowHandle, &rect);
-    return Rect<int>(rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top);
+    return Math::Rect<int>(rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top);
 }
 
-Rect<int> WindowsPlatformWindow::GetExternalBounds() const {
+Math::Rect<int> WindowsPlatformWindow::GetExternalBounds() const {
     if (!windowHandle) {
-        return Rect<int>(0, 0, 0, 0);
+        return Math::Rect<int>(0, 0, 0, 0);
     }
 
     RECT rect;
     GetWindowRect((HWND)windowHandle, &rect);
-    return Rect<int>(rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top);
+    return Math::Rect<int>(rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top);
 }

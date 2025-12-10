@@ -3,6 +3,8 @@ project(GameServerWindows)
 add_executable(GameServerWindows main.cpp)
 
 target_link_libraries(GameServerWindows PRIVATE Engine)
+target_compile_definitions(GameServerWindows PRIVATE GP_STATIC)
+
 
 # Copy the Engine DLL to the executable directory after build
 if(WIN32)

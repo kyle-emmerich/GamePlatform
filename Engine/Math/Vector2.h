@@ -1,8 +1,8 @@
 #pragma once
 #include <cmath>
 
-namespace Engine {
-
+namespace Math {
+	
 template<typename T>
 class Vector2 {
 public:

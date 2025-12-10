@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ClientShared/PlatformWindow.h"
+#include "Platform/PlatformWindow.h"
 #include "Windows/WindowsPlatformWindow.h"
 #include "Instance/UUID.h"
 

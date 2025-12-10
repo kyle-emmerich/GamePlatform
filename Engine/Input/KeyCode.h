@@ -246,6 +246,10 @@ enum class KeyCode : uint32_t {
 	App1 = 283,
 	App2 = 284,
 
+	MouseMove = 300,
+	MouseScrollWheel1 = 301,
+	MouseScrollWheel2 = 302,
+
 	MaxKeyCode = 512
 };
 

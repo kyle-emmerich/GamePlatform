@@ -60,14 +60,14 @@ void UIBase::OnRender(Rendering::IRenderer* renderer) {
 	}
 }
 
-Rect<float> UIBase::GetAbsoluteBounds() {
+Math::Rect<float> UIBase::GetAbsoluteBounds() {
 	// Placeholder implementation
-	Vector2<float> parentPos(0, 0);
-	Vector2<float> parentSize(0, 0); // Default to 0 or maybe screen size if we had access to it
+	Math::Vector2<float> parentPos(0, 0);
+	Math::Vector2<float> parentSize(0, 0); // Default to 0 or maybe screen size if we had access to it
 
 	// Try to get parent bounds if it's a UIBase
 	if (Parent && Parent->IsA<UIBase>()) {
-		Rect<float> parentBounds = ((UIBase*)Parent)->GetAbsoluteBounds();
+		Math::Rect<float> parentBounds = ((UIBase*)Parent)->GetAbsoluteBounds();
 		parentPos = parentBounds.min;
 		parentSize = parentBounds.Size();
 	}
@@ -80,5 +80,5 @@ Rect<float> UIBase::GetAbsoluteBounds() {
 	float w = Size.X.Scale * parentSize.X + Size.X.Offset;
 	float h = Size.Y.Scale * parentSize.Y + Size.Y.Offset;
 
-	return Rect<float>(x, y, x + w, y + h);
+	return Math::Rect<float>(x, y, x + w, y + h);
 }

@@ -11,6 +11,8 @@ target_include_directories(WindowsClient PRIVATE
 )
 
 target_link_libraries(WindowsClient PRIVATE Engine ClientShared)
+target_compile_definitions(WindowsClient PRIVATE GP_STATIC)
+
 
 # Copy the Engine DLL to the executable directory after build
 if(WIN32)

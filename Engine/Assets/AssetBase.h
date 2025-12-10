@@ -1,5 +1,6 @@
 #pragma once
 #include "Instance/Instance.h"
+#include "AssetBase.generated.h"
 
 enum class AssetType : uint8_t {
     Unknown,
@@ -12,9 +13,11 @@ enum class AssetType : uint8_t {
 
 };
 
-class AssetBase {
+class [[reflect(Abstract)]] AssetBase : public Instance {
+    REFLECTION()
 public:
-    AssetBase(uint64_t id);
+    AssetBase(Engine* engine) : Instance(engine), assetId(0) {}
+    AssetBase(Engine* engine, uint64_t id);
     ~AssetBase() = default;
 
     bool IsLoaded() const { return loaded; }
@@ -30,3 +33,5 @@ protected:
 
     uint64_t assetId = 0;
 };
+
+REFLECTION_END()

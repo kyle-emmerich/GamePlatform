@@ -3,11 +3,12 @@
 #include "ClientShared/Console.h"
 #include "Platform/Viewport.h"
 #include "Platform/PlatformWindow.h"
+#include "Input/InputSystem.h"
 #include "bgfx/bgfx.h"
 #include <iostream>
 #include <algorithm>
 
-uint8_t colors[(int)Log::Level::Max] = {
+uint8_t colors[(int)LogSystem::Level::Max] = {
     0x0f, // Verbose - white
     0x8f, // Info - light gray
     0x0e, // Warning - yellow
@@ -17,8 +18,8 @@ uint8_t colors[(int)Log::Level::Max] = {
 Console::Console(Engine* engine)
     : engine(engine) {
 
-    logMessageListener = &engine->GetLog().MessageLogged.Connect(
-        [this](const std::string& message, Log::Level level) {
+    logMessageListener = &engine->GetSystem<LogSystem>()->MessageLogged.Connect(
+        [this](const std::string& message, LogSystem::Level level) {
             bool isScrolledToBottom = (windowY + windowLines) >= (int)messages.size();
 
             messages.push_back({ message, level });
@@ -49,8 +50,21 @@ void Console::OnAttached(Viewport* viewport) {
             inputCursorPosition += text.size();
         }
     );
-    windowKeyInputListener = &viewport->GetAttachedWindow()->KeyInputReceived.Connect(
-        [this](EngineUUID deviceId, KeyCode key, InputState state) {
+
+    Engine* engine = viewport->GetAttachedWindow()->GetEngine();
+    if (!engine) {
+        return;
+    }
+
+    InputSystem* inputSystem = engine->GetSystem<InputSystem>();
+    if (!inputSystem) {
+        return;
+    }
+
+    windowKeyInputListener = &inputSystem->InputBegan.Connect(
+        [this](Input* input) {
+            KeyCode key = input->Key;
+            InputState state = input->State;
             if (state == InputState::Begin) {
                 if (key == ToggleKey) {
                     enabledChangedFlag = true;
@@ -62,7 +76,7 @@ void Console::OnAttached(Viewport* viewport) {
                 }
 
                 if (key == KeyCode::Return) {
-                    messages.push_back({ " > " + inputBuffer, Log::Level::Info });
+                    messages.push_back({ " > " + inputBuffer, LogSystem::Level::Info });
                     TextEntered.Fire(inputBuffer);
                     
                     if (inputHistory.empty() || inputHistory.back() != inputBuffer) {
@@ -145,7 +159,7 @@ void Console::OnRendered(Viewport* viewport) {
         bgfx::setDebug(BGFX_DEBUG_TEXT);
         for (int i = windowY; i < std::min((int)messages.size(), windowY + windowLines); ++i) {
             const std::string& line = messages[i].text;
-            Log::Level level = messages[i].level;
+            LogSystem::Level level = messages[i].level;
             bgfx::dbgTextPrintf(x, y, colors[(int)level], "%s", line.c_str());
             y += 1;
         }

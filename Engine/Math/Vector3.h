@@ -2,6 +2,8 @@
 
 #include "Math/Vector2.h"
 
+namespace Math {
+	
 template<typename T = double>
 class Vector3 {
 public:
@@ -134,3 +136,5 @@ template<typename T>
 const Vector3<T> Vector3<T>::UnitY = Vector3<T>(0, 1, 0);
 template<typename T>
 const Vector3<T> Vector3<T>::UnitZ = Vector3<T>(0, 0, 1);
+
+}

@@ -13,7 +13,7 @@ public:
 
     [[reflect()]]
     [[summary("Determines the background color and opacity of the UI frame.")]]
-    Color BackgroundColor;
+    Math::Color BackgroundColor;
 
     void OnRender(Rendering::IRenderer* renderer) override;
 

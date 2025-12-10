@@ -19,7 +19,7 @@ void InputSystem::ClearFocus(Input* instigatingInput) {
     FocusedInstance = nullptr;
 }
 
-void InputSystem::ProcessInput(EngineUUID deviceId, KeyCode key, InputState state, Vector3<double> position, Vector3<double> delta) {
+void InputSystem::ProcessInput(EngineUUID deviceId, KeyCode key, InputState state, Math::Vector3<double> position, Math::Vector3<double> delta) {
     Input* input = getInput(deviceId, key);
     input->SetState(state);
     input->SetPosition(position);

@@ -4,6 +4,8 @@
 #include "Math/Vector4.h"
 #include <cmath>
 
+namespace Math {
+
 struct Color {
      float R, G, B, A;
 
@@ -89,3 +91,5 @@ struct Color {
     }
 
 };
+
+}

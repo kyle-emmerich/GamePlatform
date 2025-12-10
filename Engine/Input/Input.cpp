@@ -1,6 +1,6 @@
 #include "Input/Input.h"
 
-void Input::SetPosition(const Vector3<double>& position) {
+void Input::SetPosition(const Math::Vector3<double>& position) {
     if (Position == position) {
         return;
     }
@@ -8,7 +8,7 @@ void Input::SetPosition(const Vector3<double>& position) {
     this->raisePropChanged(prop_Position);
 }
 
-void Input::SetDelta(const Vector3<double>& delta) {
+void Input::SetDelta(const Math::Vector3<double>& delta) {
     if (Delta == delta) {
         return;
     }

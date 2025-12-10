@@ -1,5 +1,7 @@
 #pragma once
 
+namespace Math {
+	
 template<typename T>
 struct UDim {
     T Scale = 0;
@@ -52,3 +54,5 @@ struct UDim {
         return !(*this == other);
     }
 };
+
+}

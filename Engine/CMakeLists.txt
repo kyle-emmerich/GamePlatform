@@ -72,7 +72,7 @@ list(APPEND ENGINE_SOURCES
 message(STATUS "Engine sources: ${ENGINE_SOURCES}")
 
 # Add the library
-add_library(Engine SHARED ${ENGINE_SOURCES})
+add_library(Engine STATIC ${ENGINE_SOURCES})
 
 if(TARGET Engine)
     message(STATUS "Engine target created successfully")
@@ -102,4 +102,5 @@ target_link_libraries(Engine PUBLIC
 
 # Definitions
 target_compile_definitions(Engine PRIVATE ENGINE_EXPORTS)
+target_compile_definitions(Engine PUBLIC GP_STATIC)
 

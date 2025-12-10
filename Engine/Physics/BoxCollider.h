@@ -9,7 +9,7 @@ public:
 
     [[reflect()]]
     [[summary("The size of the box collider.")]]
-    Vector3<double> Size;
+    Math::Vector3<double> Size;
 
 
 };

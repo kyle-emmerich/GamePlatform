@@ -44,7 +44,7 @@ public:
 	[[summary("Returns true if the given key is currently held down, false otherwise.")]]
 	bool IsKeyDown(KeyCode key) const;
 
-	void ProcessInput(EngineUUID deviceId, KeyCode key, InputState state, Vector3<double> position = Vector3<double>(), Vector3<double> delta = Vector3<double>());
+	void ProcessInput(EngineUUID deviceId, KeyCode key, InputState state, Math::Vector3<double> position = Math::Vector3<double>(), Math::Vector3<double> delta = Math::Vector3<double>());
 	void ProcessTextInput(const std::string& text);
 
 protected:

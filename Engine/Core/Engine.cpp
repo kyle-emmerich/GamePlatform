@@ -1,5 +1,5 @@
 #include "Core/Engine.h"
-#include "Core/Log.h"
+#include "Core/LogSystem.h"
 #include "Instance/System.h"
 #include "Instance/Reflection.h"
 #include "UI/UISystem.h"
@@ -73,11 +73,11 @@ std::vector<System*> SystemInitOrder::Resolve() const {
 }
 
 Engine::Engine(Engine* engine) : Instance(this) {
-	log = new Log(this);
+
 }
 
 Engine::~Engine() {
-	delete log;
+
 }
 
 void Engine::Initialize(const EngineInitParams& params) {
@@ -94,7 +94,7 @@ void Engine::Initialize(const EngineInitParams& params) {
 	//Look up all the classes that derive from System and create them.
 	SystemInitOrder initOrder;
 
-	for (const auto& classEntry : Reflection::registry.classes) {
+	for (const auto& classEntry : Reflection::GetRegistry().classes) {
 		Reflection::Class* cls = classEntry.second;
 		if (cls->IsA("System") && cls->className != "System") {
 			//Create an instance of the system.

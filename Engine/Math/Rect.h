@@ -4,7 +4,7 @@
 #include <vector>
 #include <algorithm>
 
-namespace Engine {
+namespace Math {
 
 template<typename T>
 class Rect {

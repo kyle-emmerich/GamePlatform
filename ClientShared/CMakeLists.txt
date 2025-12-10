@@ -10,7 +10,7 @@ set(CLIENT_SHARED_SOURCES
     include/ClientShared/Rendering/BgfxRenderer.h
 )
 
-add_library(ClientShared SHARED ${CLIENT_SHARED_SOURCES})
+add_library(ClientShared STATIC ${CLIENT_SHARED_SOURCES})
 
 # Include directories
 target_include_directories(ClientShared PUBLIC 
@@ -25,3 +25,4 @@ target_link_libraries(ClientShared PUBLIC
 
 # Definitions
 target_compile_definitions(ClientShared PRIVATE CLIENT_SHARED_EXPORTS)
+target_compile_definitions(ClientShared PUBLIC CLIENT_STATIC)

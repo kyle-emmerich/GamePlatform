@@ -4,15 +4,14 @@
 #include <stdexcept>
 #include "Instance/Reflection.h"
 
-namespace Engine {
-	class System;
-	class Instance;
-	class Engine;
-}
+class System;
+class Instance;
+class Engine;
 
-namespace Engine::Reflection {
-	inline Engine::Instance* instantiate_{{classSanitizedName}}(Engine::Engine* engine);
-	inline ::std::shared_ptr<Engine::Instance> instantiateShared_{{classSanitizedName}}(Engine::Engine* engine);
+
+namespace Reflection {
+	inline Instance* instantiate_{{classSanitizedName}}(Engine* engine);
+	inline ::std::shared_ptr<Instance> instantiateShared_{{classSanitizedName}}(Engine* engine);
 
 
 	//Class runtime reflection data
@@ -33,8 +32,8 @@ namespace Engine::Reflection {
 			//methods
 {{methodDefs}}
 		},
-		::std::function<Engine::Instance * (Engine::Engine*)>(&instantiate_{{classSanitizedName}}),
-		::std::function<::std::shared_ptr<Engine::Instance>(Engine::Engine*)>(&instantiateShared_{{classSanitizedName}}),
+		::std::function<Instance * (Engine*)>(&instantiate_{{classSanitizedName}}),
+		::std::function<::std::shared_ptr<Instance>(Engine*)>(&instantiateShared_{{classSanitizedName}}),
 		{
 			//public base classes
 {{publicBases}}
@@ -64,13 +63,13 @@ public:\
 		static std::string _className = "{{className}}"; \
 		return _className; \
 	} \
-	static Engine::Reflection::Class& StaticClass() { \
-		 return Engine::Reflection::reflected_{{classSanitizedName}}; \
+	static Reflection::Class& StaticClass() { \
+		 return Reflection::reflected_{{classSanitizedName}}; \
 	} \
 	struct ClassRegistrar { \
 		template<typename T> \
 		ClassRegistrar(T* inst) { \
-			Engine::Reflection::TrySetClass(inst, &StaticClass()); \
+			Reflection::TrySetClass(inst, &StaticClass()); \
 		} \
 	} _classRegistrar{this}; \
 public: \
@@ -82,11 +81,11 @@ private: \
 
 //Macro that goes after the class definition, at the end of any header with reflected objects.
 #define REFLECTION_END() \
-namespace Engine::Reflection { \
+namespace Reflection { \
 {{wrapperFunctions}} \
 	inline void register_{{classSanitizedName}}() { \
-		Engine::Reflection::registry.classes["{{className}}"] = &Engine::Reflection::reflected_{{classSanitizedName}}; \
-		Engine::Reflection::registry.classesById[{{classId}}] = &Engine::Reflection::reflected_{{classSanitizedName}}; \
+		Reflection::GetRegistry().classes.insert({ "{{className}}", &Reflection::reflected_{{classSanitizedName}} }); \
+		Reflection::GetRegistry().classesById.insert({ {{classId}}, &Reflection::reflected_{{classSanitizedName}} }); \
 {{propResolvers}} \
 	} \
 {{instantiateFunctions}} \

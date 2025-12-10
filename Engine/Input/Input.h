@@ -40,14 +40,14 @@ public:
 
 	[[reflect()]] 
 	[[summary("The position of the input. For mouse inputs, this is the cursor position. For touch inputs, this is the position of the touch and Z represents the touch pressure if hardware allows.")]]
-	Vector3<double> Position;
+	Math::Vector3<double> Position;
 
 	[[reflect()]]
 	[[summary("The change in position since the last state change. For mouse inputs, this is the change in cursor position (even if the cursor is locked). For scroll wheel events, the Z component represents the amount scrolled.")]]
-	Vector3<double> Delta;
+	Math::Vector3<double> Delta;
 
-	void SetPosition(const Vector3<double>& position);
-	void SetDelta(const Vector3<double>& delta);
+	void SetPosition(const Math::Vector3<double>& position);
+	void SetDelta(const Math::Vector3<double>& delta);
 	void SetState(InputState state);
 };
 
