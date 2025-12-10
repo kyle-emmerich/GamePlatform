@@ -1,29 +1,13 @@
 #include "ClientShared/Rendering/BgfxRenderer.h"
+#include "Platform/Viewport.h"
+#include "Platform/PlatformWindow.h"
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
+#include <bx/bx.h>
 
 namespace ClientShared {
 
-    struct PosColorVertex
-    {
-        float x;
-        float y;
-        float z;
-        uint32_t abgr;
-
-        static void init()
-        {
-            ms_layout
-                .begin()
-                .add(bgfx::Attrib::Position, 3, bgfx::AttribType::Float)
-                .add(bgfx::Attrib::Color0, 4, bgfx::AttribType::Uint8, true)
-                .end();
-        };
-
-        static bgfx::VertexLayout ms_layout;
-    };
-
-    bgfx::VertexLayout PosColorVertex::ms_layout;
+    bgfx::VertexLayout BgfxRenderer::SimpleVertex::static_layout;
 
     BgfxRenderer::BgfxRenderer() {
     }
@@ -32,69 +16,86 @@ namespace ClientShared {
         bgfx::shutdown();
     }
 
-    bool BgfxRenderer::Init() {
-        PosColorVertex::init();
+    void BgfxRenderer::Initialize(Viewport* mainViewport) {
+        if (!mainViewport->GetAttachedWindow()) {
+            throw std::runtime_error("BgfxRenderer requires the first viewport to be attached to a window.");
+        }
 
-        // TODO: Load shader program here
-        // program = ...
+        bgfx::Init init;
+#ifdef BX_PLATFORM_WINDOWS
+        init.platformData.nwh = mainViewport->GetAttachedWindow()->GetNativeWindowHandle();
+#elif BX_PLATFORM_LINUX || BX_PLATFORM_BSD
+        //get x11 window handle
+#elif BX_PLATFORM_OSX
+        //get cocoa window handle
+        init.platformData.nwh = (void*)mainViewport->GetAttachedWindow()->GetNativeWindowHandle();
+#endif
 
-        return true;
+        Math::Rect<int> windowInternalBounds = mainViewport->GetAttachedWindow()->GetInternalBounds();
+        init.resolution.width = windowInternalBounds.Size().X;
+        init.resolution.height = windowInternalBounds.Size().Y;
+        init.resolution.reset = BGFX_RESET_VSYNC;
+
+        if (!bgfx::init(init)) {
+            throw std::runtime_error("Failed to initialize bgfx");
+        }
+        initialized = true;
+        bgfx::setViewClear(0, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0x303030ff, 1.0f, 0);
+        bgfx::setViewRect(0, 0, 0, bgfx::BackbufferRatio::Equal);
+
+        //we'll also take this opportunity to initialize any shared resources.
+        //todo...
     }
 
-    void BgfxRenderer::BeginFrame() {
-        bgfx::touch(viewId);
+    void BgfxRenderer::InitializeAdditionalViewport(Viewport* viewport) {
+        // For additional viewports, we just need to set up their view rects.
+        if (!viewport->GetAttachedWindow()) {
+            throw std::runtime_error("BgfxRenderer requires additional viewports to be attached to a window.");
+        }
+
+        //we need to make a frame buffer for this viewport.
+
+        Math::Rect<int> windowInternalBounds = viewport->GetAttachedWindow()->GetInternalBounds();
+        Math::Vector2<int> size = windowInternalBounds.Size();
+
+        bgfx::FrameBufferHandle handle = bgfx::createFrameBuffer(size.X, size.Y, bgfx::TextureFormat::BGRA8, BGFX_TEXTURE_RT);
+        viewportFrameBuffers[viewport] = handle;
+        bgfx::setViewFrameBuffer(viewport->GetViewId(), handle);
+        bgfx::setViewClear(viewport->GetViewId(), BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0x303030ff, 1.0f, 0);
+        bgfx::setViewRect(viewport->GetViewId(), 0, 0, bgfx::BackbufferRatio::Equal);
+
     }
 
-    void BgfxRenderer::EndFrame() {
-        //bgfx::frame(); // Viewport handles this
-    }
-
-    void BgfxRenderer::DrawRect(const Math::Rect<float>& rect, const Math::Color& color) {
-        if (bgfx::getAvailTransientVertexBuffer(4, PosColorVertex::ms_layout) == 4) {
-            bgfx::TransientVertexBuffer tvb;
-            bgfx::allocTransientVertexBuffer(&tvb, 4, PosColorVertex::ms_layout);
-
-            PosColorVertex* verts = (PosColorVertex*)tvb.data;
-
-            uint32_t abgr = color.ToABGR();
-
-            verts[0] = { rect.left,  rect.top,    0.0f, abgr };
-            verts[1] = { rect.right, rect.top,    0.0f, abgr };
-            verts[2] = { rect.left,  rect.bottom, 0.0f, abgr };
-            verts[3] = { rect.right, rect.bottom, 0.0f, abgr };
-
-            bgfx::setVertexBuffer(0, &tvb);
-
-            bgfx::TransientIndexBuffer tib;
-            if (bgfx::getAvailTransientIndexBuffer(6) == 6) {
-                bgfx::allocTransientIndexBuffer(&tib, 6);
-                uint16_t* indices = (uint16_t*)tib.data;
-                indices[0] = 0; indices[1] = 1; indices[2] = 2;
-                indices[3] = 1; indices[4] = 3; indices[5] = 2;
-                bgfx::setIndexBuffer(&tib);
-
-                bgfx::setState(BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A);
-                
-                if (bgfx::isValid(program)) {
-                    bgfx::submit(viewId, program);
-                } else {
-                    // Fallback debug text
-                    bgfx::dbgTextPrintf(static_cast<uint16_t>(rect.left / 8), static_cast<uint16_t>(rect.top / 16), 0x0f, "RECT");
-                }
-            }
+    void BgfxRenderer::ShutdownAdditionalViewport(Viewport* viewport) {
+        auto it = viewportFrameBuffers.find(viewport);
+        if (it != viewportFrameBuffers.end()) {
+            bgfx::destroy(it->second);
+            viewportFrameBuffers.erase(it);
         }
     }
 
-    void BgfxRenderer::PushClipRect(const Math::Rect<float>& rect) {
-        bgfx::setScissor(
-            static_cast<uint16_t>(rect.min.X),
-            static_cast<uint16_t>(rect.min.Y),
-            static_cast<uint16_t>(rect.Size().X),
-            static_cast<uint16_t>(rect.Size().Y)
-        );
+    void BgfxRenderer::BeginFrame() {
+
     }
 
-    void BgfxRenderer::PopClipRect() {
-        bgfx::setScissor(0, 0, 0, 0);
+    void BgfxRenderer::EndFrame() {
+        bgfx::frame();
     }
+
+    bool BgfxRenderer::Initialized() {
+        return initialized;
+    }
+
+    void BgfxRenderer::Shutdown() {
+        if (initialized) {
+            initialized = false;
+            bgfx::shutdown();
+        }
+    }
+
+    void BgfxRenderer::DrawSolidRect(Viewport* viewport, const Math::Rect<float>& rect, const Math::Color& color) {
+        int viewId = viewport->GetViewId();
+        
+    }
+
 }

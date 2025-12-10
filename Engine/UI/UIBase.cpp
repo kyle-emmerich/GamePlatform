@@ -50,12 +50,12 @@ void UIBase::SetFocusable(bool isFocusable) {
 	}
 }
 
-void UIBase::OnRender(Rendering::IRenderer* renderer) {
+void UIBase::OnRender(const Math::Transform<double>& layerTransform, Rendering::IRenderer* renderer) {
 	if (!Visible) return;
 
 	for (Instance* child : Children) {
 		if (child->IsA<UIBase>()) {
-			static_cast<UIBase*>(child)->OnRender(renderer);
+			static_cast<UIBase*>(child)->OnRender(layerTransform, renderer);
 		}
 	}
 }

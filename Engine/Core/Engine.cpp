@@ -6,6 +6,7 @@
 #include "Rendering/IRenderer.h"
 #include <unordered_map>
 #include "ReflectionRegistry.h"
+#include "Platform/Viewport.h"
 
 void SystemInitOrder::Before(System* system, std::string_view beforeSystemName) {
 	rules.push_back({ system, beforeSystemName, SystemRelation::Before });
@@ -152,17 +153,26 @@ void Engine::Update() {
 	}
 }
 
-void Engine::Render() {
-	if (renderer) {
-		renderer->BeginFrame();
+void Engine::registerViewport(Viewport* viewport) {
+	viewports.push_back(viewport);
 
-		//Find all active cameras and render them
+	if (renderer && !renderer->Initialized()) {
+		//init the renderer with this viewport
+		renderer->Initialize(viewport);
+	} else if (renderer && renderer->Initialized()) {
+		renderer->InitializeAdditionalViewport(viewport);
+	}
+}
 
-		//Render UI last
-		if (UISystem* uiSystem = GetSystem<UISystem>()) {
-			uiSystem->Render(renderer);
-		}
+void Engine::unregisterViewport(Viewport* viewport) {
+	if (renderer && renderer->Initialized()) {
+		//todo: check if this is an additional or main
+		//we cannot close the main viewport if there are additional
+		//renderer->ShutdownAdditionalViewport(viewport);
+	}
 
-		renderer->EndFrame();
+	auto it = std::find(viewports.begin(), viewports.end(), viewport);
+	if (it != viewports.end()) {
+		viewports.erase(it);
 	}
 }

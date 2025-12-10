@@ -6,6 +6,10 @@
 #include "Math/Rect.h"
 #include "Math/Color.h"
 
+#include <unordered_map>
+
+class Viewport;
+
 namespace ClientShared {
 
     class CLIENT_API BgfxRenderer : public Rendering::IRenderer {
@@ -13,19 +17,43 @@ namespace ClientShared {
         BgfxRenderer();
         virtual ~BgfxRenderer();
 
-        bool Init();
-        void SetViewId(int viewId) { this->viewId = viewId; }
-
+        virtual void Initialize(Viewport* mainViewport) override;
+        void Shutdown() override;
+        bool Initialized() override;
+        
         void BeginFrame() override;
         void EndFrame() override;
 
-        void DrawRect(const Math::Rect<float>& rect, const Math::Color& color) override;
-        void PushClipRect(const Math::Rect<float>& rect) override;
-        void PopClipRect() override;
+        void InitializeAdditionalViewport(Viewport* viewport);
+        void ShutdownAdditionalViewport(Viewport* viewport);
 
+        void DrawSolidRect(Viewport* viewport, const Math::Rect<float>& rect, const Math::Color& color) override;
     private:
-        bgfx::ProgramHandle program = BGFX_INVALID_HANDLE;
-        int viewId = 0;
+        Viewport* mainViewport = nullptr;
+        std::unordered_map<Viewport*, bgfx::FrameBufferHandle> viewportFrameBuffers;
+
+        bool initialized = false;
+
+        struct SimpleVertex {
+            float x, y, z;
+            uint32_t abgr;
+
+            static void init() {
+                static_layout
+                    .begin()
+                    .add(bgfx::Attrib::Position, 3, bgfx::AttribType::Float)
+                    .add(bgfx::Attrib::Color0, 4, bgfx::AttribType::Uint8, true)
+                    .end();
+            }
+            static bgfx::VertexLayout static_layout;
+        };
+
+        bgfx::VertexBufferHandle solidRectVbh = BGFX_INVALID_HANDLE;
+        bgfx::ProgramHandle solidRectProgram = BGFX_INVALID_HANDLE;
+    public:
+        static void StaticInit() {
+            SimpleVertex::init();
+        }
     };
 
 }

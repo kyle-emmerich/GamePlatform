@@ -33,11 +33,11 @@ C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Rendering\IRenderer.h
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Replication\NetworkClient.h
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Replication\NetworkPeer.h
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Replication\Replicator.h
-C:\Users\Kyle\Documents\Development\GamePlatform\Engine\UI\LayerCollector.h
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\UI\UIBase.h
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\UI\UIButton.h
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\UI\UIFrame.h
-C:\Users\Kyle\Documents\Development\GamePlatform\Engine\UI\UIScreen.h
-C:\Users\Kyle\Documents\Development\GamePlatform\Engine\UI\UISurface.h
+C:\Users\Kyle\Documents\Development\GamePlatform\Engine\UI\UILayer.h
+C:\Users\Kyle\Documents\Development\GamePlatform\Engine\UI\UIScreenLayer.h
+C:\Users\Kyle\Documents\Development\GamePlatform\Engine\UI\UISurfaceLayer.h
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\UI\UISystem.h
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Utility\LRUCache.h

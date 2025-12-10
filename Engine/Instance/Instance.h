@@ -32,7 +32,7 @@ protected:
 	}
 };
 
-class [[reflect()]] Instance: BaseInstance<Instance> {
+class [[reflect()]] Instance : BaseInstance<Instance> {
 	REFLECTION()
 public: //reflected properties
 

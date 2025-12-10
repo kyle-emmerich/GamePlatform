@@ -1,3 +1,5 @@
+#todo: clean this project up. why do I always end up writing megafiles in python?
+
 from typing import Generator
 import tree_sitter_cpp as tscpp
 from tree_sitter import Language, Parser, Tree, Node
@@ -70,7 +72,7 @@ class ReflectedProperty:
 			if "ReadOnly" in self.flags:
 				setter_wrapper = f"/*ReadOnly setter*/ inline void wrap_{sanitized_parent_name}_Set{self.name}(void* obj, void* value) {{ throw std::runtime_error(\"Cannot set {parent_name}.{self.name}\"); }}"
 			else:
-				setter_wrapper = f"inline void wrap_{sanitized_parent_name}_Set{self.name}(void* obj, void* value) {{ reinterpret_cast<{parent_name}*>(obj)->{self.name} = *reinterpret_cast<{self.prop_type}*>(value); }}"
+				setter_wrapper = f"inline void wrap_{sanitized_parent_name}_Set{self.name}(void* obj, void* value) {{ {parent_name}* instance = reinterpret_cast<{parent_name}*>(obj); instance->{self.name} = *reinterpret_cast<{self.prop_type}*>(value); instance->raisePropChanged({parent_name}::prop_{self.name}); }}"
 		if not getter:
 			getter_wrapper = f"inline void* wrap_{sanitized_parent_name}_Get{self.name}(void* obj) {{ {self.prop_type}* value = &(reinterpret_cast<{parent_name}*>(obj)->{self.name}); return reinterpret_cast<void*>(value); }}"
 		return setter_wrapper, getter_wrapper
@@ -710,6 +712,53 @@ def generate_raise_prop_changed_method_text(class_info):
 		}} \\
 	}}"""
 
+def get_setter_arg_type(prop_type):
+	t = prop_type.strip()
+	if t.endswith('*'):
+		return t
+	
+	by_value_types = {
+		'bool', 'char', 'unsigned char', 'signed char',
+		'short', 'unsigned short', 'signed short',
+		'int', 'unsigned int', 'signed int', 'unsigned', 'signed',
+		'long', 'unsigned long', 'signed long',
+		'long long', 'unsigned long long',
+		'float', 'double', 'long double',
+		'size_t', 'int8_t', 'uint8_t', 'int16_t', 'uint16_t',
+		'int32_t', 'uint32_t', 'int64_t', 'uint64_t',
+		'uintptr_t', 'intptr_t'
+	}
+	
+	if t in by_value_types:
+		return t
+		
+	return f"const {t}&"
+
+def generate_accessors_text(class_info):
+	result = ""
+	for prop in class_info.props:
+		# Check for existing setter/getter
+		has_setter = False
+		has_getter = False
+		for method in class_info.methods:
+			if method.get_associated_prop() == prop:
+				if method.is_setter:
+					has_setter = True
+				elif method.is_getter:
+					has_getter = True
+		
+		# Generate Setter
+		if not has_setter and not prop.has_flag("ReadOnly"):
+			arg_type = get_setter_arg_type(prop.prop_type)
+			result += f"\tvoid Set{prop.name}({arg_type} value) {{ {prop.name} = value; raisePropChanged(prop_{prop.name}); }} \\\n"
+
+		# Generate Getter
+		if not has_getter:
+			arg_type = get_setter_arg_type(prop.prop_type)
+			result += f"\t{arg_type} Get{prop.name}() const {{ return {prop.name}; }} \\\n"
+			
+	return result
+
 def generate_header(template_path, target_dir, header_filename, class_info):
 	output = ""
 	with open(template_path, "r") as template_file:
@@ -742,6 +791,7 @@ def generate_header(template_path, target_dir, header_filename, class_info):
 		replacements["wrapperFunctions"] = generate_wrapper_functions_text(class_info)
 		replacements["propResolvers"] = generate_prop_resolvers_text(class_info)
 		replacements["instantiateFunctions"] = generate_instantiate_functions_text(class_info)
+		replacements["generatedAccessors"] = generate_accessors_text(class_info)
 			
 		for key in replacements:
 			# print("replacing", key, "with", replacements[key])

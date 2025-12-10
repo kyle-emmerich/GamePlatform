@@ -2,15 +2,22 @@
 
 #include <string>
 #include <vector>
+#include "Instance/Instance.h"
 #include "Rendering/IRenderable.h"
 #include "Core/Export.h"
 #include "Core/Event.h"
 
-class PlatformWindow;
+#include "Math/Vector2.h"
 
-class GP_EXPORT Viewport {
+#include "Viewport.generated.h"
+
+class PlatformWindow;
+class Engine;
+
+class [[reflect()]] GP_EXPORT Viewport : public Instance, BaseInstance<Viewport> {
+    REFLECTION()
 public:
-    Viewport();
+    Viewport(Engine* engine);
     virtual ~Viewport();
 
     void AttachToWindow(PlatformWindow* window);
@@ -22,13 +29,24 @@ public:
 
     PlatformWindow* GetAttachedWindow() const { return attachedWindow; }
     int GetViewId() const { return viewId; }
+
+    Math::Vector2<double> GetSize() const;
+
+    bool IsDirty() const { return dirtyFlag; }
+    void MarkDirty() { dirtyFlag = true; }
+    void ClearDirty() { dirtyFlag = false; }
 protected:
     PlatformWindow* attachedWindow = nullptr;
 
     int viewId;
     static int nextViewId;
 
+    bool dirtyFlag = true;
+    bool updateEveryFrame = true;
+
     std::vector<IRenderable*> renderables;
 
     MulticastEvent<>::Listener* windowResizedListener = nullptr;
 };
+
+REFLECTION_END()

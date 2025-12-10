@@ -10,6 +10,10 @@
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 
+#include "UI/UISystem.h"
+#include "UI/UIScreenLayer.h"
+#include "UI/UIFrame.h"
+
 class WindowsTimeProvider : public ITimeProvider {
 public:
     double GetTimeSeconds() const override {
@@ -26,11 +30,14 @@ public:
     }
 };
 
-int main(int argc, char** argv) {    
+int main(int argc, char** argv) {
+    //Very first thing to do is init the renderer's static resources.
+    ClientShared::BgfxRenderer::StaticInit();
+
     Engine* engine = new Engine;
-    ClientShared::BgfxRenderer renderer;
+    std::shared_ptr<ClientShared::BgfxRenderer> renderer = std::make_shared<ClientShared::BgfxRenderer>();
     EngineInitParams params;
-    params.renderer = &renderer;
+    params.renderer = renderer.get();
     engine->Initialize(params);
 
     Console console(engine);
@@ -44,9 +51,24 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    Viewport viewport;
-    viewport.AttachToWindow(&window);
-    viewport.AttachRenderable(&console);
+    std::shared_ptr<Viewport> viewport = std::make_shared<Viewport>(engine);
+    viewport->AttachToWindow(&window);
+    viewport->AttachRenderable(&console);
+
+    // //let's add some test UI and see if it renders.
+    // UISystem* uiSystem = engine->GetSystem<UISystem>();
+    
+    // UIScreenLayer* testLayer = new UIScreenLayer(engine);
+    // testLayer->SetName("TestLayer");
+    // testLayer->SetViewport(viewport);
+
+    // UIFrame* testFrame = new UIFrame(engine);
+    // testFrame->SetPosition(Math::UDim2<float>(0.1f, 0.0f, 0.1f, 0.0f));
+    // testFrame->SetSize(Math::UDim2<float>(0.3f, 0.0f, 0.3f, 0.0f));
+    // testFrame->SetBackgroundColor(Math::Color(0.0f, 1.0f, 0.0f, 1.0f));
+    // testFrame->SetParent(testLayer);
+    // testLayer->SetParent(uiSystem);
+    
 
     std::cout << "Engine Initialized." << std::endl;
 
@@ -56,11 +78,19 @@ int main(int argc, char** argv) {
         //execute some lua
         //run physics
         //execute some more lua
-        viewport.RenderFrame();
+        renderer->BeginFrame();
+
+        viewport->RenderFrame();
+        
+        renderer->EndFrame();
         //execute more lua
     }
+
+    viewport.reset();
+    renderer.reset();
     
     engine->Shutdown();
     std::cout << "Engine shutdown." << std::endl;
+    delete engine;
     return 0;
 }

@@ -2,6 +2,7 @@
 
 #include "UI/UIBase.h"
 #include "Math/Color.h"
+#include "Math/Transform.h"
 #include "UIFrame.generated.h"
 
 class UIBase;
@@ -15,7 +16,7 @@ public:
     [[summary("Determines the background color and opacity of the UI frame.")]]
     Math::Color BackgroundColor;
 
-    void OnRender(Rendering::IRenderer* renderer) override;
+    void OnRender(const Math::Transform<double>& layerTransform, Rendering::IRenderer* renderer);
 
 };
 

@@ -5,6 +5,7 @@
 #include "Rendering/IRenderer.h"
 #include "Math/Rect.h"
 #include "Math/UDim2.h"
+#include "Math/Transform.h"
 #include "UIBase.generated.h"
 
 class [[reflect(Hidden)]] UIBase : public Instance, BaseInstance<UIBase>, protected IInputFocusable {
@@ -12,7 +13,7 @@ class [[reflect(Hidden)]] UIBase : public Instance, BaseInstance<UIBase>, protec
 public:
 	UIBase(Engine* engine) : Instance(engine) {}
 
-	virtual void OnRender(Rendering::IRenderer* renderer);
+	virtual void OnRender(const Math::Transform<double>& layerTransform, Rendering::IRenderer* renderer);
 
 	[[reflect()]]
 	[[summary("Determines if the UI element and its descendants are visible. Non-visible UI elements do not receive input events.")]]

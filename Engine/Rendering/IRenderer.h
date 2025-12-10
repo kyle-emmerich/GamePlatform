@@ -4,6 +4,8 @@
 #include "Math/Vector2.h"
 #include "Math/Color.h"
 
+class Viewport;
+
 namespace Rendering {
 
     class IRenderer {
@@ -13,12 +15,14 @@ namespace Rendering {
         virtual void BeginFrame() = 0;
         virtual void EndFrame() = 0;
 
-        virtual void DrawRect(const Math::Rect<float>& rect, const Math::Color& color) = 0;
-        // Add more drawing methods as needed (DrawText, DrawTexture, etc.)
-        
-        // Clipping
-        virtual void PushClipRect(const Math::Rect<float>& rect) = 0;
-        virtual void PopClipRect() = 0;
+        virtual bool Initialized() = 0;
+        virtual void Initialize(Viewport* mainViewport) = 0;
+        virtual void Shutdown() = 0;
+
+        virtual void InitializeAdditionalViewport(Viewport* viewport) = 0;
+        virtual void ShutdownAdditionalViewport(Viewport* viewport) = 0;
+
+        virtual void DrawSolidRect(Viewport* viewport, const Math::Rect<float>& rect, const Math::Color& color) = 0;
     };
 
 }

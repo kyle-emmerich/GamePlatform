@@ -75,6 +75,7 @@ public:\
 public: \
 {{memberIds}} \
 {{raisePropChangedMethod}} \
+{{generatedAccessors}} \
 private: \
 
 #undef REFLECTION_END

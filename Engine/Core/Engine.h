@@ -75,7 +75,7 @@ public:
 	double GetTime();
 
 	void Update();
-	void Render();
+
 protected:
 	ITimeProvider* timeProvider = nullptr;
 	Log* log = nullptr;
@@ -90,6 +90,12 @@ protected:
 	bool systemsInitialized = false;
 	std::map<std::string_view, System*> systems;
 	std::vector<System*> orderedSystems;
+
+	std::vector<class Viewport*> viewports;
+	friend class Viewport;
+
+	void registerViewport(class Viewport* viewport);
+	void unregisterViewport(class Viewport* viewport);
 };
 
 REFLECTION_END()

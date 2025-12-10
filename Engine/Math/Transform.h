@@ -221,6 +221,40 @@ public:
 		}
 		return result;
 	}
+
+	static Transform<T> OrthographicProjection(T left, T right, T bottom, T top, T nearPlane, T farPlane) {
+		Transform<T> result;
+		result.m00 = 2.0 / (right - left);
+		result.m11 = 2.0 / (top - bottom);
+		result.m22 = -2.0 / (farPlane - nearPlane);
+		result.m03 = -(right + left) / (right - left);
+		result.m13 = -(top + bottom) / (top - bottom);
+		result.m23 = -(farPlane + nearPlane) / (farPlane - nearPlane);
+		return result;
+	}
+	static Transform<T> PerspectiveProjection(T fovY, T aspectRatio, T nearPlane, T farPlane) {
+		Transform<T> result;
+		T f = 1.0 / tan(fovY / 2.0);
+		result.m00 = f / aspectRatio;
+		result.m11 = f;
+		result.m22 = (farPlane + nearPlane) / (nearPlane - farPlane);
+		result.m23 = (2.0 * farPlane * nearPlane) / (nearPlane - farPlane);
+		result.m32 = -1.0;
+		result.m33 = 0.0;
+		return result;
+	}
+	static Transform<T> OffcenterPerspectiveProjection(T left, T right, T bottom, T top, T nearPlane, T farPlane) {
+		Transform<T> result;
+		result.m00 = (2.0 * nearPlane) / (right - left);
+		result.m11 = (2.0 * nearPlane) / (top - bottom);
+		result.m02 = (right + left) / (right - left);
+		result.m12 = (top + bottom) / (top - bottom);
+		result.m22 = -(farPlane + nearPlane) / (farPlane - nearPlane);
+		result.m23 = -(2.0 * farPlane * nearPlane) / (farPlane - nearPlane);
+		result.m32 = -1.0;
+		result.m33 = 0.0;
+		return result;
+	}
 };
 
 }

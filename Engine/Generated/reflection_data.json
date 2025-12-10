@@ -233,19 +233,6 @@
                 "is_getter": false,
                 "is_changed_handler": false,
                 "associated_prop_name": null
-            },
-            {
-                "type": "method",
-                "return_type": "void",
-                "name": "Render",
-                "args": [],
-                "flags": [],
-                "hash": 15974652034738582458,
-                "attributes": {},
-                "is_setter": false,
-                "is_getter": false,
-                "is_changed_handler": false,
-                "associated_prop_name": null
             }
         ],
         "events": [],
@@ -1823,6 +1810,146 @@
         "derived_classes": []
     },
     {
+        "header": "Platform/Viewport.h",
+        "namespace": null,
+        "type": "class",
+        "name": "Viewport",
+        "reflected": true,
+        "flags": {
+            "reflect": []
+        },
+        "props": [],
+        "methods": [
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "AttachToWindow",
+                "args": [],
+                "flags": [],
+                "hash": 12838895599752001722,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "AttachRenderable",
+                "args": [],
+                "flags": [],
+                "hash": 17350609154072433291,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "DetachRenderable",
+                "args": [],
+                "flags": [],
+                "hash": 4534288204153614557,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "RenderFrame",
+                "args": [],
+                "flags": [],
+                "hash": 12332037870038898535,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "int",
+                "name": "GetViewId",
+                "args": [],
+                "flags": [],
+                "hash": 13910796225618669266,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": true,
+                "is_changed_handler": false,
+                "associated_prop_name": "ViewId"
+            },
+            {
+                "type": "method",
+                "return_type": "Math::Vector2<double>",
+                "name": "GetSize",
+                "args": [],
+                "flags": [],
+                "hash": 10674161639722712095,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": true,
+                "is_changed_handler": false,
+                "associated_prop_name": "Size"
+            },
+            {
+                "type": "method",
+                "return_type": "bool",
+                "name": "IsDirty",
+                "args": [],
+                "flags": [],
+                "hash": 11371586387471337094,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "MarkDirty",
+                "args": [],
+                "flags": [],
+                "hash": 17793580216927872633,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "ClearDirty",
+                "args": [],
+                "flags": [],
+                "hash": 1224853597046919721,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            }
+        ],
+        "events": [],
+        "hash": 15786407814455166725,
+        "public_base_classes": [
+            "Instance"
+        ],
+        "protected_base_classes": [],
+        "private_base_classes": [
+            "BaseInstance<Viewport>"
+        ],
+        "derived_classes": []
+    },
+    {
         "header": "Rendering/Camera.h",
         "namespace": null,
         "type": "class",
@@ -2012,42 +2139,6 @@
         "protected_base_classes": [],
         "private_base_classes": [
             "BaseInstance<Replicator>"
-        ],
-        "derived_classes": []
-    },
-    {
-        "header": "UI/LayerCollector.h",
-        "namespace": null,
-        "type": "class",
-        "name": "LayerCollector",
-        "reflected": true,
-        "flags": {
-            "reflect": []
-        },
-        "props": [],
-        "methods": [
-            {
-                "type": "method",
-                "return_type": "void",
-                "name": "Render",
-                "args": [],
-                "flags": [],
-                "hash": 12424876984866188840,
-                "attributes": {},
-                "is_setter": false,
-                "is_getter": false,
-                "is_changed_handler": false,
-                "associated_prop_name": null
-            }
-        ],
-        "events": [],
-        "hash": 17706960372177496591,
-        "public_base_classes": [
-            "Instance"
-        ],
-        "protected_base_classes": [],
-        "private_base_classes": [
-            "BaseInstance<LayerCollector>"
         ],
         "derived_classes": []
     },
@@ -2437,32 +2528,133 @@
         "derived_classes": []
     },
     {
-        "header": "UI/UIScreen.h",
+        "header": "UI/UILayer.h",
         "namespace": null,
         "type": "class",
-        "name": "UIScreen",
+        "name": "UILayer",
         "reflected": true,
         "flags": {
             "reflect": []
         },
-        "props": [],
-        "methods": [],
+        "props": [
+            {
+                "type": "property",
+                "prop_type": "bool",
+                "name": "Visible",
+                "flags": [],
+                "hash": 5058834983567597453,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {}
+            }
+        ],
+        "methods": [
+            {
+                "type": "method",
+                "return_type": "Math::Transform<double>",
+                "name": "GetLayerTransform",
+                "args": [],
+                "flags": [],
+                "hash": 1286906546172628368,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": true,
+                "is_changed_handler": false,
+                "associated_prop_name": "LayerTransform"
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "OnRendered",
+                "args": [],
+                "flags": [],
+                "hash": 12961685070708736389,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "OnAttached",
+                "args": [],
+                "flags": [],
+                "hash": 17596752776009123728,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "OnDetached",
+                "args": [],
+                "flags": [],
+                "hash": 5158291033320948802,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            }
+        ],
         "events": [],
-        "hash": 4238100522809784033,
+        "hash": 6626084362799629926,
         "public_base_classes": [
-            "LayerCollector"
+            "Instance"
         ],
         "protected_base_classes": [],
         "private_base_classes": [
-            "BaseInstance<UIScreen>"
+            "BaseInstance<UILayer>",
+            "IRenderable"
         ],
         "derived_classes": []
     },
     {
-        "header": "UI/UISurface.h",
+        "header": "UI/UIScreenLayer.h",
         "namespace": null,
         "type": "class",
-        "name": "UISurface",
+        "name": "UIScreenLayer",
+        "reflected": true,
+        "flags": {
+            "reflect": []
+        },
+        "props": [],
+        "methods": [
+            {
+                "type": "method",
+                "return_type": "Math::Transform<double>",
+                "name": "GetLayerTransform",
+                "args": [],
+                "flags": [],
+                "hash": 6469454752510297172,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": true,
+                "is_changed_handler": false,
+                "associated_prop_name": "LayerTransform"
+            }
+        ],
+        "events": [],
+        "hash": 16482266350765397210,
+        "public_base_classes": [
+            "UILayer"
+        ],
+        "protected_base_classes": [],
+        "private_base_classes": [
+            "BaseInstance<UIScreenLayer>"
+        ],
+        "derived_classes": []
+    },
+    {
+        "header": "UI/UISurfaceLayer.h",
+        "namespace": null,
+        "type": "class",
+        "name": "UISurfaceLayer",
         "reflected": true,
         "flags": {
             "reflect": []
@@ -2470,13 +2662,13 @@
         "props": [],
         "methods": [],
         "events": [],
-        "hash": 209784460033236108,
+        "hash": 13310311961346317417,
         "public_base_classes": [
-            "LayerCollector"
+            "UILayer"
         ],
         "protected_base_classes": [],
         "private_base_classes": [
-            "BaseInstance<UISurface>"
+            "BaseInstance<UISurfaceLayer>"
         ],
         "derived_classes": []
     },

@@ -3,14 +3,18 @@
 #include "bgfx/bgfx.h"
 #include "bx/bx.h"
 #include "bgfx/platform.h"
+#include "Math/Vector2.h"
+#include "Core/Engine.h"
 #include <stdexcept>
 #include <iostream>
 
-Viewport::Viewport() {
+Viewport::Viewport(Engine* engine) : Instance(engine) {
     viewId = nextViewId++;
 }
 
 Viewport::~Viewport() {
+    engine->unregisterViewport(this);
+
     if (windowResizedListener) {
         windowResizedListener->Disconnect();
         windowResizedListener = nullptr;
@@ -24,28 +28,12 @@ Viewport::~Viewport() {
 void Viewport::AttachToWindow(PlatformWindow* window) {
     attachedWindow = window;
 
+    engine->registerViewport(this);
+
     Math::Rect<int> windowInternalBounds = attachedWindow->GetInternalBounds();
     
-    bgfx::Init init;
-#ifdef BX_PLATFORM_WINDOWS
-    init.platformData.nwh = (void*)(uintptr_t)attachedWindow->GetNativeWindowHandle();
-#elif BX_PLATFORM_LINUX || BX_PLATFORM_BSD
-    //get x11 window handle
-#elif BX_PLATFORM_OSX
-    //get cocoa window handle
-    init.platformData.nwh = (void*)attachedWindow->GetNativeWindowHandle();
-#endif
+ 
 
-    init.resolution.width = windowInternalBounds.Size().X;
-    init.resolution.height = windowInternalBounds.Size().Y;
-    init.resolution.reset = BGFX_RESET_VSYNC;
-
-    if (!bgfx::init(init)) {
-        throw std::runtime_error("Failed to initialize bgfx");
-    }
-
-    bgfx::setViewClear(viewId, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0x303030ff, 1.0f, 0);
-    bgfx::setViewRect(viewId, 0, 0, bgfx::BackbufferRatio::Equal);
 
     windowResizedListener = &attachedWindow->Resized.Connect([this]() {
         Math::Rect<int> newBounds = attachedWindow->GetInternalBounds();
@@ -61,7 +49,12 @@ void Viewport::RenderFrame() {
     for (IRenderable* renderable : renderables) {
         renderable->OnRendered(this);
     }
+
+    //find all UILayers associated with this viewport and render them.
+    
+
     bgfx::frame();
+
 }
 
 void Viewport::AttachRenderable(IRenderable* renderable) {
@@ -72,6 +65,14 @@ void Viewport::AttachRenderable(IRenderable* renderable) {
 void Viewport::DetachRenderable(IRenderable* renderable) {
     renderable->OnDetached(this);
     renderables.erase(std::remove(renderables.begin(), renderables.end(), renderable), renderables.end());
+}
+
+Math::Vector2<double> Viewport::GetSize() const {
+    if (attachedWindow) {
+        Math::Rect<int> bounds = attachedWindow->GetInternalBounds();
+        return Math::Vector2<double>(static_cast<double>(bounds.Size().X), static_cast<double>(bounds.Size().Y));
+    }
+    return Math::Vector2<double>(0.0, 0.0);
 }
 
 int Viewport::nextViewId = 0;

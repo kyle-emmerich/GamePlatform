@@ -41,6 +41,8 @@
 #include "HingeConstraint.generated.h"
 #include "Platform/PlatformWindow.h"
 #include "PlatformWindow.generated.h"
+#include "Platform/Viewport.h"
+#include "Viewport.generated.h"
 #include "Rendering/Camera.h"
 #include "Camera.generated.h"
 #include "Replication/NetworkClient.h"
@@ -49,18 +51,18 @@
 #include "NetworkPeer.generated.h"
 #include "Replication/Replicator.h"
 #include "Replicator.generated.h"
-#include "UI/LayerCollector.h"
-#include "LayerCollector.generated.h"
 #include "UI/UIBase.h"
 #include "UIBase.generated.h"
 #include "UI/UIButton.h"
 #include "UIButton.generated.h"
 #include "UI/UIFrame.h"
 #include "UIFrame.generated.h"
-#include "UI/UIScreen.h"
-#include "UIScreen.generated.h"
-#include "UI/UISurface.h"
-#include "UISurface.generated.h"
+#include "UI/UILayer.h"
+#include "UILayer.generated.h"
+#include "UI/UIScreenLayer.h"
+#include "UIScreenLayer.generated.h"
+#include "UI/UISurfaceLayer.h"
+#include "UISurfaceLayer.generated.h"
 #include "UI/UISystem.h"
 #include "UISystem.generated.h"
 
@@ -88,16 +90,17 @@ namespace Reflection {
 		Reflection::register_ConstraintBase();
 		Reflection::register_HingeConstraint();
 		Reflection::register_PlatformWindow();
+		Reflection::register_Viewport();
 		Reflection::register_Camera();
 		Reflection::register_NetworkClient();
 		Reflection::register_NetworkPeer();
 		Reflection::register_Replicator();
-		Reflection::register_LayerCollector();
 		Reflection::register_UIBase();
 		Reflection::register_UIButton();
 		Reflection::register_UIFrame();
-		Reflection::register_UIScreen();
-		Reflection::register_UISurface();
+		Reflection::register_UILayer();
+		Reflection::register_UIScreenLayer();
+		Reflection::register_UISurfaceLayer();
 		Reflection::register_UISystem();
 
 	}
