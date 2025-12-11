@@ -44,8 +44,8 @@ namespace ClientShared {
         }
         this->mainViewport = mainViewport;
         initialized = true;
-        bgfx::setViewClear(0, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0x303030ff, 1.0f, 0);
-        bgfx::setViewRect(0, 0, 0, bgfx::BackbufferRatio::Equal);
+        bgfx::setViewClear(mainViewport->GetViewId(), BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0x303030ff, 1.0f, 0);
+        bgfx::setViewRect(mainViewport->GetViewId(), 0, 0, bgfx::BackbufferRatio::Equal);
 
         SimpleVertex::init();
         
@@ -58,10 +58,15 @@ namespace ClientShared {
         };
         const uint16_t indices[] = { 0, 1, 2, 0, 2, 3 };
 
-        solidRectVbh = bgfx::createVertexBuffer(bgfx::makeRef(vertices, sizeof(vertices)), SimpleVertex::static_layout);
-        solidRectIbh = bgfx::createIndexBuffer(bgfx::makeRef(indices, sizeof(indices)));
+        solidRectVbh = bgfx::createVertexBuffer(bgfx::copy(vertices, sizeof(vertices)), SimpleVertex::static_layout);
+        solidRectIbh = bgfx::createIndexBuffer(bgfx::copy(indices, sizeof(indices)));
         
         solidRectShader = Shader::Load("ui");
+        if (!solidRectShader) {
+            std::cerr << "CRITICAL ERROR: Failed to load UI shader!" << std::endl;
+        } else {
+            std::cout << "UI Shader loaded successfully." << std::endl;
+        }
 
         //we'll also take this opportunity to initialize any shared resources.
         //todo...
@@ -92,6 +97,7 @@ namespace ClientShared {
             bgfx::destroy(it->second);
             viewportFrameBuffers.erase(it);
         }
+        bgfx::resetView(viewport->GetViewId());
     }
 
     void BgfxRenderer::BeginFrame() {
@@ -147,8 +153,6 @@ namespace ClientShared {
             return;
         }
 
-        // std::cout << "Drawing rect: " << rect.left << ", " << rect.top << " " << rect.right << ", " << rect.bottom << std::endl;
-
         Math::Transform<float> transform;
         transform.SetTranslation(Math::Vector3<float>(rect.left, rect.top, 0.0f));
         transform.m00 = rect.right - rect.left;
@@ -169,10 +173,9 @@ namespace ClientShared {
         */
 
         
-        bgfx::setState(BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A | BGFX_STATE_BLEND_ALPHA | BGFX_STATE_CULL_CCW);
+        bgfx::setState(BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A | BGFX_STATE_BLEND_ALPHA);
         bgfx::setVertexBuffer(0, solidRectVbh);
         bgfx::setIndexBuffer(solidRectIbh);
-        
         bgfx::submit(viewId, solidRectShader->GetHandle());
     }
 
