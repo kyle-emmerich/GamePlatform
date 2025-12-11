@@ -1,10 +1,8 @@
 #include "Platform/Viewport.h"
 #include "Platform/PlatformWindow.h"
-#include "bgfx/bgfx.h"
-#include "bx/bx.h"
-#include "bgfx/platform.h"
 #include "Math/Vector2.h"
 #include "Core/Engine.h"
+#include "Rendering/IRenderer.h"
 #include <stdexcept>
 #include <iostream>
 
@@ -20,7 +18,7 @@ Viewport::~Viewport() {
         windowResizedListener = nullptr;
     }
     if (attachedWindow) {
-        bgfx::shutdown();
+        // Renderer shutdown handled by Engine/Renderer
     }
     attachedWindow = nullptr;
 }
@@ -31,21 +29,16 @@ void Viewport::AttachToWindow(PlatformWindow* window) {
     engine->registerViewport(this);
 
     Math::Rect<int> windowInternalBounds = attachedWindow->GetInternalBounds();
-    
- 
-
 
     windowResizedListener = &attachedWindow->Resized.Connect([this]() {
         Math::Rect<int> newBounds = attachedWindow->GetInternalBounds();
-        bgfx::reset(newBounds.Size().X, newBounds.Size().Y, BGFX_RESET_VSYNC);
-        bgfx::setViewRect(viewId, 0, 0, bgfx::BackbufferRatio::Equal);
-
+        engine->GetRenderer()->OnViewportResized(this, newBounds.Size());
         //std::cout << "Viewport resized to " << newBounds.Size().X << "x" << newBounds.Size().Y << std::endl;
     });
 }
 
 void Viewport::RenderFrame() {
-    bgfx::touch(viewId);
+    //bgfx::touch(viewId);
     for (IRenderable* renderable : renderables) {
         renderable->OnRendered(this);
     }
@@ -53,7 +46,7 @@ void Viewport::RenderFrame() {
     //find all UILayers associated with this viewport and render them.
     
 
-    bgfx::frame();
+    //bgfx::frame();
 
 }
 

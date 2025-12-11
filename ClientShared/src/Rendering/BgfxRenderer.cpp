@@ -4,6 +4,9 @@
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
 #include <bx/bx.h>
+#include <bx/math.h>
+#include "Math/Transform.h"
+#include <iostream>
 
 namespace ClientShared {
 
@@ -39,9 +42,26 @@ namespace ClientShared {
         if (!bgfx::init(init)) {
             throw std::runtime_error("Failed to initialize bgfx");
         }
+        this->mainViewport = mainViewport;
         initialized = true;
         bgfx::setViewClear(0, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0x303030ff, 1.0f, 0);
         bgfx::setViewRect(0, 0, 0, bgfx::BackbufferRatio::Equal);
+
+        SimpleVertex::init();
+        
+        // Create unit quad (0,0 to 1,1)
+        const SimpleVertex vertices[] = {
+            { 0.0f, 0.0f, 0.0f, 0xffffffff },
+            { 1.0f, 0.0f, 0.0f, 0xffffffff },
+            { 1.0f, 1.0f, 0.0f, 0xffffffff },
+            { 0.0f, 1.0f, 0.0f, 0xffffffff },
+        };
+        const uint16_t indices[] = { 0, 1, 2, 0, 2, 3 };
+
+        solidRectVbh = bgfx::createVertexBuffer(bgfx::makeRef(vertices, sizeof(vertices)), SimpleVertex::static_layout);
+        solidRectIbh = bgfx::createIndexBuffer(bgfx::makeRef(indices, sizeof(indices)));
+        
+        solidRectShader = Shader::Load("ui");
 
         //we'll also take this opportunity to initialize any shared resources.
         //todo...
@@ -75,7 +95,19 @@ namespace ClientShared {
     }
 
     void BgfxRenderer::BeginFrame() {
-
+        if (mainViewport) {
+            bgfx::touch(mainViewport->GetViewId());
+            
+            // Set up orthographic projection for UI
+            Math::Rect<int> bounds = mainViewport->GetAttachedWindow()->GetInternalBounds();
+            float width = (float)bounds.Size().X;
+            float height = (float)bounds.Size().Y;
+            
+            float ortho[16];
+            bx::mtxOrtho(ortho, 0.0f, width, height, 0.0f, -1.0f, 100.0f, 0.0f, bgfx::getCaps()->homogeneousDepth);
+            bgfx::setViewTransform(mainViewport->GetViewId(), NULL, ortho);
+            bgfx::setViewRect(mainViewport->GetViewId(), 0, 0, (uint16_t)width, (uint16_t)height);
+        }
     }
 
     void BgfxRenderer::EndFrame() {
@@ -88,14 +120,60 @@ namespace ClientShared {
 
     void BgfxRenderer::Shutdown() {
         if (initialized) {
+            if (bgfx::isValid(solidRectVbh)) bgfx::destroy(solidRectVbh);
+            if (bgfx::isValid(solidRectIbh)) bgfx::destroy(solidRectIbh);
+            
             initialized = false;
             bgfx::shutdown();
+        }
+    }
+
+    void BgfxRenderer::OnViewportResized(Viewport* viewport, const Math::Vector2<int>& newSize) {
+        auto it = viewportFrameBuffers.find(viewport);
+        if (it != viewportFrameBuffers.end()) {
+            bgfx::destroy(it->second);
+            bgfx::FrameBufferHandle handle = bgfx::createFrameBuffer(newSize.X, newSize.Y, bgfx::TextureFormat::BGRA8, BGFX_TEXTURE_RT);
+            viewportFrameBuffers[viewport] = handle;
+            bgfx::setViewFrameBuffer(viewport->GetViewId(), handle);
+            bgfx::setViewRect(viewport->GetViewId(), 0, 0, bgfx::BackbufferRatio::Equal);
         }
     }
 
     void BgfxRenderer::DrawSolidRect(Viewport* viewport, const Math::Rect<float>& rect, const Math::Color& color) {
         int viewId = viewport->GetViewId();
         
+        if (!solidRectShader || !solidRectShader->IsValid()) {
+            std::cerr << "Solid rect shader invalid" << std::endl;
+            return;
+        }
+
+        // std::cout << "Drawing rect: " << rect.left << ", " << rect.top << " " << rect.right << ", " << rect.bottom << std::endl;
+
+        Math::Transform<float> transform;
+        transform.SetTranslation(Math::Vector3<float>(rect.left, rect.top, 0.0f));
+        transform.m00 = rect.right - rect.left;
+        transform.m11 = rect.bottom - rect.top;
+
+        solidRectShader->SetUniform("u_rect", transform);
+        solidRectShader->SetUniform("u_rectColor", color);
+
+        // Debug print matrix
+        /*
+        std::cout << "Matrix:" << std::endl;
+        for(int i=0; i<4; i++) {
+            for(int j=0; j<4; j++) {
+                std::cout << transform.m[j][i] << " ";
+            }
+            std::cout << std::endl;
+        }
+        */
+
+        
+        bgfx::setState(BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A | BGFX_STATE_BLEND_ALPHA | BGFX_STATE_CULL_CCW);
+        bgfx::setVertexBuffer(0, solidRectVbh);
+        bgfx::setIndexBuffer(solidRectIbh);
+        
+        bgfx::submit(viewId, solidRectShader->GetHandle());
     }
 
 }

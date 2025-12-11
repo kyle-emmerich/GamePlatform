@@ -1,0 +1,31 @@
+{
+  "name": "bgfx",
+  "version": "1.129.8940-496",
+  "description": "Cross-platform, graphics API agnostic, Bring Your Own Engine/Framework style rendering library.",
+  "homepage": "https://github.com/bkaradzic/bgfx",
+  "license": "BSD-2-Clause",
+  "dependencies": [
+    "opengl-registry",
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ],
+  "features": {
+    "tools": {
+      "description": "Build the bgfx tools",
+      "dependencies": [
+        "glslang",
+        "spirv-tools",
+        "spirv-cross"
+      ]
+    },
+    "multithreaded": {
+      "description": "Enable multithreaded rendering"
+    }
+  }
+}

@@ -21,6 +21,8 @@ namespace Rendering {
 
         virtual void InitializeAdditionalViewport(Viewport* viewport) = 0;
         virtual void ShutdownAdditionalViewport(Viewport* viewport) = 0;
+        virtual void OnViewportResized(Viewport* viewport, const Math::Vector2<int>& newSize) = 0;
+
 
         virtual void DrawSolidRect(Viewport* viewport, const Math::Rect<float>& rect, const Math::Color& color) = 0;
     };

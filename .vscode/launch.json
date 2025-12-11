@@ -1,14 +1,15 @@
 {
     "version": "0.2.0",
     "configurations": [
+
         {
             "name": "Launch MacClient",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/bin/Debug/MacClient.app/Contents/MacOS/MacClient",
+            "program": "${workspaceFolder}/build/bin/MacClient.app/Contents/MacOS/MacClient",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/build/bin/Debug/MacClient.app/Contents/Resources",
+            "cwd": "${workspaceFolder}/build/bin",
             "environment": [],
             "externalConsole": false,
             "MIMode": "lldb",

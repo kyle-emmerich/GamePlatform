@@ -1,9 +1,16 @@
 {
   "name": "game-platform",
   "version-string": "0.1.0",
+  "builtin-baseline": "e7d7451462697d77ef319ddf2da8ff7320a82662",
   "dependencies": [
     "protobuf",
     "openssl",
-    "bgfx"
+    {
+      "name": "bgfx",
+      "features": [
+        "multithreaded",
+        "tools"
+      ]
+    }
   ]
 }

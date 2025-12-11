@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Platform/PlatformWindow.h"
+#include "Math/Rect.h"
 
 class MacPlatformWindow : public PlatformWindow {
 public:
@@ -14,8 +15,8 @@ public:
 
     void* GetNativeWindowHandle() const override;
 
-    Rect<int> GetInternalBounds() const override;
-    Rect<int> GetExternalBounds() const override;
+    Math::Rect<int> GetInternalBounds() const override;
+    Math::Rect<int> GetExternalBounds() const override;
 
 private:
     void* nsWindow = nullptr;

@@ -5,8 +5,10 @@
 
 #include "Math/Rect.h"
 #include "Math/Color.h"
+#include "ClientShared/Rendering/Shader.h"
 
 #include <unordered_map>
+#include <memory>
 
 class Viewport;
 
@@ -26,6 +28,8 @@ namespace ClientShared {
 
         void InitializeAdditionalViewport(Viewport* viewport);
         void ShutdownAdditionalViewport(Viewport* viewport);
+
+        void OnViewportResized(Viewport* viewport, const Math::Vector2<int>& newSize) override;
 
         void DrawSolidRect(Viewport* viewport, const Math::Rect<float>& rect, const Math::Color& color) override;
     private:
@@ -49,7 +53,9 @@ namespace ClientShared {
         };
 
         bgfx::VertexBufferHandle solidRectVbh = BGFX_INVALID_HANDLE;
-        bgfx::ProgramHandle solidRectProgram = BGFX_INVALID_HANDLE;
+        bgfx::IndexBufferHandle solidRectIbh = BGFX_INVALID_HANDLE;
+
+        std::shared_ptr<Shader> solidRectShader;
     public:
         static void StaticInit() {
             SimpleVertex::init();

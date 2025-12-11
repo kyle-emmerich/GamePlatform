@@ -2,9 +2,6 @@ project(Engine)
 
 include(FetchContent)
 
-# Fetch bgfx and dependencies via vcpkg
-find_package(bgfx CONFIG REQUIRED)
-
 # Add ThirdParty dependencies
 # We need to make sure we don't build tests/examples for them to save time/mess
 set(LUAU_BUILD_TESTS OFF CACHE BOOL "" FORCE)
@@ -97,60 +94,9 @@ target_link_libraries(Engine PUBLIC
     GameNetworkingSockets
     Luau.Compiler
     Luau.VM
-    bgfx::bgfx
 )
 
 # Definitions
 target_compile_definitions(Engine PRIVATE ENGINE_EXPORTS)
 target_compile_definitions(Engine PUBLIC GP_STATIC)
-
-# Shader Compilation
-find_program(SHADERC_EXECUTABLE shaderc PATHS 
-    "${CMAKE_BINARY_DIR}/vcpkg_installed/x64-windows/tools/bgfx"
-)
-
-if(SHADERC_EXECUTABLE)
-    message(STATUS "Found shaderc: ${SHADERC_EXECUTABLE}")
-    
-    set(SHADER_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Shaders")
-    set(SHADER_OUTPUT_DIR "${CMAKE_BINARY_DIR}/Shaders")
-    file(MAKE_DIRECTORY ${SHADER_OUTPUT_DIR})
-
-    file(GLOB SHADER_SOURCES "${SHADER_SOURCE_DIR}/*.sc")
-    set(SHADER_OUTPUTS "")
-
-    # Find bgfx include path
-    set(BGFX_INCLUDE_PATH "${CMAKE_BINARY_DIR}/vcpkg_installed/x64-windows/include/bgfx")
-
-    foreach(SHADER_FILE ${SHADER_SOURCES})
-        get_filename_component(SHADER_NAME ${SHADER_FILE} NAME_WE)
-        get_filename_component(SHADER_EXT ${SHADER_FILE} EXT)
-        
-        if(${SHADER_NAME} MATCHES "^vs_")
-            set(SHADER_TYPE "vertex")
-            set(SHADER_PROFILE "vs_5_0")
-            set(OUTPUT_FILE "${SHADER_OUTPUT_DIR}/${SHADER_NAME}.bin")
-        elif(${SHADER_NAME} MATCHES "^fs_")
-            set(SHADER_TYPE "fragment")
-            set(SHADER_PROFILE "ps_5_0")
-            set(OUTPUT_FILE "${SHADER_OUTPUT_DIR}/${SHADER_NAME}.bin")
-        else()
-            continue()
-        endif()
-        
-        add_custom_command(
-            OUTPUT ${OUTPUT_FILE}
-            COMMAND ${SHADERC_EXECUTABLE}
-            ARGS -f ${SHADER_FILE} -o ${OUTPUT_FILE} --type ${SHADER_TYPE} --platform windows --profile ${SHADER_PROFILE} -i ${SHADER_SOURCE_DIR} -i ${BGFX_INCLUDE_PATH}
-            DEPENDS ${SHADER_FILE}
-            COMMENT "Compiling shader ${SHADER_NAME}"
-        )
-        list(APPEND SHADER_OUTPUTS ${OUTPUT_FILE})
-    endforeach()
-
-    add_custom_target(CompileShaders ALL DEPENDS ${SHADER_OUTPUTS})
-    add_dependencies(Engine CompileShaders)
-else()
-    message(WARNING "shaderc not found! Shaders will not be compiled.")
-endif()
 
