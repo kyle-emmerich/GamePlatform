@@ -145,7 +145,7 @@ namespace ClientShared {
         }
     }
 
-    void BgfxRenderer::DrawSolidRect(Viewport* viewport, const Math::Rect<float>& rect, const Math::Color& color) {
+    void BgfxRenderer::DrawSolidRect(Viewport* viewport, const Math::Transform<float>& transform, const Math::Vector2<float>& size, const Math::Color& color) {
         int viewId = viewport->GetViewId();
         
         if (!solidRectShader || !solidRectShader->IsValid()) {
@@ -153,26 +153,14 @@ namespace ClientShared {
             return;
         }
 
-        Math::Transform<float> transform;
-        transform.SetTranslation(Math::Vector3<float>(rect.left, rect.top, 0.0f));
-        transform.m00 = rect.right - rect.left;
-        transform.m11 = rect.bottom - rect.top;
+        Math::Transform<float> scale;
+        scale.SetScale(Math::Vector3<float>(size.X, size.Y, 1.0f));
 
-        solidRectShader->SetUniform("u_rect", transform);
+        Math::Transform<float> model = transform * scale;
+
+        bgfx::setTransform(model.mm);
         solidRectShader->SetUniform("u_rectColor", color);
 
-        // Debug print matrix
-        /*
-        std::cout << "Matrix:" << std::endl;
-        for(int i=0; i<4; i++) {
-            for(int j=0; j<4; j++) {
-                std::cout << transform.m[j][i] << " ";
-            }
-            std::cout << std::endl;
-        }
-        */
-
-        
         bgfx::setState(BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A | BGFX_STATE_BLEND_ALPHA);
         bgfx::setVertexBuffer(0, solidRectVbh);
         bgfx::setIndexBuffer(solidRectIbh);

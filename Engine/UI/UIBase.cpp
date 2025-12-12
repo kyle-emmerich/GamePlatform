@@ -87,3 +87,67 @@ Math::Rect<float> UIBase::GetAbsoluteBounds() {
 
 	return Math::Rect<float>(x, y, x + w, y + h);
 }
+
+bool UIBase::IsPointInside(const Math::Vector2<float>& point) {
+	// move the point into local space
+	Math::Vector2<float> localPoint = finalTransform.Inverse().TransformPoint(point);
+	Math::Rect<float> bounds(0, 0, Size.X.Offset, Size.Y.Offset);
+	return bounds.Contains(localPoint);
+}
+
+InputResult UIBase::HandleInputBegin(Input* input) {
+	if (!Visible || !Active) {
+		return InputResult::NotHandled;
+	}
+	
+	// Propagate to children
+	for (Instance* child : Children) {
+		if (child->IsA<UIBase>()) {
+			UIBase* uiElement = static_cast<UIBase*>(child);
+			InputResult result = uiElement->HandleInputBegin(input);
+			if (result == InputResult::Handled) {
+				return InputResult::Handled;
+			}
+		}
+	}
+
+	return InputResult::NotHandled;
+}
+
+InputResult UIBase::HandleInputChange(Input* input) {
+	if (!Visible || !Active) {
+		return InputResult::NotHandled;
+	}
+	
+	// Propagate to children
+	for (Instance* child : Children) {
+		if (child->IsA<UIBase>()) {
+			UIBase* uiElement = static_cast<UIBase*>(child);
+			InputResult result = uiElement->HandleInputChange(input);
+			if (result == InputResult::Handled) {
+				return InputResult::Handled;
+			}
+		}
+	}
+
+	return InputResult::NotHandled;
+}
+
+InputResult UIBase::HandleInputEnd(Input* input) {
+	if (!Visible || !Active) {
+		return InputResult::NotHandled;
+	}
+	
+	// Propagate to children
+	for (Instance* child : Children) {
+		if (child->IsA<UIBase>()) {
+			UIBase* uiElement = static_cast<UIBase*>(child);
+			InputResult result = uiElement->HandleInputEnd(input);
+			if (result == InputResult::Handled) {
+				return InputResult::Handled;
+			}
+		}
+	}
+
+	return InputResult::NotHandled;
+}

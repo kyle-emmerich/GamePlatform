@@ -573,7 +573,7 @@ def generate_prop_def_text(prop_info):
 
 	access_level = "Public"
 	minimum_context = "Client"
-	return f'\t\t\t{{ "{prop_info.name}", "{prop_info.prop_type}", {prop_info.hash}, {flags}, PropTypeFlags::None, AccessLevel::{access_level}, Lua::StateContext::{minimum_context}, nullptr, nullptr }}'
+	return f'\t\t\t{{ "{prop_info.name}", "{prop_info.prop_type}", {prop_info.hash}ULL, {flags}, PropTypeFlags::None, AccessLevel::{access_level}, Lua::StateContext::{minimum_context}, nullptr, nullptr }}'
 
 def generate_prop_defs_text(class_info):
 	result = ""
@@ -612,7 +612,7 @@ def generate_event_def_text(event_info):
 			event_args += f"{{ \"{arg.type}\", \"{arg.name}\" }}"
 	access_level = "Public"
 	minimum_context = "Client"
-	return f'\t\t\t{{ "{event_info.name}", {{{event_args}}}, {event_info.hash}, AccessLevel::{access_level}, Lua::StateContext::{minimum_context} }}'
+	return f'\t\t\t{{ "{event_info.name}", {{{event_args}}}, {event_info.hash}ULL, AccessLevel::{access_level}, Lua::StateContext::{minimum_context} }}'
 def generate_event_defs_text(class_info):
 	result = ""
 	num_events = len(class_info.events)
@@ -768,7 +768,7 @@ def generate_header(template_path, target_dir, header_filename, class_info):
 		replacements["className"] = class_info.name
 		replacements["classFullName"] = class_info.get_fully_qualified_name()
 		replacements["classSanitizedName"] = class_info.get_sanitized_name()
-		replacements["classId"] = str(class_info.hash)
+		replacements["classId"] = str(class_info.hash) + "ULL"
 		
 		main_base_class = "void"
 		if len(class_info.public_base_classes) > 0:

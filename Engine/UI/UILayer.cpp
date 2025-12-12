@@ -47,3 +47,60 @@ void UILayer::OnDetached(Viewport* viewport) {
         viewport->MarkDirty();
     }
 }
+
+InputResult UILayer::HandleInputBegin(Input* input) {
+    if (!Visible) {
+        return InputResult::NotHandled;
+    }
+
+    //propagate to children
+    for (Instance* child : Children) {
+        if (child->IsA<UIBase>()) {
+            UIBase* uiElement = static_cast<UIBase*>(child);
+            InputResult result = uiElement->HandleInputBegin(input);
+            if (result == InputResult::Handled) {
+                return InputResult::Handled;
+            }
+        }
+    }
+
+    return InputResult::NotHandled;
+}
+
+InputResult UILayer::HandleInputChange(Input* input) {
+    if (!Visible) {
+        return InputResult::NotHandled;
+    }
+
+    //propagate to children
+    for (Instance* child : Children) {
+        if (child->IsA<UIBase>()) {
+            UIBase* uiElement = static_cast<UIBase*>(child);
+            InputResult result = uiElement->HandleInputChange(input);
+            if (result == InputResult::Handled) {
+                return InputResult::Handled;
+            }
+        }
+    }
+
+    return InputResult::NotHandled;
+}
+
+InputResult UILayer::HandleInputEnd(Input* input) {
+    if (!Visible) {
+        return InputResult::NotHandled;
+    }
+
+    //propagate to children
+    for (Instance* child : Children) {
+        if (child->IsA<UIBase>()) {
+            UIBase* uiElement = static_cast<UIBase*>(child);
+            InputResult result = uiElement->HandleInputEnd(input);
+            if (result == InputResult::Handled) {
+                return InputResult::Handled;
+            }
+        }
+    }
+
+    return InputResult::NotHandled;
+}

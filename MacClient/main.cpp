@@ -48,6 +48,20 @@ int main(int argc, char** argv) {
     viewport->AttachToWindow(&window);
     viewport->AttachRenderable(&console);
 
+    //let's add some test UI and see if it renders.
+    UISystem* uiSystem = engine->GetSystem<UISystem>();
+    
+    UIScreenLayer* testLayer = new UIScreenLayer(engine);
+    testLayer->SetName("TestLayer");
+
+    UIFrame* testFrame = new UIFrame(engine);
+    testFrame->SetPosition(Math::UDim2<float>(0.1f, 0.0f, 0.1f, 0.0f));
+    testFrame->SetSize(Math::UDim2<float>(0.3f, 0.0f, 0.3f, 0.0f));
+    testFrame->SetBackgroundColor(Math::Color(0.0f, 1.0f, 0.0f, 1.0f));
+    testFrame->SetParent(testLayer);
+    testLayer->SetParent(uiSystem);
+    viewport->AttachRenderable(testLayer);
+
     std::cout << "Engine Initialized." << std::endl;
 
     while (window.PollEvents()) {
@@ -57,8 +71,6 @@ int main(int argc, char** argv) {
         //run physics
         //execute some more lua
         renderer->BeginFrame();
-
-        renderer->DrawSolidRect(viewport.get(), Math::Rect<float>(0, 0, 500, 500), Math::Color(1, 0, 0, 1));
 
         viewport->RenderFrame();
         renderer->EndFrame();

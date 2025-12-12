@@ -26,12 +26,12 @@ namespace ClientShared {
         void BeginFrame() override;
         void EndFrame() override;
 
-        void InitializeAdditionalViewport(Viewport* viewport);
-        void ShutdownAdditionalViewport(Viewport* viewport);
+        void InitializeAdditionalViewport(Viewport* viewport) override;
+        void ShutdownAdditionalViewport(Viewport* viewport) override;
 
         void OnViewportResized(Viewport* viewport, const Math::Vector2<int>& newSize) override;
 
-        void DrawSolidRect(Viewport* viewport, const Math::Rect<float>& rect, const Math::Color& color) override;
+        void DrawSolidRect(Viewport* viewport, const Math::Transform<float>& transform, const Math::Rect<float>& size, const Math::Color& color) override;
     private:
         Viewport* mainViewport = nullptr;
         std::unordered_map<Viewport*, bgfx::FrameBufferHandle> viewportFrameBuffers;

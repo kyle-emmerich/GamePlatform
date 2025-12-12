@@ -68,6 +68,7 @@ REFLECTION_END()
 ### Key Workflows
 - **Adding a new System:** Create a new class in `Engine/` (e.g., `Engine/MySystem/`), inherit from `System` (if applicable) or `Instance`. Ensure it's reflected.
 - **Updating Reflection:** The build system should handle this, but if reflection data is stale, force a rebuild or check `ReflectionGenerator/parse.py` output.
+- **Missing Generated Methods:** If you encounter missing methods that should be generated (like `GetProperty` for a reflected property), run the reflection parser manually: `python3 ReflectionGenerator/parse.py Engine`.
 - **Scripting:** Lua scripts interact with reflected C++ objects. Ensure properties/methods intended for scripts are marked `[[reflect()]]`.
 
 ## Conventions
@@ -76,6 +77,23 @@ REFLECTION_END()
 - **Headers:** Include generated headers as `#include "ClassName.generated.h"`.
 - **Memory:** Use `std::shared_ptr` and `std::weak_ptr` for object lifetime management where appropriate, but `Instance` hierarchy has its own parent/child management.
 - **Initialization:** Do not call `renderer->Initialize()` manually in client entry points. It is called automatically when the first `Viewport` is attached to a window via `Viewport::AttachToWindow`.
+
+## Rendering Guidelines (bgfx)
+- **Matrices:** `Math::Transform` uses **Column-Major** layout to match `bgfx` expectations.
+- **Shaders:**
+  - Use `bgfx_shader.sh` include.
+  - Vertex Shaders: Use `mul(u_viewProj, vec4(pos, 1.0))` for projection.
+  - Uniforms: `bgfx` uniforms are typically `vec4` or `mat4`.
+- **View Management:**
+  - Set View Transform (Projection/View matrices) in `BeginFrame` or when the camera changes.
+  - **DO NOT** call `bgfx::setViewTransform` with `NULL` inside draw calls unless you intend to reset the projection for that specific call (which usually results in invisible geometry if not handled correctly).
+- **Debugging:**
+  - Use `bgfx::setViewClear` with distinct colors to verify viewports are rendering.
+  - If geometry is invisible, check:
+    1. Winding order (try disabling culling `bgfx::setState(..., 0)`).
+    2. Projection matrix (Ortho vs Perspective).
+    3. View Transform resets (ensure `setViewTransform` isn't being cleared).
+    4. Shader output (force a constant color in Fragment shader).
 
 ## Dependencies
 - **Luau:** Scripting language.

@@ -2,6 +2,7 @@
 
 #include "Instance/Instance.h"
 #include "Input/IInputFocusable.h"
+#include "Input/IInputConsumer.h"
 #include "Rendering/IRenderer.h"
 #include "Math/Rect.h"
 #include "Math/UDim2.h"
@@ -10,7 +11,7 @@
 
 class Viewport;
 
-class [[reflect(Hidden)]] UIBase : public Instance, BaseInstance<UIBase>, protected IInputFocusable {
+class [[reflect(Hidden)]] UIBase : public Instance, BaseInstance<UIBase>, protected IInputFocusable, public IInputConsumer {
 	REFLECTION()
 public:
 	UIBase(Engine* engine) : Instance(engine) {}
@@ -74,7 +75,12 @@ public:
 	[[reflect()]]
 	bool ClipsDescendants = false;
 
+	bool IsPointInside(const Math::Vector2<float>& point);
 protected:
+	Math::Transform<float> finalTransform;
+	Math::Transform<float> localTransform;
+	void updateTransform(const Math::Transform<float>& parentTransform);
+
 	bool __SetFocused(bool isFocused, Input* instigatingInput) override;
 	bool __CanBeFocused(Input* instigatingInput) const override;
 	bool __IsFocused() const override;

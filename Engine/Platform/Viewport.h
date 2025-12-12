@@ -35,6 +35,10 @@ public:
     bool IsDirty() const { return dirtyFlag; }
     void MarkDirty() { dirtyFlag = true; }
     void ClearDirty() { dirtyFlag = false; }
+
+    InputResult HandleInputBegin(Input* input);
+    InputResult HandleInputChange(Input* input);
+    InputResult HandleInputEnd(Input* input);
 protected:
     PlatformWindow* attachedWindow = nullptr;
 
@@ -45,6 +49,7 @@ protected:
     bool updateEveryFrame = true;
 
     std::vector<IRenderable*> renderables;
+    std::vector<IInputConsumer*> inputConsumers;
 
     MulticastEvent<>::Listener* windowResizedListener = nullptr;
 };

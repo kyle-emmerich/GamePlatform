@@ -68,4 +68,31 @@ Math::Vector2<float> Viewport::GetSize() const {
     return Math::Vector2<float>(0.0f, 0.0f);
 }
 
+InputResult Viewport::HandleInputBegin(Input* input) {
+    for (IInputConsumer* consumer : inputConsumers) {
+        if (consumer->HandleInputBegin(input) == InputResult::Handled) {
+            return InputResult::Handled;
+        }
+    }
+    return InputResult::NotHandled;
+}
+
+InputResult Viewport::HandleInputChange(Input* input) {
+    for (IInputConsumer* consumer : inputConsumers) {
+        if (consumer->HandleInputChange(input) == InputResult::Handled) {
+            return InputResult::Handled;
+        }
+    }
+    return InputResult::NotHandled;
+}
+
+InputResult Viewport::HandleInputEnd(Input* input) {
+    for (IInputConsumer* consumer : inputConsumers) {
+        if (consumer->HandleInputEnd(input) == InputResult::Handled) {
+            return InputResult::Handled;
+        }
+    }
+    return InputResult::NotHandled;
+}
+
 int Viewport::nextViewId = 0;

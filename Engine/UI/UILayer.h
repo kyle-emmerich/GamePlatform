@@ -10,7 +10,7 @@ class Viewport;
 
 /// @brief Responsible for rendering any UI elements that are a descendant of it.
 /// UILayer is the base class for UIScreenLayer and UISurfaceLayer.
-class [[reflect()]] UILayer : public Instance, BaseInstance<UILayer>, IRenderable {
+class [[reflect()]] UILayer : public Instance, BaseInstance<UILayer>, public IRenderable, public IInputConsumer {
     REFLECTION()
 public:
     UILayer(Engine* engine) : Instance(engine) {}
@@ -26,6 +26,10 @@ public:
 
     [[reflect()]]
     bool Visible = true;
+
+    virtual InputResult HandleInputBegin(Input* input) override;
+    virtual InputResult HandleInputChange(Input* input) override;
+    virtual InputResult HandleInputEnd(Input* input) override;
 };
 
 REFLECTION_END()
