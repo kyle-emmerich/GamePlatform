@@ -322,11 +322,11 @@ def get_type(node):
 
 def contains_function_declarator(node):
 	for child in node.children:
+		print(f"Checking child {child.type}")
 		if child.type == "function_declarator":
 			return True
-		else:
-			if contains_function_declarator(child):
-				return True
+		if contains_function_declarator(child):
+			return True
 	return False
 
 def get_function_name(node):

@@ -14,6 +14,8 @@ vcpkg_extract_source_archive(
   ARCHIVE "${ARCHIVE_FILE}"
 )
 
+vcpkg_replace_string("${SOURCE_PATH}/cmake/bgfx/shaderc.cmake" "glslang::SPVRemapper" "")
+
 # We do NOT delete 3rdparty directories, so bgfx uses its bundled dependencies.
 # This avoids compatibility issues with newer vcpkg versions of glslang, etc.
 

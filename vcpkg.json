@@ -1,10 +1,11 @@
 {
   "name": "game-platform",
   "version-string": "0.1.0",
-  "builtin-baseline": "e7d7451462697d77ef319ddf2da8ff7320a82662",
+  "builtin-baseline": "5422eb983d4ca8bc4851ac9771d6e74554efc5c8",
   "dependencies": [
     "protobuf",
     "openssl",
+    "harfbuzz",
     {
       "name": "bgfx",
       "features": [

@@ -1,6 +1,8 @@
 #include "UI/UIBase.h"
+#include "UI/UILayer.h"
 #include "Input/InputSystem.h"
 #include "Core/Engine.h"
+#include "Platform/Viewport.h"
 
 void UIBase::CaptureFocus() {
 	if (!Focusable) return;
@@ -50,12 +52,12 @@ void UIBase::SetFocusable(bool isFocusable) {
 	}
 }
 
-void UIBase::OnRender(const Math::Transform<double>& layerTransform, Rendering::IRenderer* renderer) {
+void UIBase::OnRender(const Math::Transform<double>& layerTransform, Viewport* viewport) {
 	if (!Visible) return;
 
 	for (Instance* child : Children) {
 		if (child->IsA<UIBase>()) {
-			static_cast<UIBase*>(child)->OnRender(layerTransform, renderer);
+			static_cast<UIBase*>(child)->OnRender(layerTransform, viewport);
 		}
 	}
 }
@@ -70,6 +72,9 @@ Math::Rect<float> UIBase::GetAbsoluteBounds() {
 		Math::Rect<float> parentBounds = ((UIBase*)Parent)->GetAbsoluteBounds();
 		parentPos = parentBounds.min;
 		parentSize = parentBounds.Size();
+	} else if (Parent && Parent->IsA<UILayer>()) {
+		parentPos = Math::Vector2<float>(0, 0);
+		parentSize = ((UILayer*)Parent)->GetAbsoluteSize();
 	}
 	// If parent is not UIBase (e.g. UISystem or ScreenGui equivalent), we might need to get screen size.
 	// For now, let's assume 0,0 start and maybe some default size or 0 size.

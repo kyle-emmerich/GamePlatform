@@ -5,7 +5,7 @@
 #include "Math/Transform.h"
 #include "UIFrame.generated.h"
 
-class UIBase;
+class Viewport;
 
 class [[reflect()]] UIFrame : public UIBase, BaseInstance<UIFrame> {
     REFLECTION()
@@ -16,7 +16,7 @@ public:
     [[summary("Determines the background color and opacity of the UI frame.")]]
     Math::Color BackgroundColor;
 
-    void OnRender(const Math::Transform<double>& layerTransform, Rendering::IRenderer* renderer);
+    void OnRender(const Math::Transform<double>& layerTransform, Viewport* viewport);
 
 };
 

@@ -30,7 +30,7 @@ public:
     PlatformWindow* GetAttachedWindow() const { return attachedWindow; }
     int GetViewId() const { return viewId; }
 
-    Math::Vector2<double> GetSize() const;
+    Math::Vector2<float> GetSize() const;
 
     bool IsDirty() const { return dirtyFlag; }
     void MarkDirty() { dirtyFlag = true; }

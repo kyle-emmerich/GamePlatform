@@ -13,6 +13,7 @@ project(GamePlatform VERSION 0.1.0 LANGUAGES C CXX)
 if(MSVC)
     add_compile_options(/Zc:__cplusplus)
     add_compile_options(/Zc:preprocessor)
+    add_compile_options(/FS)
 endif()
 
 set(CMAKE_CXX_STANDARD 17)

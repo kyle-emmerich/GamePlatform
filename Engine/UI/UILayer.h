@@ -1,11 +1,10 @@
 #pragma once
 
 #include "Instance/Instance.h"
-#include "UILayer.generated.h"
 #include "Rendering/IRenderer.h"
 #include "Rendering/IRenderable.h"
-
 #include "Math/Transform.h"
+#include "UILayer.generated.h"
 
 class Viewport;
 
@@ -20,6 +19,10 @@ public:
     void OnRendered(Viewport* viewport) override;
     void OnAttached(Viewport* viewport) override;
     void OnDetached(Viewport* viewport) override;
+
+    [[reflect(ReadOnly)]]
+    [[summary("The absolute size in pixels of the layer.")]]
+    Math::Vector2<float> AbsoluteSize;
 
     [[reflect()]]
     bool Visible = true;

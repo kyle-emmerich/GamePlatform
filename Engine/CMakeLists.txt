@@ -2,6 +2,9 @@ project(Engine)
 
 include(FetchContent)
 
+# Fetch bgfx and dependencies via vcpkg
+find_package(bgfx CONFIG REQUIRED)
+
 # Add ThirdParty dependencies
 # We need to make sure we don't build tests/examples for them to save time/mess
 set(LUAU_BUILD_TESTS OFF CACHE BOOL "" FORCE)
@@ -35,11 +38,27 @@ endif()
 # Ensure Generated directory exists
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Generated)
 
+# Collect headers for dependency tracking
+file(GLOB_RECURSE ENGINE_HEADERS 
+    "Core/*.h"
+    "Assets/*.h"
+    "Input/*.h"
+    "Instance/*.h"
+    "Math/*.h"
+    "Network/*.h"
+    "Platform/*.h"
+    "Physics/*.h"
+    "Rendering/*.h"
+    "Replication/*.h"
+    "Scripting/*.h"
+    "UI/*.h"
+)
+
 add_custom_command(
     OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/Generated/ReflectionRegistry.h
            ${CMAKE_CURRENT_SOURCE_DIR}/Generated/reflection_data.json
     COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/ReflectionGenerator/parse.py ${CMAKE_CURRENT_SOURCE_DIR}
-    DEPENDS ${CMAKE_SOURCE_DIR}/ReflectionGenerator/parse.py
+    DEPENDS ${CMAKE_SOURCE_DIR}/ReflectionGenerator/parse.py ${ENGINE_HEADERS}
     COMMENT "Generating Reflection data..."
 )
 
@@ -94,6 +113,7 @@ target_link_libraries(Engine PUBLIC
     GameNetworkingSockets
     Luau.Compiler
     Luau.VM
+    bgfx::bgfx
 )
 
 # Definitions

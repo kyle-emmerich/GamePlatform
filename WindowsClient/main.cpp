@@ -56,18 +56,17 @@ int main(int argc, char** argv) {
     viewport->AttachRenderable(&console);
 
     // //let's add some test UI and see if it renders.
-    // UISystem* uiSystem = engine->GetSystem<UISystem>();
+    UISystem* uiSystem = engine->GetSystem<UISystem>();
     
-    // UIScreenLayer* testLayer = new UIScreenLayer(engine);
-    // testLayer->SetName("TestLayer");
-    // testLayer->SetViewport(viewport);
+    UIScreenLayer* testLayer = new UIScreenLayer(engine);
+    testLayer->SetName("TestLayer");
 
-    // UIFrame* testFrame = new UIFrame(engine);
-    // testFrame->SetPosition(Math::UDim2<float>(0.1f, 0.0f, 0.1f, 0.0f));
-    // testFrame->SetSize(Math::UDim2<float>(0.3f, 0.0f, 0.3f, 0.0f));
-    // testFrame->SetBackgroundColor(Math::Color(0.0f, 1.0f, 0.0f, 1.0f));
-    // testFrame->SetParent(testLayer);
-    // testLayer->SetParent(uiSystem);
+    UIFrame* testFrame = new UIFrame(engine);
+    testFrame->SetPosition(Math::UDim2<float>(0.1f, 0.0f, 0.1f, 0.0f));
+    testFrame->SetSize(Math::UDim2<float>(0.3f, 0.0f, 0.3f, 0.0f));
+    testFrame->SetBackgroundColor(Math::Color(0.0f, 1.0f, 0.0f, 1.0f));
+    testFrame->SetParent(testLayer);
+    testLayer->SetParent(uiSystem);
     
 
     std::cout << "Engine Initialized." << std::endl;
@@ -79,6 +78,8 @@ int main(int argc, char** argv) {
         //run physics
         //execute some more lua
         renderer->BeginFrame();
+
+        testLayer->OnRendered(viewport.get());
 
         viewport->RenderFrame();
         

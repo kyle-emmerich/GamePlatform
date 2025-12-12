@@ -6,8 +6,10 @@ GamePlatform is a C++17 multiplayer game engine and platform. It uses **Luau** f
 ## Architecture & Core Systems
 
 ### 1. Engine Core (`Engine/`)
-- **Instance System:** The root of the object hierarchy is `Instance`. All game objects must inherit from `Instance` and `BaseInstance<T>`.
-- **Reflection:** A custom Python-based reflection system (`ReflectionGenerator/parse.py`) parses C++ headers and generates metadata.
+- **Instance System:** The root of the object hierarchy is `Instance`. All game objects must inherit from `Instance` and `BaseInstance<T>`. This provides parent/child relationships, lifecycle management, and reflection capabilities.
+- **Reflection:** A custom Python-based reflection system (`ReflectionGenerator/parse.py`) parses C++ headers and generates C++ code for runtime type information, serialization, networking, and scripting bindings. It also generates `reflection_data.json` for direct use by the documentation generator.
+- **Engine:** The `Engine` class manages core systems, including the main update loop, system initialization, and shutdown. No global state is used; everything is encapsulated within the `Engine` instance.
+- **Systems:** Core systems inherit from `System` and are automatically discovered and initialized via the reflection system.
 - **Scripting:** **Luau** is used for game logic. The engine binds C++ objects to Luau via the reflection system.
 - **Rendering:** Uses **bgfx**.
 - **Networking:** Uses **GameNetworkingSockets**.
@@ -15,7 +17,7 @@ GamePlatform is a C++17 multiplayer game engine and platform. It uses **Luau** f
 ### 2. Reflection System
 The reflection system is critical for serialization, networking, and scripting.
 - **Generator:** `ReflectionGenerator/parse.py` uses `tree-sitter-cpp` to parse headers.
-- **Output:** Generates `*.generated.h` files in `Engine/Generated/` and a central `ReflectionRegistry.h`.
+- **Output:** Generates `*.generated.h` files in `Engine/Generated/` and a central `ReflectionRegistry.h`. The `Engine` class initializes the registry and immediately uses it to find all `System`-derived classes and initialize them.
 - **Triggers:** The generator runs as a CMake custom command.
 
 **How to Reflect a Class:**
@@ -25,6 +27,7 @@ The reflection system is critical for serialization, networking, and scripting.
 4. Add `REFLECTION_END()` macro after the class definition (or at end of file).
 5. Mark properties/methods with `[[reflect()]]`.
 6. Use `GP_EXPORT` for cross-module visibility.
+7. Reflected properties _must_ be accessed via getters/setters in C++ to ensure property change events are fired and state remains consistent.
 
 **Example:**
 ```cpp

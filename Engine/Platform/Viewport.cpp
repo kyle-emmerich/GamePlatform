@@ -60,12 +60,12 @@ void Viewport::DetachRenderable(IRenderable* renderable) {
     renderables.erase(std::remove(renderables.begin(), renderables.end(), renderable), renderables.end());
 }
 
-Math::Vector2<double> Viewport::GetSize() const {
+Math::Vector2<float> Viewport::GetSize() const {
     if (attachedWindow) {
         Math::Rect<int> bounds = attachedWindow->GetInternalBounds();
-        return Math::Vector2<double>(static_cast<double>(bounds.Size().X), static_cast<double>(bounds.Size().Y));
+        return Math::Vector2<float>(static_cast<float>(bounds.Size().X), static_cast<float>(bounds.Size().Y));
     }
-    return Math::Vector2<double>(0.0, 0.0);
+    return Math::Vector2<float>(0.0f, 0.0f);
 }
 
 int Viewport::nextViewId = 0;

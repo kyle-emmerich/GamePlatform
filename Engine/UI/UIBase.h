@@ -8,12 +8,14 @@
 #include "Math/Transform.h"
 #include "UIBase.generated.h"
 
+class Viewport;
+
 class [[reflect(Hidden)]] UIBase : public Instance, BaseInstance<UIBase>, protected IInputFocusable {
 	REFLECTION()
 public:
 	UIBase(Engine* engine) : Instance(engine) {}
 
-	virtual void OnRender(const Math::Transform<double>& layerTransform, Rendering::IRenderer* renderer);
+	virtual void OnRender(const Math::Transform<double>& layerTransform, Viewport* viewport);
 
 	[[reflect()]]
 	[[summary("Determines if the UI element and its descendants are visible. Non-visible UI elements do not receive input events.")]]
