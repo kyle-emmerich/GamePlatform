@@ -1,9 +1,14 @@
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Assets\AssetBase.h
+C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Assets\AssetData.h
+C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Assets\AssetHandle.h
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Assets\AssetSystem.h
+C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Assets\FontFaceAsset.h
+C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Assets\FontFamilyAsset.h
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Assets\MeshAsset.h
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Core\Engine.h
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Core\Event.h
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Core\Export.h
+C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Core\IFileSystemWatcher.h
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Core\LogSystem.h
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Core\TimeProvider.h
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Input\IInputFocusable.h
@@ -30,6 +35,7 @@ C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Player\PlayerSystem.h
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Rendering\Camera.h
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Rendering\IRenderable.h
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Rendering\IRenderer.h
+C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Rendering\TextSystem.h
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Replication\NetworkClient.h
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Replication\NetworkPeer.h
 C:\Users\Kyle\Documents\Development\GamePlatform\Engine\Replication\Replicator.h

@@ -4,6 +4,8 @@ include(FetchContent)
 
 # Fetch bgfx and dependencies via vcpkg
 find_package(bgfx CONFIG REQUIRED)
+find_package(harfbuzz CONFIG REQUIRED)
+find_package(nlohmann_json CONFIG REQUIRED)
 
 # Add ThirdParty dependencies
 # We need to make sure we don't build tests/examples for them to save time/mess
@@ -114,6 +116,8 @@ target_link_libraries(Engine PUBLIC
     Luau.Compiler
     Luau.VM
     bgfx::bgfx
+    harfbuzz::harfbuzz
+    nlohmann_json::nlohmann_json
 )
 
 # Definitions

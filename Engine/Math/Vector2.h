@@ -1,8 +1,10 @@
 #pragma once
+
 #include <cmath>
+#include <stdexcept>
 
 namespace Math {
-	
+
 template<typename T>
 class Vector2 {
 public:

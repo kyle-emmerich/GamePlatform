@@ -3,6 +3,10 @@
 #include "AssetBase.generated.h"
 #include "Assets/AssetSystem.h"
 #include "AssetSystem.generated.h"
+#include "Assets/FontFaceAsset.h"
+#include "FontFaceAsset.generated.h"
+#include "Assets/FontFamilyAsset.h"
+#include "FontFamilyAsset.generated.h"
 #include "Assets/MeshAsset.h"
 #include "MeshAsset.generated.h"
 #include "Core/Engine.h"
@@ -45,6 +49,8 @@
 #include "Viewport.generated.h"
 #include "Rendering/Camera.h"
 #include "Camera.generated.h"
+#include "Rendering/TextSystem.h"
+#include "TextSystem.generated.h"
 #include "Replication/NetworkClient.h"
 #include "NetworkClient.generated.h"
 #include "Replication/NetworkPeer.h"
@@ -71,6 +77,8 @@ namespace Reflection {
 	static void registerAllClasses() {
 		Reflection::register_AssetBase();
 		Reflection::register_AssetSystem();
+		Reflection::register_FontFaceAsset();
+		Reflection::register_FontFamilyAsset();
 		Reflection::register_MeshAsset();
 		Reflection::register_Engine();
 		Reflection::register_LogSystem();
@@ -92,6 +100,7 @@ namespace Reflection {
 		Reflection::register_PlatformWindow();
 		Reflection::register_Viewport();
 		Reflection::register_Camera();
+		Reflection::register_TextSystem();
 		Reflection::register_NetworkClient();
 		Reflection::register_NetworkPeer();
 		Reflection::register_Replicator();

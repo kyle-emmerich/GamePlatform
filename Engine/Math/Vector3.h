@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdexcept>
 #include "Math/Vector2.h"
 
 namespace Math {

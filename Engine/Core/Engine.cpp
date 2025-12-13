@@ -86,6 +86,10 @@ void Engine::Initialize(const EngineInitParams& params) {
 
 	renderer = params.renderer;
 	timeProvider = params.timeProvider;
+	fileSystemWatcher = params.fileSystemWatcher;
+	assetCacheDirectory = params.assetCacheDirectory;
+	contentDirectory = params.contentDirectory;
+
 	if (!timeProvider) {
 		timeProvider = new StdTimeProvider();
 	}
@@ -124,9 +128,7 @@ void Engine::Shutdown() {
 }
 
 System* Engine::GetSystem(std::string_view systemName) {
-	if (!systemsInitialized) {
-		throw std::runtime_error("Systems have not been initialized yet!");
-	}
+
 
 	auto it = systems.find(systemName);
 	if (it != systems.end()) {

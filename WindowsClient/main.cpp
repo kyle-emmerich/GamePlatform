@@ -2,6 +2,7 @@
 #include "ReflectionRegistry.h"
 #include "Core/Engine.h"
 #include "Windows/WindowsPlatformWindow.h"
+#include "Windows/WindowsFileSystemWatcher.h"
 #include "Platform/Viewport.h"
 #include "ClientShared/Console.h"
 #include "ClientShared/Rendering/BgfxRenderer.h"
@@ -34,9 +35,25 @@ int main(int argc, char** argv) {
     //Very first thing to do is init the renderer's static resources.
     ClientShared::BgfxRenderer::StaticInit();
 
+    WindowsTimeProvider* timeProvider = new WindowsTimeProvider();
+    WindowsFileSystemWatcher* fileSystemWatcher = new WindowsFileSystemWatcher();
+
+    DirectorySubscription* subscription = fileSystemWatcher->Subscribe(".");
+    subscription->FileCreated.Connect([](const std::string& filename) {
+        std::cout << "File created: " << filename << std::endl;
+    });
+    subscription->FileChanged.Connect([](const std::string& filename) {
+        std::cout << "File changed: " << filename << std::endl;
+    });
+    subscription->FileDeleted.Connect([](const std::string& filename) {
+        std::cout << "File deleted: " << filename << std::endl;
+    });
+
     Engine* engine = new Engine;
     std::shared_ptr<ClientShared::BgfxRenderer> renderer = std::make_shared<ClientShared::BgfxRenderer>();
     EngineInitParams params;
+    params.timeProvider = timeProvider;
+    params.fileSystemWatcher = fileSystemWatcher;
     params.renderer = renderer.get();
     engine->Initialize(params);
 
@@ -72,6 +89,7 @@ int main(int argc, char** argv) {
     std::cout << "Engine Initialized." << std::endl;
 
     while (window.PollEvents()) {
+        fileSystemWatcher->Update();
         engine->Update();
         //pull input
         //execute some lua
@@ -93,5 +111,7 @@ int main(int argc, char** argv) {
     engine->Shutdown();
     std::cout << "Engine shutdown." << std::endl;
     delete engine;
+    delete timeProvider;
+    delete fileSystemWatcher;
     return 0;
 }

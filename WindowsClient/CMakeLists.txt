@@ -3,6 +3,7 @@ project(WindowsClient)
 add_executable(WindowsClient 
     main.cpp
     Windows/WindowsPlatformWindow.cpp
+    Windows/WindowsFileSystemWatcher.cpp
     Input/RawInputHandler.cpp
 )
 

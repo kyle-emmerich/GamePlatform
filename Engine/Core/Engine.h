@@ -9,6 +9,7 @@
 #include "Instance/Reflection.h"
 #include "Scripting/LuaState.h"
 #include "Core/TimeProvider.h"
+#include "Core/IFileSystemWatcher.h"
 #include "Engine.generated.h"
 
 namespace Rendering {
@@ -40,7 +41,12 @@ public:
 
 struct EngineInitParams {
 	ITimeProvider* timeProvider = nullptr;
+	IFileSystemWatcher* fileSystemWatcher = nullptr;
+	class IFontInfoProvider* fontInfoProvider = nullptr;
 	Rendering::IRenderer* renderer = nullptr;
+
+	std::string_view assetCacheDirectory = "AssetCache";
+	std::string_view contentDirectory = "Content";
 };
 
 class Log;
@@ -54,7 +60,9 @@ public:
 	void Initialize(const EngineInitParams& params = EngineInitParams());
 	void Shutdown();
 
-	Rendering::IRenderer* GetRenderer() { return renderer; }
+	Rendering::IRenderer* GetRenderer() const { return renderer; }
+	const std::string_view& GetAssetCacheDirectory() const { return assetCacheDirectory; }
+	const std::string_view& GetContentDirectory() const { return contentDirectory; }
 
 	template<typename T>
 	T* GetSystem() {
@@ -73,11 +81,16 @@ public:
 	}
 
 	double GetTime();
+	IFileSystemWatcher* GetFileSystemWatcher() {
+		return fileSystemWatcher;
+	}
 
 	void Update();
-
 protected:
 	ITimeProvider* timeProvider = nullptr;
+	IFileSystemWatcher* fileSystemWatcher = nullptr;
+	std::string_view assetCacheDirectory;
+	std::string_view contentDirectory;
 	Log* log = nullptr;
 
 	double startTime = 0.0;

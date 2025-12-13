@@ -3,14 +3,10 @@
 
 System::System(Engine* engine) : Instance(engine) {}
 
+void System::Register(SystemInitOrder& initOrder) {
+    initOrder.Add(this);
+}
+
 void System::Initialize() {}
 void System::Shutdown() {}
-
-void System::Register(SystemInitOrder& initOrder) {
-	//By default, just add to the end of the init order.
-	initOrder.Add(this);
-}
-
-void System::Update(double deltaTime) {
-	//Default implementation does nothing.
-}
+void System::Update(double deltaTime) {}

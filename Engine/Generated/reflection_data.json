@@ -66,6 +66,19 @@
             },
             {
                 "type": "method",
+                "return_type": "void",
+                "name": "LoadFromData",
+                "args": [],
+                "flags": [],
+                "hash": 7032010758510060255,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
                 "return_type": "uint64_t",
                 "name": "GetAssetId",
                 "args": [],
@@ -84,7 +97,9 @@
             "Instance"
         ],
         "protected_base_classes": [],
-        "private_base_classes": [],
+        "private_base_classes": [
+            "BaseInstance<AssetBase>"
+        ],
         "derived_classes": []
     },
     {
@@ -101,10 +116,10 @@
             {
                 "type": "method",
                 "return_type": "void",
-                "name": "Acquire",
+                "name": "Initialize",
                 "args": [],
                 "flags": [],
-                "hash": 2993827676837348969,
+                "hash": 1646952867379511869,
                 "attributes": {},
                 "is_setter": false,
                 "is_getter": false,
@@ -114,10 +129,75 @@
             {
                 "type": "method",
                 "return_type": "void",
-                "name": "Release",
+                "name": "Shutdown",
                 "args": [],
                 "flags": [],
-                "hash": 8539991198309919180,
+                "hash": 15924552858748266221,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "AssetHandle",
+                "name": "LoadAssetById",
+                "args": [],
+                "flags": [],
+                "hash": 1981575768481438469,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "AssetHandle",
+                "name": "LoadAsset",
+                "args": [],
+                "flags": [],
+                "hash": 1807578656113564905,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "ReloadAsset",
+                "args": [],
+                "flags": [],
+                "hash": 18213798221552881002,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "bool",
+                "name": "IsAssetLoaded",
+                "args": [],
+                "flags": [],
+                "hash": 1137425924127850152,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "bool",
+                "name": "IsLocalAsset",
+                "args": [],
+                "flags": [],
+                "hash": 11254275064290298638,
                 "attributes": {},
                 "is_setter": false,
                 "is_getter": false,
@@ -134,6 +214,126 @@
         "private_base_classes": [
             "BaseInstance<AssetSystem>"
         ],
+        "derived_classes": []
+    },
+    {
+        "header": "Assets/FontFaceAsset.h",
+        "namespace": null,
+        "type": "class",
+        "name": "FontFaceAsset",
+        "reflected": true,
+        "flags": {
+            "reflect": []
+        },
+        "props": [
+            {
+                "type": "property",
+                "prop_type": "std::string",
+                "name": "FontFamilyName",
+                "flags": [],
+                "hash": 6634554386648522118,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {}
+            },
+            {
+                "type": "property",
+                "prop_type": "int",
+                "name": "Weight",
+                "flags": [],
+                "hash": 10229933631802703228,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {}
+            },
+            {
+                "type": "property",
+                "prop_type": "bool",
+                "name": "Italic",
+                "flags": [],
+                "hash": 6387330819535788908,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {}
+            }
+        ],
+        "methods": [
+            {
+                "type": "method",
+                "return_type": "Math::Vector2<float>",
+                "name": "GetTextSize",
+                "args": [],
+                "flags": [],
+                "hash": 17181859751573018158,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": true,
+                "is_changed_handler": false,
+                "associated_prop_name": "TextSize"
+            }
+        ],
+        "events": [],
+        "hash": 9245101962440316649,
+        "public_base_classes": [
+            "AssetBase"
+        ],
+        "protected_base_classes": [],
+        "private_base_classes": [],
+        "derived_classes": []
+    },
+    {
+        "header": "Assets/FontFamilyAsset.h",
+        "namespace": null,
+        "type": "class",
+        "name": "FontFamilyAsset",
+        "reflected": true,
+        "flags": {
+            "reflect": []
+        },
+        "props": [
+            {
+                "type": "property",
+                "prop_type": "std::string",
+                "name": "FamilyName",
+                "flags": [],
+                "hash": 15419163949359671074,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {}
+            },
+            {
+                "type": "property",
+                "prop_type": "std::vector<uint64_t>",
+                "name": "FontFaceAssetIds",
+                "flags": [],
+                "hash": 3877525273271921955,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {}
+            }
+        ],
+        "methods": [
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "LoadFromData",
+                "args": [],
+                "flags": [],
+                "hash": 16333686354155929897,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            }
+        ],
+        "events": [],
+        "hash": 14905387394028095286,
+        "public_base_classes": [
+            "AssetBase"
+        ],
+        "protected_base_classes": [],
+        "private_base_classes": [],
         "derived_classes": []
     },
     {
@@ -2005,6 +2205,94 @@
         "protected_base_classes": [],
         "private_base_classes": [
             "BaseInstance<Camera>"
+        ],
+        "derived_classes": []
+    },
+    {
+        "header": "Rendering/TextSystem.h",
+        "namespace": null,
+        "type": "class",
+        "name": "TextSystem",
+        "reflected": true,
+        "flags": {
+            "reflect": []
+        },
+        "props": [],
+        "methods": [
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "Register",
+                "args": [],
+                "flags": [],
+                "hash": 8894892503060626567,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "Initialize",
+                "args": [],
+                "flags": [],
+                "hash": 5714196804723501380,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "Shutdown",
+                "args": [],
+                "flags": [],
+                "hash": 2658605355542102800,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "LoadFontFamily",
+                "args": [],
+                "flags": [],
+                "hash": 1080589876132140167,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "Math::Vector2<float>",
+                "name": "GetTextSize",
+                "args": [],
+                "flags": [],
+                "hash": 4677883977891512288,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": true,
+                "is_changed_handler": false,
+                "associated_prop_name": "TextSize"
+            }
+        ],
+        "events": [],
+        "hash": 2786379742972212553,
+        "public_base_classes": [
+            "System"
+        ],
+        "protected_base_classes": [],
+        "private_base_classes": [
+            "BaseInstance<TextSystem>"
         ],
         "derived_classes": []
     },

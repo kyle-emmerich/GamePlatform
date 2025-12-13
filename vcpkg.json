@@ -6,6 +6,7 @@
     "protobuf",
     "openssl",
     "harfbuzz",
+    "nlohmann-json",
     {
       "name": "bgfx",
       "features": [

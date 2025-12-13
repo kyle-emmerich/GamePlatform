@@ -1,0 +1,95 @@
+{
+  "FamilyName": "ZT Nature",
+  "Faces": [
+    {
+      "URI": "content://Fonts/ZTNature/ZTNature-Thin.otf",
+      "Weight": 100,
+      "Italic": false
+    },
+    {
+      "URI": "content://Fonts/ZTNature/ZTNature-ThinItalic.otf",
+      "Weight": 100,
+      "Italic": true
+    },
+    {
+      "URI": "content://Fonts/ZTNature/ZTNature-ExtraLight.otf",
+      "Weight": 200,
+      "Italic": false
+    },
+    {
+      "URI": "content://Fonts/ZTNature/ZTNature-ExtraLightItalic.otf",
+      "Weight": 200,
+      "Italic": true
+    },
+    {
+      "URI": "content://Fonts/ZTNature/ZTNature-Light.otf",
+      "Weight": 300,
+      "Italic": false
+    },
+    {
+      "URI": "content://Fonts/ZTNature/ZTNature-LightItalic.otf",
+      "Weight": 300,
+      "Italic": true
+    },
+    {
+      "URI": "content://Fonts/ZTNature/ZTNature-Regular.otf",
+      "Weight": 400,
+      "Italic": false
+    },
+    {
+      "URI": "content://Fonts/ZTNature/ZTNature-Italic.otf",
+      "Weight": 400,
+      "Italic": true
+    },
+    {
+      "URI": "content://Fonts/ZTNature/ZTNature-Medium.otf",
+      "Weight": 500,
+      "Italic": false
+    },
+    {
+      "URI": "content://Fonts/ZTNature/ZTNature-MediumItalic.otf",
+      "Weight": 500,
+      "Italic": true
+    },
+    {
+      "URI": "content://Fonts/ZTNature/ZTNature-SemiBold.otf",
+      "Weight": 600,
+      "Italic": false
+    },
+    {
+      "URI": "content://Fonts/ZTNature/ZTNature-SemiBoldItalic.otf",
+      "Weight": 600,
+      "Italic": true
+    },
+    {
+      "URI": "content://Fonts/ZTNature/ZTNature-Bold.otf",
+      "Weight": 700,
+      "Italic": false
+    },
+    {
+      "URI": "content://Fonts/ZTNature/ZTNature-BoldItalic.otf",
+      "Weight": 700,
+      "Italic": true
+    },
+    {
+      "URI": "content://Fonts/ZTNature/ZTNature-ExtraBold.otf",
+      "Weight": 800,
+      "Italic": false
+    },
+    {
+      "URI": "content://Fonts/ZTNature/ZTNature-ExtraBoldItalic.otf",
+      "Weight": 800,
+      "Italic": true
+    },
+    {
+      "URI": "content://Fonts/ZTNature/ZTNature-Black.otf",
+      "Weight": 900,
+      "Italic": false
+    },
+    {
+      "URI": "content://Fonts/ZTNature/ZTNature-BlackItalic.otf",
+      "Weight": 900,
+      "Italic": true
+    }
+  ]
+}

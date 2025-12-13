@@ -1,6 +1,7 @@
 #pragma once
 #include "Instance.h"
 #include "System.generated.h"
+#include <type_traits>
 
 class SystemInitOrder;
 
@@ -13,7 +14,7 @@ public:
 	void Initialize();
 	void Shutdown();
 
-	virtual void Update(double deltaTime);
+	void Update(double deltaTime);
 };
 
 REFLECTION_END()

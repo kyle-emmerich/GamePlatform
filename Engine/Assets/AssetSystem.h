@@ -1,41 +1,48 @@
 #pragma once
 
-#include "Instance/System.h"
-#include "AssetSystem.generated.h"
 #include <unordered_map>
+#include "Instance/System.h"
+#include "Assets/AssetBase.h"
+#include "Assets/AssetHandle.h"
+#include "AssetSystem.generated.h"
 
-class AssetSystem;
-
-class AssetHandle {
-public:
-    AssetHandle();
-    AssetHandle(AssetSystem* system, uint64_t assetId);
-    ~AssetHandle();
-
-    AssetHandle(const AssetHandle& other);
-    AssetHandle& operator=(const AssetHandle& other);
-
-    AssetHandle(AssetHandle&& other) noexcept;
-    AssetHandle& operator=(AssetHandle&& other) noexcept;
-
-    bool IsValid() const;
-    uint64_t GetId() const;
-
-private:
-    AssetSystem* system = nullptr;
-    uint64_t assetId = 0;
-};
+class AssetData;
 
 class [[reflect()]] AssetSystem : public System, BaseInstance<AssetSystem> {
     REFLECTION()
 public:
-    AssetSystem(Engine* engine) : System(engine) {}
+    AssetSystem(Engine* engine);
+    ~AssetSystem();
 
-    void Acquire(uint64_t assetId);
-    void Release(uint64_t assetId);
+    void Initialize();
+    void Shutdown();
+
+    AssetHandle LoadAssetById(uint64_t assetId);
+    AssetHandle LoadAsset(const std::string& assetURI);
+    void ReloadAsset(uint64_t assetId);
+
+    bool IsAssetLoaded(uint64_t assetId);
+    AssetData* GetAssetData(uint64_t assetId);
+
+    static constexpr uint64_t LOCAL_ASSET_ID_THRESHOLD = 1ULL << 50;
+    static bool IsLocalAsset(uint64_t assetId) { return assetId >= LOCAL_ASSET_ID_THRESHOLD; }
 
 private:
-    std::unordered_map<uint64_t, int> referenceCounts;
+    std::unordered_map<uint64_t, AssetData*> loadedAssets;
+    std::unordered_map<uint64_t, int> refCounts;
+    std::unordered_map<uint64_t, std::string> assetSources;
+    std::unordered_map<std::string, uint64_t> uriToAssetId;
+
+    uint64_t nextLocalAssetId = 0xFFFFFFFFFFFFFFFF;
+
+    class DirectorySubscription* assetDirectorySubscription = nullptr;
+protected:
+    friend class AssetData;
+    friend class AssetHandle;
+    void acquire(uint64_t assetId);
+    void release(uint64_t assetId);
+
+    AssetData* getAssetData(uint64_t assetId);
 };
 
 REFLECTION_END()

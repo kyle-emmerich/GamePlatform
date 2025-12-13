@@ -4,11 +4,9 @@
 
 class Player;
 class PlayerSystem : public System, BaseInstance<PlayerSystem> {
-    REFLECTION()
+	REFLECTION()
 public:
-    PlayerSystem(Engine* engine) : System(engine) {}
-
-    void HandlePlayerJoin(uint64_t playerId);
+    PlayerSystem(Engine* engine) : System(engine) {}    void HandlePlayerJoin(uint64_t playerId);
     void HandlePlayerLeave(uint64_t playerId);
 };
 

@@ -7,11 +7,9 @@
 
 
 class [[reflect()]] PhysicsSystem : public System, BaseInstance<PhysicsSystem> {
-    REFLECTION()
+	REFLECTION()
 public:
-    PhysicsSystem(Engine* engine) : System(engine) {}
-    
-    void Update(double deltaTime) override;
+    PhysicsSystem(Engine* engine) : System(engine) {}    void Update(double deltaTime) override;
 
 protected:
 };

@@ -1,0 +1,10 @@
+^C:\USERS\KYLE\DOCUMENTS\DEVELOPMENT\GAMEPLATFORM\CRTPEXPERIMENT\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Kyle/Documents/Development/GamePlatform/CRTPExperiment -BC:/Users/Kyle/Documents/Development/GamePlatform --check-stamp-file C:/Users/Kyle/Documents/Development/GamePlatform/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

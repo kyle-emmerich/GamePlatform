@@ -1,6 +1,9 @@
 #pragma once
 #include "Instance/Instance.h"
+#include "Assets/AssetHandle.h"
 #include "AssetBase.generated.h"
+
+class AssetData;
 
 enum class AssetType : uint8_t {
     Unknown,
@@ -9,14 +12,14 @@ enum class AssetType : uint8_t {
     Audio,
     Script,
     Model,
-    Font,
-
+    FontFace,
+    FontFamily
 };
 
-class [[reflect(Abstract)]] AssetBase : public Instance {
+class [[reflect(Abstract)]] AssetBase : public Instance, BaseInstance<AssetBase> {
     REFLECTION()
 public:
-    AssetBase(Engine* engine) : Instance(engine), assetId(0) {}
+    AssetBase(Engine* engine) : Instance(engine) {}
     AssetBase(Engine* engine, uint64_t id);
     ~AssetBase() = default;
 
@@ -26,12 +29,15 @@ public:
     void Load();
     void Unload();
 
-    uint64_t GetAssetId() const { return assetId; }
+    virtual void LoadFromData(AssetData* data) {}
+
+    uint64_t GetAssetId() const { return handle.GetId(); }
+    class AssetData* GetAssetData() const;
 protected:
     bool loaded = false;
     bool loading = false;
 
-    uint64_t assetId = 0;
+    AssetHandle handle;
 };
 
 REFLECTION_END()
