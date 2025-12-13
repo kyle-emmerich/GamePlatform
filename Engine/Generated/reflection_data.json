@@ -1,8 +1,9 @@
 [
     {
-        "header": "Assets/AssetBase.h",
+        "header": "UI/UIFrame.h",
         "namespace": null,
         "type": "class",
+<<<<<<< HEAD
         "name": "AssetBase",
         "reflected": true,
         "flags": {
@@ -107,19 +108,116 @@
         "namespace": null,
         "type": "class",
         "name": "AssetSystem",
+=======
+        "name": "UIFrame",
+>>>>>>> 0b27b9730943dd17982fb269f8c331f04dcab9bb
         "reflected": true,
         "flags": {
             "reflect": []
         },
-        "props": [],
+        "props": [
+            {
+                "type": "property",
+                "prop_type": "Math::Color",
+                "name": "BackgroundColor",
+                "flags": [],
+                "hash": 2599376539182569852,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {
+                    "summary": "Determines the background color and opacity of the UI frame."
+                }
+            }
+        ],
         "methods": [
             {
                 "type": "method",
                 "return_type": "void",
+<<<<<<< HEAD
                 "name": "Initialize",
                 "args": [],
                 "flags": [],
                 "hash": 1646952867379511869,
+=======
+                "name": "OnRender",
+                "args": [],
+                "flags": [],
+                "hash": 1975777372606758012,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            }
+        ],
+        "events": [],
+        "hash": 7820271310145883030,
+        "public_base_classes": [
+            "UIBase"
+        ],
+        "protected_base_classes": [],
+        "private_base_classes": [
+            "BaseInstance<UIFrame>"
+        ],
+        "derived_classes": []
+    },
+    {
+        "header": "UI/UILayer.h",
+        "namespace": null,
+        "type": "class",
+        "name": "UILayer",
+        "reflected": true,
+        "flags": {
+            "reflect": []
+        },
+        "props": [
+            {
+                "type": "property",
+                "prop_type": "Math::Vector2<float>",
+                "name": "AbsoluteSize",
+                "flags": [
+                    "ReadOnly"
+                ],
+                "hash": 2151195656403527137,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {
+                    "summary": "The absolute size in pixels of the layer."
+                }
+            },
+            {
+                "type": "property",
+                "prop_type": "bool",
+                "name": "Visible",
+                "flags": [],
+                "hash": 5058834983567597453,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {}
+            }
+        ],
+        "methods": [
+            {
+                "type": "method",
+                "return_type": "Math::Transform<double>",
+                "name": "GetLayerTransform",
+                "args": [],
+                "flags": [],
+                "hash": 1286906546172628368,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": true,
+                "is_changed_handler": false,
+                "associated_prop_name": "LayerTransform"
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "OnRendered",
+                "args": [],
+                "flags": [],
+                "hash": 12961685070708736389,
+>>>>>>> 0b27b9730943dd17982fb269f8c331f04dcab9bb
                 "attributes": {},
                 "is_setter": false,
                 "is_getter": false,
@@ -129,6 +227,7 @@
             {
                 "type": "method",
                 "return_type": "void",
+<<<<<<< HEAD
                 "name": "Shutdown",
                 "args": [],
                 "flags": [],
@@ -159,6 +258,12 @@
                 "args": [],
                 "flags": [],
                 "hash": 1807578656113564905,
+=======
+                "name": "OnAttached",
+                "args": [],
+                "flags": [],
+                "hash": 17596752776009123728,
+>>>>>>> 0b27b9730943dd17982fb269f8c331f04dcab9bb
                 "attributes": {},
                 "is_setter": false,
                 "is_getter": false,
@@ -168,6 +273,7 @@
             {
                 "type": "method",
                 "return_type": "void",
+<<<<<<< HEAD
                 "name": "ReloadAsset",
                 "args": [],
                 "flags": [],
@@ -198,6 +304,12 @@
                 "args": [],
                 "flags": [],
                 "hash": 11254275064290298638,
+=======
+                "name": "OnDetached",
+                "args": [],
+                "flags": [],
+                "hash": 5158291033320948802,
+>>>>>>> 0b27b9730943dd17982fb269f8c331f04dcab9bb
                 "attributes": {},
                 "is_setter": false,
                 "is_getter": false,
@@ -206,17 +318,19 @@
             }
         ],
         "events": [],
-        "hash": 5908167834153276152,
+        "hash": 6626084362799629926,
         "public_base_classes": [
-            "System"
+            "Instance",
+            "IRenderable"
         ],
         "protected_base_classes": [],
         "private_base_classes": [
-            "BaseInstance<AssetSystem>"
+            "BaseInstance<UILayer>"
         ],
         "derived_classes": []
     },
     {
+<<<<<<< HEAD
         "header": "Assets/FontFaceAsset.h",
         "namespace": null,
         "type": "class",
@@ -338,9 +452,326 @@
     },
     {
         "header": "Assets/MeshAsset.h",
+=======
+        "header": "UI/UIBase.h",
+>>>>>>> 0b27b9730943dd17982fb269f8c331f04dcab9bb
         "namespace": null,
         "type": "class",
-        "name": "MeshAsset",
+        "name": "UIBase",
+        "reflected": true,
+        "flags": {
+            "reflect": [
+                "Hidden"
+            ]
+        },
+        "props": [
+            {
+                "type": "property",
+                "prop_type": "bool",
+                "name": "Visible",
+                "flags": [],
+                "hash": 17881180902035109997,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {
+                    "summary": "Determines if the UI element and its descendants are visible. Non-visible UI elements do not receive input events."
+                }
+            },
+            {
+                "type": "property",
+                "prop_type": "bool",
+                "name": "Active",
+                "flags": [],
+                "hash": 17338702026517401811,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {
+                    "summary": "Determines if the UI element and its descendants can receive input events. If false, the UI element will not receive input events, but its children may still receive input events if they have Active set to true."
+                }
+            },
+            {
+                "type": "property",
+                "prop_type": "bool",
+                "name": "Selectable",
+                "flags": [],
+                "hash": 14949983364213345289,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {
+                    "summary": "Determines if the UI element can be selected. If false, the UI element will not be selectable, but its children may still be selectable if they have Selectable set to true."
+                }
+            },
+            {
+                "type": "property",
+                "prop_type": "bool",
+                "name": "Selected",
+                "flags": [],
+                "hash": 12093894295409137552,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {
+                    "summary": "Determines if the UI element is currently selected. Only one UI element can be selected at a time. Setting this to true will automatically set all other selectable UI elements' Selected property to false."
+                }
+            },
+            {
+                "type": "property",
+                "prop_type": "bool",
+                "name": "Focusable",
+                "flags": [],
+                "hash": 1205696813948932939,
+                "setter": "&wrap_UIBase_SetFocusable",
+                "getter": "nullptr",
+                "attributes": {
+                    "summary": "Determines if the UI element can be focused. If false, the UI element will not be focusable, but its children may still be focusable if they have Focusable set to true."
+                }
+            },
+            {
+                "type": "property",
+                "prop_type": "bool",
+                "name": "Focused",
+                "flags": [],
+                "hash": 3092359530290743806,
+                "setter": "&wrap_UIBase_SetFocused",
+                "getter": "nullptr",
+                "attributes": {
+                    "summary": "Determines if the UI element is currently focused. Only one UI element can be focused at a time. Setting this to true will automatically set all other focusable UI elements' Focused property to false."
+                }
+            },
+            {
+                "type": "property",
+                "prop_type": "Math::Rect<float>",
+                "name": "AbsoluteBounds",
+                "flags": [
+                    "ReadOnly"
+                ],
+                "hash": 18330102059134120305,
+                "setter": "nullptr",
+                "getter": "&wrap_UIBase_GetAbsoluteBounds",
+                "attributes": {}
+            },
+            {
+                "type": "property",
+                "prop_type": "Math::UDim2<float>",
+                "name": "Position",
+                "flags": [],
+                "hash": 8437510550921082310,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {}
+            },
+            {
+                "type": "property",
+                "prop_type": "Math::UDim2<float>",
+                "name": "Size",
+                "flags": [],
+                "hash": 6669128650288840432,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {}
+            },
+            {
+                "type": "property",
+                "prop_type": "float",
+                "name": "Rotation",
+                "flags": [],
+                "hash": 10532859545596094243,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {}
+            },
+            {
+                "type": "property",
+                "prop_type": "int",
+                "name": "ZIndex",
+                "flags": [],
+                "hash": 2253585515842124727,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {}
+            },
+            {
+                "type": "property",
+                "prop_type": "bool",
+                "name": "ClipsDescendants",
+                "flags": [],
+                "hash": 10704925319171241240,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {}
+            }
+        ],
+        "methods": [
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "OnRender",
+                "args": [],
+                "flags": [],
+                "hash": 10756509252978361732,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "CaptureFocus",
+                "args": [],
+                "flags": [],
+                "hash": 4103364465545980787,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "ReleaseFocus",
+                "args": [],
+                "flags": [],
+                "hash": 17593646182081166254,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "SetFocused",
+                "args": [],
+                "flags": [
+                    "Setter"
+                ],
+                "hash": 12532115474728945992,
+                "attributes": {},
+                "is_setter": true,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": "Focused"
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "SetFocusable",
+                "args": [],
+                "flags": [
+                    "Setter"
+                ],
+                "hash": 12607305211950757201,
+                "attributes": {},
+                "is_setter": true,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": "Focusable"
+            },
+            {
+                "type": "method",
+                "return_type": "Math::Rect<float>",
+                "name": "GetAbsoluteBounds",
+                "args": [],
+                "flags": [
+                    "Derived"
+                ],
+                "hash": 1308948454528094759,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": true,
+                "is_changed_handler": false,
+                "associated_prop_name": "AbsoluteBounds"
+            },
+            {
+                "type": "method",
+                "return_type": "bool",
+                "name": "__SetFocused",
+                "args": [],
+                "flags": [],
+                "hash": 16413593151031368730,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "bool",
+                "name": "__CanBeFocused",
+                "args": [],
+                "flags": [],
+                "hash": 7252270790605946847,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "bool",
+                "name": "__IsFocused",
+                "args": [],
+                "flags": [],
+                "hash": 5480423389436211764,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            }
+        ],
+        "events": [
+            {
+                "type": "event",
+                "return_type": "void",
+                "name": "FocusGained",
+                "args": [
+                    {
+                        "type": "Input*",
+                        "name": "???"
+                    }
+                ],
+                "flags": [],
+                "hash": 10522183246054686288,
+                "attributes": {}
+            },
+            {
+                "type": "event",
+                "return_type": "void",
+                "name": "FocusLost",
+                "args": [
+                    {
+                        "type": "Input*",
+                        "name": "???"
+                    }
+                ],
+                "flags": [],
+                "hash": 12880314734803306188,
+                "attributes": {}
+            }
+        ],
+        "hash": 13164547535656996808,
+        "public_base_classes": [
+            "Instance"
+        ],
+        "protected_base_classes": [
+            "IInputFocusable"
+        ],
+        "private_base_classes": [
+            "BaseInstance<UIBase>"
+        ],
+        "derived_classes": []
+    },
+    {
+        "header": "UI/UISurfaceLayer.h",
+        "namespace": null,
+        "type": "class",
+        "name": "UISurfaceLayer",
         "reflected": true,
         "flags": {
             "reflect": []
@@ -348,12 +779,110 @@
         "props": [],
         "methods": [],
         "events": [],
-        "hash": 883787077860829302,
+        "hash": 13310311961346317417,
         "public_base_classes": [
-            "AssetBase"
+            "UILayer"
         ],
         "protected_base_classes": [],
-        "private_base_classes": [],
+        "private_base_classes": [
+            "BaseInstance<UISurfaceLayer>"
+        ],
+        "derived_classes": []
+    },
+    {
+        "header": "UI/UIScreenLayer.h",
+        "namespace": null,
+        "type": "class",
+        "name": "UIScreenLayer",
+        "reflected": true,
+        "flags": {
+            "reflect": []
+        },
+        "props": [],
+        "methods": [
+            {
+                "type": "method",
+                "return_type": "Math::Transform<double>",
+                "name": "GetLayerTransform",
+                "args": [],
+                "flags": [],
+                "hash": 6469454752510297172,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": true,
+                "is_changed_handler": false,
+                "associated_prop_name": "LayerTransform"
+            }
+        ],
+        "events": [],
+        "hash": 16482266350765397210,
+        "public_base_classes": [
+            "UILayer"
+        ],
+        "protected_base_classes": [],
+        "private_base_classes": [
+            "BaseInstance<UIScreenLayer>"
+        ],
+        "derived_classes": []
+    },
+    {
+        "header": "UI/UISystem.h",
+        "namespace": null,
+        "type": "class",
+        "name": "UISystem",
+        "reflected": true,
+        "flags": {
+            "reflect": [
+                "Engine"
+            ]
+        },
+        "props": [],
+        "methods": [
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "Render",
+                "args": [],
+                "flags": [],
+                "hash": 11993883210084191149,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            }
+        ],
+        "events": [],
+        "hash": 14573443723963754668,
+        "public_base_classes": [
+            "System"
+        ],
+        "protected_base_classes": [],
+        "private_base_classes": [
+            "BaseInstance<UISystem>"
+        ],
+        "derived_classes": []
+    },
+    {
+        "header": "UI/UIButton.h",
+        "namespace": null,
+        "type": "class",
+        "name": "UIButton",
+        "reflected": true,
+        "flags": {
+            "reflect": []
+        },
+        "props": [],
+        "methods": [],
+        "events": [],
+        "hash": 6441450784442152129,
+        "public_base_classes": [
+            "UIFrame"
+        ],
+        "protected_base_classes": [],
+        "private_base_classes": [
+            "BaseInstance<UIButton>"
+        ],
         "derived_classes": []
     },
     {
@@ -548,227 +1077,6 @@
         "derived_classes": []
     },
     {
-        "header": "Input/IInputFocusable.h",
-        "namespace": null,
-        "type": "class",
-        "name": "IInputFocusable",
-        "reflected": true,
-        "flags": {
-            "reflect": [
-                "Interface"
-            ]
-        },
-        "props": [],
-        "methods": [
-            {
-                "type": "method",
-                "return_type": "bool",
-                "name": "__SetFocused",
-                "args": [],
-                "flags": [],
-                "hash": 11195092433380065274,
-                "attributes": {},
-                "is_setter": false,
-                "is_getter": false,
-                "is_changed_handler": false,
-                "associated_prop_name": null
-            },
-            {
-                "type": "method",
-                "return_type": "bool",
-                "name": "__CanBeFocused",
-                "args": [],
-                "flags": [],
-                "hash": 1220276568039555839,
-                "attributes": {},
-                "is_setter": false,
-                "is_getter": false,
-                "is_changed_handler": false,
-                "associated_prop_name": null
-            },
-            {
-                "type": "method",
-                "return_type": "bool",
-                "name": "__IsFocused",
-                "args": [],
-                "flags": [],
-                "hash": 5308995398965259540,
-                "attributes": {},
-                "is_setter": false,
-                "is_getter": false,
-                "is_changed_handler": false,
-                "associated_prop_name": null
-            },
-            {
-                "type": "method",
-                "return_type": "void",
-                "name": "CaptureFocus",
-                "args": [],
-                "flags": [],
-                "hash": 2638584102596391507,
-                "attributes": {},
-                "is_setter": false,
-                "is_getter": false,
-                "is_changed_handler": false,
-                "associated_prop_name": null
-            },
-            {
-                "type": "method",
-                "return_type": "void",
-                "name": "ReleaseFocus",
-                "args": [],
-                "flags": [],
-                "hash": 9980209804308115470,
-                "attributes": {},
-                "is_setter": false,
-                "is_getter": false,
-                "is_changed_handler": false,
-                "associated_prop_name": null
-            }
-        ],
-        "events": [],
-        "hash": 10276354170294263374,
-        "public_base_classes": [],
-        "protected_base_classes": [],
-        "private_base_classes": [],
-        "derived_classes": []
-    },
-    {
-        "header": "Input/Input.h",
-        "namespace": null,
-        "type": "class",
-        "name": "Input",
-        "reflected": true,
-        "flags": {
-            "reflect": []
-        },
-        "props": [
-            {
-                "type": "property",
-                "prop_type": "EngineUUID",
-                "name": "DeviceId",
-                "flags": [],
-                "hash": 16184945271371927867,
-                "setter": "nullptr",
-                "getter": "nullptr",
-                "attributes": {
-                    "summary": "The device identifier that produced this input."
-                }
-            },
-            {
-                "type": "property",
-                "prop_type": "InputState",
-                "name": "State",
-                "flags": [],
-                "hash": 3009984443269363505,
-                "setter": "&wrap_Input_SetState",
-                "getter": "nullptr",
-                "attributes": {
-                    "summary": "The current state of this input. Input objects exist for the full lifecycle of the input (Begin, Change..., End)"
-                }
-            },
-            {
-                "type": "property",
-                "prop_type": "KeyCode",
-                "name": "Key",
-                "flags": [],
-                "hash": 9613006787812459227,
-                "setter": "nullptr",
-                "getter": "nullptr",
-                "attributes": {
-                    "summary": "If the input was generated by a keyboard or mouse, this represents which key or mouse button was responsible."
-                }
-            },
-            {
-                "type": "property",
-                "prop_type": "InputType",
-                "name": "Type",
-                "flags": [],
-                "hash": 17296416498798948836,
-                "setter": "nullptr",
-                "getter": "nullptr",
-                "attributes": {
-                    "summary": "The type of input that generated this event."
-                }
-            },
-            {
-                "type": "property",
-                "prop_type": "Math::Vector3<double>",
-                "name": "Position",
-                "flags": [],
-                "hash": 5522549956334124431,
-                "setter": "&wrap_Input_SetPosition",
-                "getter": "nullptr",
-                "attributes": {
-                    "summary": "The position of the input. For mouse inputs, this is the cursor position. For touch inputs, this is the position of the touch and Z represents the touch pressure if hardware allows."
-                }
-            },
-            {
-                "type": "property",
-                "prop_type": "Math::Vector3<double>",
-                "name": "Delta",
-                "flags": [],
-                "hash": 2515219657530185338,
-                "setter": "&wrap_Input_SetDelta",
-                "getter": "nullptr",
-                "attributes": {
-                    "summary": "The change in position since the last state change. For mouse inputs, this is the change in cursor position (even if the cursor is locked). For scroll wheel events, the Z component represents the amount scrolled."
-                }
-            }
-        ],
-        "methods": [
-            {
-                "type": "method",
-                "return_type": "void",
-                "name": "SetPosition",
-                "args": [],
-                "flags": [],
-                "hash": 17926679941601423823,
-                "attributes": {},
-                "is_setter": true,
-                "is_getter": false,
-                "is_changed_handler": false,
-                "associated_prop_name": "Position"
-            },
-            {
-                "type": "method",
-                "return_type": "void",
-                "name": "SetDelta",
-                "args": [],
-                "flags": [],
-                "hash": 7860680049811534266,
-                "attributes": {},
-                "is_setter": true,
-                "is_getter": false,
-                "is_changed_handler": false,
-                "associated_prop_name": "Delta"
-            },
-            {
-                "type": "method",
-                "return_type": "void",
-                "name": "SetState",
-                "args": [],
-                "flags": [],
-                "hash": 1876172367671776369,
-                "attributes": {},
-                "is_setter": true,
-                "is_getter": false,
-                "is_changed_handler": false,
-                "associated_prop_name": "State"
-            }
-        ],
-        "events": [],
-        "hash": 12955756759241290125,
-        "public_base_classes": [
-            "Instance"
-        ],
-        "protected_base_classes": [],
-        "private_base_classes": [
-            "BaseInstance<Input>"
-        ],
-        "derived_classes": []
-    },
-    {
         "header": "Input/InputSystem.h",
         "namespace": null,
         "type": "class",
@@ -935,6 +1243,623 @@
         "protected_base_classes": [],
         "private_base_classes": [
             "BaseInstance<InputSystem>"
+        ],
+        "derived_classes": []
+    },
+    {
+        "header": "Input/Input.h",
+        "namespace": null,
+        "type": "class",
+        "name": "Input",
+        "reflected": true,
+        "flags": {
+            "reflect": []
+        },
+        "props": [
+            {
+                "type": "property",
+                "prop_type": "EngineUUID",
+                "name": "DeviceId",
+                "flags": [],
+                "hash": 16184945271371927867,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {
+                    "summary": "The device identifier that produced this input."
+                }
+            },
+            {
+                "type": "property",
+                "prop_type": "InputState",
+                "name": "State",
+                "flags": [],
+                "hash": 3009984443269363505,
+                "setter": "&wrap_Input_SetState",
+                "getter": "nullptr",
+                "attributes": {
+                    "summary": "The current state of this input. Input objects exist for the full lifecycle of the input (Begin, Change..., End)"
+                }
+            },
+            {
+                "type": "property",
+                "prop_type": "KeyCode",
+                "name": "Key",
+                "flags": [],
+                "hash": 9613006787812459227,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {
+                    "summary": "If the input was generated by a keyboard or mouse, this represents which key or mouse button was responsible."
+                }
+            },
+            {
+                "type": "property",
+                "prop_type": "InputType",
+                "name": "Type",
+                "flags": [],
+                "hash": 17296416498798948836,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {
+                    "summary": "The type of input that generated this event."
+                }
+            },
+            {
+                "type": "property",
+                "prop_type": "Math::Vector3<double>",
+                "name": "Position",
+                "flags": [],
+                "hash": 5522549956334124431,
+                "setter": "&wrap_Input_SetPosition",
+                "getter": "nullptr",
+                "attributes": {
+                    "summary": "The position of the input. For mouse inputs, this is the cursor position. For touch inputs, this is the position of the touch and Z represents the touch pressure if hardware allows."
+                }
+            },
+            {
+                "type": "property",
+                "prop_type": "Math::Vector3<double>",
+                "name": "Delta",
+                "flags": [],
+                "hash": 2515219657530185338,
+                "setter": "&wrap_Input_SetDelta",
+                "getter": "nullptr",
+                "attributes": {
+                    "summary": "The change in position since the last state change. For mouse inputs, this is the change in cursor position (even if the cursor is locked). For scroll wheel events, the Z component represents the amount scrolled."
+                }
+            }
+        ],
+        "methods": [
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "SetPosition",
+                "args": [],
+                "flags": [],
+                "hash": 17926679941601423823,
+                "attributes": {},
+                "is_setter": true,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": "Position"
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "SetDelta",
+                "args": [],
+                "flags": [],
+                "hash": 7860680049811534266,
+                "attributes": {},
+                "is_setter": true,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": "Delta"
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "SetState",
+                "args": [],
+                "flags": [],
+                "hash": 1876172367671776369,
+                "attributes": {},
+                "is_setter": true,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": "State"
+            }
+        ],
+        "events": [],
+        "hash": 12955756759241290125,
+        "public_base_classes": [
+            "Instance"
+        ],
+        "protected_base_classes": [],
+        "private_base_classes": [
+            "BaseInstance<Input>"
+        ],
+        "derived_classes": []
+    },
+    {
+        "header": "Input/IInputFocusable.h",
+        "namespace": null,
+        "type": "class",
+        "name": "IInputFocusable",
+        "reflected": true,
+        "flags": {
+            "reflect": [
+                "Interface"
+            ]
+        },
+        "props": [],
+        "methods": [
+            {
+                "type": "method",
+                "return_type": "bool",
+                "name": "__SetFocused",
+                "args": [],
+                "flags": [],
+                "hash": 11195092433380065274,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "bool",
+                "name": "__CanBeFocused",
+                "args": [],
+                "flags": [],
+                "hash": 1220276568039555839,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "bool",
+                "name": "__IsFocused",
+                "args": [],
+                "flags": [],
+                "hash": 5308995398965259540,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "CaptureFocus",
+                "args": [],
+                "flags": [],
+                "hash": 2638584102596391507,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "ReleaseFocus",
+                "args": [],
+                "flags": [],
+                "hash": 9980209804308115470,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            }
+        ],
+        "events": [],
+        "hash": 10276354170294263374,
+        "public_base_classes": [],
+        "protected_base_classes": [],
+        "private_base_classes": [],
+        "derived_classes": []
+    },
+    {
+        "header": "Platform/Viewport.h",
+        "namespace": null,
+        "type": "class",
+        "name": "Viewport",
+        "reflected": true,
+        "flags": {
+            "reflect": []
+        },
+        "props": [],
+        "methods": [
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "AttachToWindow",
+                "args": [],
+                "flags": [],
+                "hash": 12838895599752001722,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "AttachRenderable",
+                "args": [],
+                "flags": [],
+                "hash": 17350609154072433291,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "DetachRenderable",
+                "args": [],
+                "flags": [],
+                "hash": 4534288204153614557,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "RenderFrame",
+                "args": [],
+                "flags": [],
+                "hash": 12332037870038898535,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "int",
+                "name": "GetViewId",
+                "args": [],
+                "flags": [],
+                "hash": 13910796225618669266,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": true,
+                "is_changed_handler": false,
+                "associated_prop_name": "ViewId"
+            },
+            {
+                "type": "method",
+                "return_type": "Math::Vector2<float>",
+                "name": "GetSize",
+                "args": [],
+                "flags": [],
+                "hash": 10674161639722712095,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": true,
+                "is_changed_handler": false,
+                "associated_prop_name": "Size"
+            },
+            {
+                "type": "method",
+                "return_type": "bool",
+                "name": "IsDirty",
+                "args": [],
+                "flags": [],
+                "hash": 11371586387471337094,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "MarkDirty",
+                "args": [],
+                "flags": [],
+                "hash": 17793580216927872633,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "ClearDirty",
+                "args": [],
+                "flags": [],
+                "hash": 1224853597046919721,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            }
+        ],
+        "events": [],
+        "hash": 15786407814455166725,
+        "public_base_classes": [
+            "Instance"
+        ],
+        "protected_base_classes": [],
+        "private_base_classes": [
+            "BaseInstance<Viewport>"
+        ],
+        "derived_classes": []
+    },
+    {
+        "header": "Platform/PlatformWindow.h",
+        "namespace": null,
+        "type": "class",
+        "name": "PlatformWindow",
+        "reflected": true,
+        "flags": {
+            "reflect": [
+                "Abstract"
+            ]
+        },
+        "props": [],
+        "methods": [
+            {
+                "type": "method",
+                "return_type": "bool",
+                "name": "Initialize",
+                "args": [],
+                "flags": [],
+                "hash": 4308832229458095815,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "Shutdown",
+                "args": [],
+                "flags": [],
+                "hash": 15231260358924737543,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "bool",
+                "name": "PollEvents",
+                "args": [],
+                "flags": [],
+                "hash": 4051998026936205829,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "Math::Rect<int>",
+                "name": "GetInternalBounds",
+                "args": [],
+                "flags": [],
+                "hash": 1334258861590783475,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": true,
+                "is_changed_handler": false,
+                "associated_prop_name": "InternalBounds"
+            },
+            {
+                "type": "method",
+                "return_type": "Math::Rect<int>",
+                "name": "GetExternalBounds",
+                "args": [],
+                "flags": [],
+                "hash": 12002524277073256945,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": true,
+                "is_changed_handler": false,
+                "associated_prop_name": "ExternalBounds"
+            }
+        ],
+        "events": [
+            {
+                "type": "event",
+                "return_type": "void",
+                "name": "Resized",
+                "args": [],
+                "flags": [],
+                "hash": 17405529055999553930,
+                "attributes": {}
+            },
+            {
+                "type": "event",
+                "return_type": "void",
+                "name": "Closed",
+                "args": [],
+                "flags": [],
+                "hash": 2928913909267823522,
+                "attributes": {}
+            },
+            {
+                "type": "event",
+                "return_type": "void",
+                "name": "Focused",
+                "args": [],
+                "flags": [],
+                "hash": 6514377985530444107,
+                "attributes": {}
+            },
+            {
+                "type": "event",
+                "return_type": "void",
+                "name": "Unfocused",
+                "args": [],
+                "flags": [],
+                "hash": 1638644258775885090,
+                "attributes": {}
+            },
+            {
+                "type": "event",
+                "return_type": "void",
+                "name": "KeyInputReceived",
+                "args": [
+                    {
+                        "type": "EngineUUID",
+                        "name": "???"
+                    },
+                    {
+                        "type": "KeyCode",
+                        "name": "???"
+                    },
+                    {
+                        "type": "InputState",
+                        "name": "???"
+                    }
+                ],
+                "flags": [],
+                "hash": 1167617649362037548,
+                "attributes": {}
+            },
+            {
+                "type": "event",
+                "return_type": "void",
+                "name": "ReceivedTextInput",
+                "args": [
+                    {
+                        "type": "std::string",
+                        "name": "???"
+                    }
+                ],
+                "flags": [],
+                "hash": 9268735888980346914,
+                "attributes": {}
+            }
+        ],
+        "hash": 4954117093072731484,
+        "public_base_classes": [
+            "Instance"
+        ],
+        "protected_base_classes": [],
+        "private_base_classes": [
+            "BaseInstance<PlatformWindow>"
+        ],
+        "derived_classes": []
+    },
+    {
+        "header": "Network/NetworkServer.h",
+        "namespace": null,
+        "type": "class",
+        "name": "NetworkServer",
+        "reflected": true,
+        "flags": {
+            "reflect": []
+        },
+        "props": [],
+        "methods": [],
+        "events": [],
+        "hash": 300699421416970828,
+        "public_base_classes": [
+            "Instance"
+        ],
+        "protected_base_classes": [],
+        "private_base_classes": [
+            "BaseInstance<NetworkServer>"
+        ],
+        "derived_classes": []
+    },
+    {
+        "header": "Instance/ObjectInstance.h",
+        "namespace": null,
+        "type": "class",
+        "name": "ObjectInstance",
+        "reflected": true,
+        "flags": {
+            "reflect": []
+        },
+        "props": [
+            {
+                "type": "property",
+                "prop_type": "Math::Transform<double>",
+                "name": "WorldTransform",
+                "flags": [],
+                "hash": 8995769800145774380,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {
+                    "summary": "The object's world transform."
+                }
+            }
+        ],
+        "methods": [
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "__onParentChanged",
+                "args": [],
+                "flags": [],
+                "hash": 3316660012319709817,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            }
+        ],
+        "events": [],
+        "hash": 5242531826243348487,
+        "public_base_classes": [
+            "Instance"
+        ],
+        "protected_base_classes": [],
+        "private_base_classes": [
+            "BaseInstance<ObjectInstance>"
+        ],
+        "derived_classes": []
+    },
+    {
+        "header": "Instance/World.h",
+        "namespace": null,
+        "type": "class",
+        "name": "World",
+        "reflected": true,
+        "flags": {
+            "reflect": []
+        },
+        "props": [],
+        "methods": [],
+        "events": [],
+        "hash": 8167838354169932701,
+        "public_base_classes": [
+            "Instance"
+        ],
+        "protected_base_classes": [],
+        "private_base_classes": [
+            "BaseInstance<World>"
         ],
         "derived_classes": []
     },
@@ -1323,55 +2248,6 @@
         "derived_classes": []
     },
     {
-        "header": "Instance/ObjectInstance.h",
-        "namespace": null,
-        "type": "class",
-        "name": "ObjectInstance",
-        "reflected": true,
-        "flags": {
-            "reflect": []
-        },
-        "props": [
-            {
-                "type": "property",
-                "prop_type": "Math::Transform<double>",
-                "name": "WorldTransform",
-                "flags": [],
-                "hash": 8995769800145774380,
-                "setter": "nullptr",
-                "getter": "nullptr",
-                "attributes": {
-                    "summary": "The object's world transform."
-                }
-            }
-        ],
-        "methods": [
-            {
-                "type": "method",
-                "return_type": "void",
-                "name": "__onParentChanged",
-                "args": [],
-                "flags": [],
-                "hash": 3316660012319709817,
-                "attributes": {},
-                "is_setter": false,
-                "is_getter": false,
-                "is_changed_handler": false,
-                "associated_prop_name": null
-            }
-        ],
-        "events": [],
-        "hash": 5242531826243348487,
-        "public_base_classes": [
-            "Instance"
-        ],
-        "protected_base_classes": [],
-        "private_base_classes": [
-            "BaseInstance<ObjectInstance>"
-        ],
-        "derived_classes": []
-    },
-    {
         "header": "Instance/System.h",
         "namespace": null,
         "type": "class",
@@ -1447,32 +2323,181 @@
         "derived_classes": []
     },
     {
-        "header": "Instance/World.h",
+        "header": "Rendering/Camera.h",
         "namespace": null,
         "type": "class",
-        "name": "World",
+        "name": "Camera",
         "reflected": true,
         "flags": {
             "reflect": []
         },
-        "props": [],
+        "props": [
+            {
+                "type": "property",
+                "prop_type": "double",
+                "name": "FieldOfView",
+                "flags": [],
+                "hash": 14589603043019809695,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {
+                    "summary": "The field of view of the camera in degrees."
+                }
+            },
+            {
+                "type": "property",
+                "prop_type": "double",
+                "name": "NearPlane",
+                "flags": [],
+                "hash": 16633515921678988483,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {
+                    "summary": "The near clipping plane distance."
+                }
+            },
+            {
+                "type": "property",
+                "prop_type": "double",
+                "name": "FarPlane",
+                "flags": [],
+                "hash": 13993480513142912460,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {
+                    "summary": "The far clipping plane distance."
+                }
+            }
+        ],
         "methods": [],
         "events": [],
-        "hash": 8167838354169932701,
+        "hash": 4951798233789710576,
         "public_base_classes": [
-            "Instance"
+            "ObjectInstance"
         ],
         "protected_base_classes": [],
         "private_base_classes": [
-            "BaseInstance<World>"
+            "BaseInstance<Camera>"
         ],
         "derived_classes": []
     },
     {
-        "header": "Network/NetworkServer.h",
+        "header": "Replication/NetworkPeer.h",
         "namespace": null,
         "type": "class",
-        "name": "NetworkServer",
+        "name": "NetworkPeer",
+        "reflected": true,
+        "flags": {
+            "reflect": [
+                "Hidden"
+            ]
+        },
+        "props": [
+            {
+                "type": "property",
+                "prop_type": "bool",
+                "name": "IsConnected",
+                "flags": [],
+                "hash": 3872490707270279189,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {}
+            },
+            {
+                "type": "property",
+                "prop_type": "bool",
+                "name": "IsSelf",
+                "flags": [],
+                "hash": 3155015139961882848,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {}
+            },
+            {
+                "type": "property",
+                "prop_type": "bool",
+                "name": "AcceptsConnections",
+                "flags": [],
+                "hash": 16177464931005609824,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {}
+            },
+            {
+                "type": "property",
+                "prop_type": "std::string",
+                "name": "Address",
+                "flags": [],
+                "hash": 17707722465198139930,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {}
+            },
+            {
+                "type": "property",
+                "prop_type": "uint16_t",
+                "name": "Port",
+                "flags": [],
+                "hash": 17962700939102522621,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {}
+            }
+        ],
+        "methods": [],
+        "events": [],
+        "hash": 12896904171280814007,
+        "public_base_classes": [
+            "Instance"
+        ],
+        "protected_base_classes": [],
+        "private_base_classes": [
+            "BaseInstance<NetworkPeer>"
+        ],
+        "derived_classes": []
+    },
+    {
+        "header": "Replication/Replicator.h",
+        "namespace": null,
+        "type": "class",
+        "name": "Replicator",
+        "reflected": true,
+        "flags": {
+            "reflect": [
+                "Hidden"
+            ]
+        },
+        "props": [
+            {
+                "type": "property",
+                "prop_type": "NetworkPeer*",
+                "name": "TargetPeer",
+                "flags": [
+                    "ReadOnly"
+                ],
+                "hash": 4757790982854373578,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {}
+            }
+        ],
+        "methods": [],
+        "events": [],
+        "hash": 2982994615376500202,
+        "public_base_classes": [
+            "Instance"
+        ],
+        "protected_base_classes": [],
+        "private_base_classes": [
+            "BaseInstance<Replicator>"
+        ],
+        "derived_classes": []
+    },
+    {
+        "header": "Replication/NetworkClient.h",
+        "namespace": null,
+        "type": "class",
+        "name": "NetworkClient",
         "reflected": true,
         "flags": {
             "reflect": []
@@ -1480,13 +2505,85 @@
         "props": [],
         "methods": [],
         "events": [],
-        "hash": 300699421416970828,
+        "hash": 11810179229268729688,
         "public_base_classes": [
             "Instance"
         ],
         "protected_base_classes": [],
         "private_base_classes": [
-            "BaseInstance<NetworkServer>"
+            "BaseInstance<NetworkClient>"
+        ],
+        "derived_classes": []
+    },
+    {
+        "header": "Physics/BoxCollider.h",
+        "namespace": null,
+        "type": "class",
+        "name": "BoxCollider",
+        "reflected": true,
+        "flags": {
+            "reflect": []
+        },
+        "props": [
+            {
+                "type": "property",
+                "prop_type": "Math::Vector3<double>",
+                "name": "Size",
+                "flags": [],
+                "hash": 14459981153012547650,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {
+                    "summary": "The size of the box collider."
+                }
+            }
+        ],
+        "methods": [],
+        "events": [],
+        "hash": 15563821271435709396,
+        "public_base_classes": [
+            "ColliderBase"
+        ],
+        "protected_base_classes": [],
+        "private_base_classes": [
+            "BaseInstance<BoxCollider>"
+        ],
+        "derived_classes": []
+    },
+    {
+        "header": "Physics/ColliderBase.h",
+        "namespace": null,
+        "type": "class",
+        "name": "ColliderBase",
+        "reflected": true,
+        "flags": {
+            "reflect": []
+        },
+        "props": [
+            {
+                "type": "property",
+                "prop_type": "RigidBody*",
+                "name": "AttachedBody",
+                "flags": [
+                    "ReadOnly"
+                ],
+                "hash": 8407563756629064947,
+                "setter": "nullptr",
+                "getter": "nullptr",
+                "attributes": {
+                    "summary": "The rigid body that this collider is attached to. Determined automatically."
+                }
+            }
+        ],
+        "methods": [],
+        "events": [],
+        "hash": 13604466884650635502,
+        "public_base_classes": [
+            "ObjectInstance"
+        ],
+        "protected_base_classes": [],
+        "private_base_classes": [
+            "BaseInstance<ColliderBase>"
         ],
         "derived_classes": []
     },
@@ -1608,114 +2705,6 @@
         "derived_classes": []
     },
     {
-        "header": "Physics/BoxCollider.h",
-        "namespace": null,
-        "type": "class",
-        "name": "BoxCollider",
-        "reflected": true,
-        "flags": {
-            "reflect": []
-        },
-        "props": [
-            {
-                "type": "property",
-                "prop_type": "Math::Vector3<double>",
-                "name": "Size",
-                "flags": [],
-                "hash": 14459981153012547650,
-                "setter": "nullptr",
-                "getter": "nullptr",
-                "attributes": {
-                    "summary": "The size of the box collider."
-                }
-            }
-        ],
-        "methods": [],
-        "events": [],
-        "hash": 15563821271435709396,
-        "public_base_classes": [
-            "ColliderBase"
-        ],
-        "protected_base_classes": [],
-        "private_base_classes": [
-            "BaseInstance<BoxCollider>"
-        ],
-        "derived_classes": []
-    },
-    {
-        "header": "Physics/ColliderBase.h",
-        "namespace": null,
-        "type": "class",
-        "name": "ColliderBase",
-        "reflected": true,
-        "flags": {
-            "reflect": []
-        },
-        "props": [
-            {
-                "type": "property",
-                "prop_type": "RigidBody*",
-                "name": "AttachedBody",
-                "flags": [
-                    "ReadOnly"
-                ],
-                "hash": 8407563756629064947,
-                "setter": "nullptr",
-                "getter": "nullptr",
-                "attributes": {
-                    "summary": "The rigid body that this collider is attached to. Determined automatically."
-                }
-            }
-        ],
-        "methods": [],
-        "events": [],
-        "hash": 13604466884650635502,
-        "public_base_classes": [
-            "ObjectInstance"
-        ],
-        "protected_base_classes": [],
-        "private_base_classes": [
-            "BaseInstance<ColliderBase>"
-        ],
-        "derived_classes": []
-    },
-    {
-        "header": "Physics/PhysicsSystem.h",
-        "namespace": null,
-        "type": "class",
-        "name": "PhysicsSystem",
-        "reflected": true,
-        "flags": {
-            "reflect": []
-        },
-        "props": [],
-        "methods": [
-            {
-                "type": "method",
-                "return_type": "void",
-                "name": "Update",
-                "args": [],
-                "flags": [],
-                "hash": 5794299525683503817,
-                "attributes": {},
-                "is_setter": false,
-                "is_getter": false,
-                "is_changed_handler": false,
-                "associated_prop_name": null
-            }
-        ],
-        "events": [],
-        "hash": 4992959518525063797,
-        "public_base_classes": [
-            "System"
-        ],
-        "protected_base_classes": [],
-        "private_base_classes": [
-            "BaseInstance<PhysicsSystem>"
-        ],
-        "derived_classes": []
-    },
-    {
         "header": "Physics/RigidBody.h",
         "namespace": null,
         "type": "class",
@@ -1779,6 +2768,42 @@
         ],
         "protected_base_classes": [],
         "private_base_classes": [],
+        "derived_classes": []
+    },
+    {
+        "header": "Physics/PhysicsSystem.h",
+        "namespace": null,
+        "type": "class",
+        "name": "PhysicsSystem",
+        "reflected": true,
+        "flags": {
+            "reflect": []
+        },
+        "props": [],
+        "methods": [
+            {
+                "type": "method",
+                "return_type": "void",
+                "name": "Update",
+                "args": [],
+                "flags": [],
+                "hash": 5794299525683503817,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            }
+        ],
+        "events": [],
+        "hash": 4992959518525063797,
+        "public_base_classes": [
+            "System"
+        ],
+        "protected_base_classes": [],
+        "private_base_classes": [
+            "BaseInstance<PhysicsSystem>"
+        ],
         "derived_classes": []
     },
     {
@@ -1847,10 +2872,10 @@
         "derived_classes": []
     },
     {
-        "header": "Platform/PlatformWindow.h",
+        "header": "Assets/AssetBase.h",
         "namespace": null,
         "type": "class",
-        "name": "PlatformWindow",
+        "name": "AssetBase",
         "reflected": true,
         "flags": {
             "reflect": [
@@ -1862,23 +2887,10 @@
             {
                 "type": "method",
                 "return_type": "bool",
-                "name": "Initialize",
+                "name": "IsLoaded",
                 "args": [],
                 "flags": [],
-                "hash": 4308832229458095815,
-                "attributes": {},
-                "is_setter": false,
-                "is_getter": false,
-                "is_changed_handler": false,
-                "associated_prop_name": null
-            },
-            {
-                "type": "method",
-                "return_type": "void",
-                "name": "Shutdown",
-                "args": [],
-                "flags": [],
-                "hash": 15231260358924737543,
+                "hash": 9448168530873280182,
                 "attributes": {},
                 "is_setter": false,
                 "is_getter": false,
@@ -1888,10 +2900,10 @@
             {
                 "type": "method",
                 "return_type": "bool",
-                "name": "PollEvents",
+                "name": "IsLoading",
                 "args": [],
                 "flags": [],
-                "hash": 4051998026936205829,
+                "hash": 17029277680783207777,
                 "attributes": {},
                 "is_setter": false,
                 "is_getter": false,
@@ -1900,120 +2912,78 @@
             },
             {
                 "type": "method",
-                "return_type": "Math::Rect<int>",
-                "name": "GetInternalBounds",
+                "return_type": "void",
+                "name": "Load",
                 "args": [],
                 "flags": [],
-                "hash": 1334258861590783475,
+                "hash": 3645490499297703483,
                 "attributes": {},
                 "is_setter": false,
-                "is_getter": true,
+                "is_getter": false,
                 "is_changed_handler": false,
-                "associated_prop_name": "InternalBounds"
+                "associated_prop_name": null
             },
             {
                 "type": "method",
-                "return_type": "Math::Rect<int>",
-                "name": "GetExternalBounds",
+                "return_type": "void",
+                "name": "Unload",
                 "args": [],
                 "flags": [],
-                "hash": 12002524277073256945,
+                "hash": 10186235574878970896,
+                "attributes": {},
+                "is_setter": false,
+                "is_getter": false,
+                "is_changed_handler": false,
+                "associated_prop_name": null
+            },
+            {
+                "type": "method",
+                "return_type": "uint64_t",
+                "name": "GetAssetId",
+                "args": [],
+                "flags": [],
+                "hash": 10974483008349140678,
                 "attributes": {},
                 "is_setter": false,
                 "is_getter": true,
                 "is_changed_handler": false,
-                "associated_prop_name": "ExternalBounds"
+                "associated_prop_name": "AssetId"
             }
         ],
-        "events": [
-            {
-                "type": "event",
-                "return_type": "void",
-                "name": "Resized",
-                "args": [],
-                "flags": [],
-                "hash": 17405529055999553930,
-                "attributes": {}
-            },
-            {
-                "type": "event",
-                "return_type": "void",
-                "name": "Closed",
-                "args": [],
-                "flags": [],
-                "hash": 2928913909267823522,
-                "attributes": {}
-            },
-            {
-                "type": "event",
-                "return_type": "void",
-                "name": "Focused",
-                "args": [],
-                "flags": [],
-                "hash": 6514377985530444107,
-                "attributes": {}
-            },
-            {
-                "type": "event",
-                "return_type": "void",
-                "name": "Unfocused",
-                "args": [],
-                "flags": [],
-                "hash": 1638644258775885090,
-                "attributes": {}
-            },
-            {
-                "type": "event",
-                "return_type": "void",
-                "name": "KeyInputReceived",
-                "args": [
-                    {
-                        "type": "EngineUUID",
-                        "name": "???"
-                    },
-                    {
-                        "type": "KeyCode",
-                        "name": "???"
-                    },
-                    {
-                        "type": "InputState",
-                        "name": "???"
-                    }
-                ],
-                "flags": [],
-                "hash": 1167617649362037548,
-                "attributes": {}
-            },
-            {
-                "type": "event",
-                "return_type": "void",
-                "name": "ReceivedTextInput",
-                "args": [
-                    {
-                        "type": "std::string",
-                        "name": "???"
-                    }
-                ],
-                "flags": [],
-                "hash": 9268735888980346914,
-                "attributes": {}
-            }
-        ],
-        "hash": 4954117093072731484,
+        "events": [],
+        "hash": 5151550619450149060,
         "public_base_classes": [
             "Instance"
         ],
         "protected_base_classes": [],
-        "private_base_classes": [
-            "BaseInstance<PlatformWindow>"
-        ],
+        "private_base_classes": [],
         "derived_classes": []
     },
     {
-        "header": "Platform/Viewport.h",
+        "header": "Assets/MeshAsset.h",
         "namespace": null,
         "type": "class",
-        "name": "Viewport",
+        "name": "MeshAsset",
+        "reflected": true,
+        "flags": {
+            "reflect": []
+        },
+        "props": [],
+        "methods": [],
+        "events": [],
+        "hash": 883787077860829302,
+        "public_base_classes": [
+            "AssetBase"
+        ],
+        "protected_base_classes": [],
+        "private_base_classes": [],
+        "derived_classes": []
+    },
+    {
+        "header": "Assets/AssetSystem.h",
+        "namespace": null,
+        "type": "class",
+        "name": "AssetSystem",
         "reflected": true,
         "flags": {
             "reflect": []
@@ -2023,10 +2993,10 @@
             {
                 "type": "method",
                 "return_type": "void",
-                "name": "AttachToWindow",
+                "name": "Acquire",
                 "args": [],
                 "flags": [],
-                "hash": 12838895599752001722,
+                "hash": 2993827676837348969,
                 "attributes": {},
                 "is_setter": false,
                 "is_getter": false,
@@ -2036,101 +3006,10 @@
             {
                 "type": "method",
                 "return_type": "void",
-                "name": "AttachRenderable",
+                "name": "Release",
                 "args": [],
                 "flags": [],
-                "hash": 17350609154072433291,
-                "attributes": {},
-                "is_setter": false,
-                "is_getter": false,
-                "is_changed_handler": false,
-                "associated_prop_name": null
-            },
-            {
-                "type": "method",
-                "return_type": "void",
-                "name": "DetachRenderable",
-                "args": [],
-                "flags": [],
-                "hash": 4534288204153614557,
-                "attributes": {},
-                "is_setter": false,
-                "is_getter": false,
-                "is_changed_handler": false,
-                "associated_prop_name": null
-            },
-            {
-                "type": "method",
-                "return_type": "void",
-                "name": "RenderFrame",
-                "args": [],
-                "flags": [],
-                "hash": 12332037870038898535,
-                "attributes": {},
-                "is_setter": false,
-                "is_getter": false,
-                "is_changed_handler": false,
-                "associated_prop_name": null
-            },
-            {
-                "type": "method",
-                "return_type": "int",
-                "name": "GetViewId",
-                "args": [],
-                "flags": [],
-                "hash": 13910796225618669266,
-                "attributes": {},
-                "is_setter": false,
-                "is_getter": true,
-                "is_changed_handler": false,
-                "associated_prop_name": "ViewId"
-            },
-            {
-                "type": "method",
-                "return_type": "Math::Vector2<float>",
-                "name": "GetSize",
-                "args": [],
-                "flags": [],
-                "hash": 10674161639722712095,
-                "attributes": {},
-                "is_setter": false,
-                "is_getter": true,
-                "is_changed_handler": false,
-                "associated_prop_name": "Size"
-            },
-            {
-                "type": "method",
-                "return_type": "bool",
-                "name": "IsDirty",
-                "args": [],
-                "flags": [],
-                "hash": 11371586387471337094,
-                "attributes": {},
-                "is_setter": false,
-                "is_getter": false,
-                "is_changed_handler": false,
-                "associated_prop_name": null
-            },
-            {
-                "type": "method",
-                "return_type": "void",
-                "name": "MarkDirty",
-                "args": [],
-                "flags": [],
-                "hash": 17793580216927872633,
-                "attributes": {},
-                "is_setter": false,
-                "is_getter": false,
-                "is_changed_handler": false,
-                "associated_prop_name": null
-            },
-            {
-                "type": "method",
-                "return_type": "void",
-                "name": "ClearDirty",
-                "args": [],
-                "flags": [],
-                "hash": 1224853597046919721,
+                "hash": 8539991198309919180,
                 "attributes": {},
                 "is_setter": false,
                 "is_getter": false,
@@ -2139,6 +3018,7 @@
             }
         ],
         "events": [],
+<<<<<<< HEAD
         "hash": 15786407814455166725,
         "public_base_classes": [
             "Instance"
@@ -3003,12 +3883,15 @@
         ],
         "events": [],
         "hash": 14573443723963754668,
+=======
+        "hash": 5908167834153276152,
+>>>>>>> 0b27b9730943dd17982fb269f8c331f04dcab9bb
         "public_base_classes": [
             "System"
         ],
         "protected_base_classes": [],
         "private_base_classes": [
-            "BaseInstance<UISystem>"
+            "BaseInstance<AssetSystem>"
         ],
         "derived_classes": []
     }

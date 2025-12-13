@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Math/Rect.h"
+#include "Math/Transform.h"
 #include "Math/Vector2.h"
 #include "Math/Color.h"
 
@@ -24,7 +24,7 @@ namespace Rendering {
         virtual void OnViewportResized(Viewport* viewport, const Math::Vector2<int>& newSize) = 0;
 
 
-        virtual void DrawSolidRect(Viewport* viewport, const Math::Rect<float>& rect, const Math::Color& color) = 0;
+        virtual void DrawSolidRect(Viewport* viewport, const Math::Transform<float>& transform, const Math::Vector2<float>& size, const Math::Color& color) = 0;
     };
 
 }
